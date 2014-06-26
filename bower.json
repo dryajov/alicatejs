@@ -1,0 +1,12 @@
+{
+  "name": "eggplantjs",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "modernizr": "~2.6.2",
+    "requirejs": "~2.1.8",
+    "jquery": "~1.10.2",
+    "page.js": "~1.3.7"
+  },
+  "devDependencies": {}
+}
