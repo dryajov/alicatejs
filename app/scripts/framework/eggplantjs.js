@@ -1,14 +1,14 @@
 define(
-'framework/eggplantjs',
-[
-    'jquery',
-    'framework/router',
-    'framework/base'
-],
-function($, router, base) {
-    'use strict';
+    'framework/eggplantjs',
+    [
+        'jquery',
+        'framework/router',
+        'framework/base'
+    ],
+    function ($, router, base) {
+        'use strict';
 
-    return base.extend({
+        return base.extend({
             /**
              * The name of the current app
              *
@@ -33,7 +33,7 @@ function($, router, base) {
              *
              * @property {view[]} views
              */
-            _views: [],
+            _views: {},
             /**
              * The templateStore of this application
              *
@@ -41,32 +41,36 @@ function($, router, base) {
              */
             templateStore: null,
             /**
-             * Add a view to the app
+             * Mount a view on a particular path
              *
-             * @method {View} add
+             * @param {String} path
+             * @param {view} view
              * @return {app} Returns this app
              */
-            mount: function(path, view) {
-                this._views.push(view);
-                view.$templateMarkup = $(this.templateStore[view.template]);
+            mount: function (path, view) {
+                var that = this;
+                this._views[path] = view;
 
-                var $element = this.$el;
-                router.page(path, function(ctx) {
+                view.template = this.templateStore[view.templateName];
+
+                router.page(path, function (ctx) {
                     var params = ctx.params;
 
-                    $element.html(view.render(params));
+                    that.$el.empty();
+                    that.$el.append(view.render(params));
                 });
                 return this;
             },
             /**
              * Start application
+             *
              * @return {app} Returns this app
              */
             start: function (path) {
                 router.page(path);
                 router.page();
             },
-            initialize: function() {
+            initialize: function () {
                 this.$el = $(this.$selector);
 
                 if (!this.$el)
@@ -75,5 +79,5 @@ function($, router, base) {
                 if (!this.templateStore)
                     throw 'templateStore not provided!';
             }
+        });
     });
-});

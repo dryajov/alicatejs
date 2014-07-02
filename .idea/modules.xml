@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../eggplant_test/eggplant_test.iml" filepath="$PROJECT_DIR$/../eggplant_test/eggplant_test.iml" />
       <module fileurl="file://$PROJECT_DIR$/eggplantjs.iml" filepath="$PROJECT_DIR$/eggplantjs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../eggplant_test/eggplantjs_test.iml" filepath="$PROJECT_DIR$/../eggplant_test/eggplantjs_test.iml" />
     </modules>
   </component>
 </project>

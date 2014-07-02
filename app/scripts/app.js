@@ -1,13 +1,13 @@
 define('app',
-[
-    'framework/eggplantjs'
-],
-function(eggplantjs) {
-    'use strict';
+    [
+        'framework/eggplantjs'
+    ],
+    function (eggplantjs) {
+        'use strict';
 
-    console.log('App started');
+        console.log('App started');
 
-    eggplantjs.start();
+        eggplantjs.start();
 
-    return 'hello';
-});
+        return 'hello';
+    });
