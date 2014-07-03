@@ -1,79 +1,72 @@
 /**
- * Created by dmitriy.ryajov on 6/26/14.
+ * Created by dmitriy.ryajov on 7/2/14.
  */
 define(
     [
-        'framework/dispatcher'
+        'framework/observable'
     ],
-    function (dispatcher) {
+    function (observable) {
         'use strict';
 
-        var EVENT_CHANGED = 'changed';
-        return dispatcher.extend({
+        return observable.extend({
+            initialize: function() {
+                observable.prototype.initialize.call(this);
+
+                if (typeof this.data == 'object'
+                    && (this.property &&
+                        this.property.length > 0)) {
+                   this._unwindData();
+                }
+            },
             /**
              * The data held by this model
              *
-             * @property data
-             * @type {Object}
              */
             data: null,
             /**
-             * Gets the underlying data held by this <tt>model</tt>
+             * Optional property to look for in data when an object is passed
              *
-             * When returning the data object, this method will first determine
-             * if <tt>data</tt> is a function, if it is it will call it and return
-             * the its results
-             *
-             * @returns {Object}
+             * It supports the <tt>.</tt> (dot) syntax for nested objects
+             *  ```'prop1.prop2.prop3'```
              */
-            getData: function () {
-                if (typeof this.data === 'function')
-                    return this.data();
+            property: null,
+            /**
+             * Get the data of the model
+             *
+             * @returns {null}
+             */
+            get: function () {
+                if (this.property && this.property.length > 0) {
+                    return this.data[this.property];
+                }
 
                 return this.data;
             },
             /**
-             * Set the data for this <tt>model</tt>
+             * Set the data of the model
              *
-             * This will also call <tt>refresh</tt> on the current model causing
-             * any listeners attached to it to be triggered
-             *
-             * @param {Object} data
+             * @param value
              */
-            setData: function (data) {
-                if (data !== this.getData()) {
-                    if (this.data && typeof this.data === 'function') {
-                        this.data(data);
-                    } else if (this.data && typeof this.data === 'object') {
-                        for(var prp in data){
-                            if (this.data.hasOwnProperty(prp)) {
-                                if (typeof this.data[prp] === 'function') {
-                                    this.data[prp](typeof this.data[prp] === 'function' ?
-                                        data[prp]() : data[prp]);
-                                } else {
-                                    this.data[prp] = data[prp];
-                                }
-                            }
-                        }
-                    } else {
-                        this.data = data;
-                    }
-                    this.refresh();
+            set: function (value) {
+                if (this.property && this.property.length > 0) {
+                    this.data[this.property] = value;
+                } else {
+                    this.data = value;
                 }
+
+                this.update(value);
             },
-            /**
-             * Attaches a listener to changes made to this model
-             *
-             * @param {Function} callbacks
-             */
-            listen: function (callbacks) {
-                this.bind(EVENT_CHANGED, callbacks);
-            },
-            /**
-             * This will call any listeners attached to this model
-             */
-            refresh: function () {
-                this.trigger(EVENT_CHANGED, this.data);
+            _unwindData: function () {
+            var props = this.property.split('.'),
+                prop;
+
+            if (props.length > 1) {
+                for (prop in props) {
+                    if (data.hasOwnProperty(props[prop])) {
+                        this.data = this.data[props[prop]];
+                    }
+                }
             }
+        }
         });
     });

@@ -1,10 +1,4 @@
-/**
- * @class view
- *
- * Defines a view that renders components and other views
- */
 define(
-    'framework/view',
     [
         'framework/components/container'
     ],
@@ -12,6 +6,7 @@ define(
         'use strict';
 
         return container.extend({
+            id: 'view',
             /**
              * The name of the template that this view renders
              *
@@ -27,19 +22,13 @@ define(
              */
             template: '',
             /**
-             * The template markup from the template store
-             *
-             * @type {jQuery}
-             */
-            $_templateMarkup: null,
-            /**
-             * Scan the template and attach componnents to html elements
+             * Scan the template and attach components to html elements
              *
              * @return {void}
              */
             _process: function () {
                 this.$_templateMarkup = $('<div/>').append(this.template);
-                this.process(this.$_templateMarkup);
+                this.bind(this.$_templateMarkup);
             },
             /**
              * Render the component tree

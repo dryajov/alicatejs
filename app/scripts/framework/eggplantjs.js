@@ -1,9 +1,9 @@
 define(
-    'framework/eggplantjs',
     [
         'jquery',
         'framework/router',
-        'framework/base'
+        'framework/base',
+        'framework/components/view'
     ],
     function ($, router, base) {
         'use strict';
@@ -12,7 +12,7 @@ define(
             /**
              * The name of the current app
              *
-             * @property {string} name
+             * @property {String} name
              * @default ''
              */
             name: '',

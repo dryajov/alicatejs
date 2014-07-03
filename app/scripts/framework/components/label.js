@@ -21,15 +21,17 @@ define(
             render: function () {
                 // TODO: Verify that we're rendering into a
                 // valid element
-                var data;
+                var data = '';
 
-                if (this.model) {
-                    data = this.model.getData();
+                if (!this.$el.is("div, p, span")) {
+                    throw 'Invalid element!';
                 }
 
-                this.$el.text(this._interpolate(this.text, data));
+                if (this.model) {
+                    data = this.model.get();
+                }
 
-                return this.$el;
+                this.$el.html(data ? this._interpolate(this.text, data) : this.text);
             },
             _interpolate: function (text, model) {
                 return text.replace(/{([^{}]*)}/g,

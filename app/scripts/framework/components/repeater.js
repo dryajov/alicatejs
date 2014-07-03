@@ -12,29 +12,45 @@ define(
             /**
              * Callback called when this component is being rendered
              *
-             * @function onRenderCallback
+             * @function onRender
              */
-            onRenderCallback: null,
+            onRender: null,
+            /**
+             * The parent of this repeated element
+             *
+             * @property $parent
+             * @type {jQuery}
+             */
+            $parent: null,
+            /**
+             * Called after the component is bound to an html element
+             *
+             */
+            onBind: function () {
+                this.$parent = this.$el.parent();
+            },
             /**
              * Render the current component
              */
             render: function () {
-                var data = this.model.getData(),
-                    $parent = this.$el.parent(),
+                var data = this.model.get(),
                     $domElm;
 
+                if (!this.$el.is("div, p, span, li")) {
+                    throw 'Invalid element!';
+                }
+
                 // remove/detach element from the dom
-                this.$el.remove(); // TODO: maybe we should use detach?
-                if (typeof data !== 'Object' ||
-                    typeof data !== 'Array') {
+                this.$parent.html('');
+                if (typeof data !== 'Object') {
                     for (var elm in data) {
                         if (data.hasOwnProperty(elm)) {
                             $domElm = this.$el.clone();
-                            if (this.onRenderCallback) {
-                                this.onRenderCallback
+                            if (this.onRender) {
+                                this.onRender
                                     .call($domElm, data[elm]);
                             }
-                            $parent.append($domElm);
+                            this.$parent.append($domElm);
                         }
                     }
                 } else {
