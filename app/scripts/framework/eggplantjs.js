@@ -57,7 +57,8 @@ define(
                     var params = ctx.params;
 
                     that.$el.empty();
-                    that.$el.append(view.render(params));
+                    view.render()
+                    that.$el.append(view.getMarkup());
                 });
                 return this;
             },

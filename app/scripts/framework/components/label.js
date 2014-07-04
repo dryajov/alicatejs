@@ -5,6 +5,15 @@ define(
     function (component) {
         'use strict';
 
+        function interpolate (text, model) {
+            return text.replace(/{([^{}]*)}/g,
+                function (a, b) {
+                    var r = model[b];
+                    return typeof r === 'string' || typeof r === 'number' ? r : a;
+                }
+            );
+        }
+
         return component.extend({
             /**
              * The text to be rendered
@@ -31,15 +40,7 @@ define(
                     data = this.model.get();
                 }
 
-                this.$el.html(data ? this._interpolate(this.text, data) : this.text);
-            },
-            _interpolate: function (text, model) {
-                return text.replace(/{([^{}]*)}/g,
-                    function (a, b) {
-                        var r = model[b];
-                        return typeof r === 'string' || typeof r === 'number' ? r : a;
-                    }
-                );
+                this.$el.html(data ? interpolate(this.text, data) : this.text);
             }
         });
     });

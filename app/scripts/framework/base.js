@@ -6,9 +6,11 @@ define(
         "use strict";
 
         var Base = function BaseConstructor(values) {
-                var defaults = {};
+                var defaults = {},
+                    classDefaults = typeof this.defaults === 'function'
+                        ? this.defaults() : this.defaults;
 
-                $.extend(defaults, this.defaults, values);
+                $.extend(defaults, classDefaults, values);
                 this.defaults = defaults;
 
                 if (!this.initialize) {

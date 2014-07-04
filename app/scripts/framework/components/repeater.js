@@ -34,7 +34,8 @@ define(
              */
             render: function () {
                 var data = this.model.get(),
-                    $domElm;
+                    $domElm,
+                    that = this;
 
                 if (!this.$el.is("div, p, span, li")) {
                     throw 'Invalid element!';
@@ -42,15 +43,20 @@ define(
 
                 // remove/detach element from the dom
                 this.$parent.html('');
+                this.$el.remove();
                 if (typeof data !== 'Object') {
                     for (var elm in data) {
                         if (data.hasOwnProperty(elm)) {
+
+                            container.prototype.render.call(this);
+
                             $domElm = this.$el.clone();
+                            this.$parent.append($domElm);
+
                             if (this.onRender) {
                                 this.onRender
                                     .call($domElm, data[elm]);
                             }
-                            this.$parent.append($domElm);
                         }
                     }
                 } else {

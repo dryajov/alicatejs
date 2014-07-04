@@ -12,8 +12,9 @@ define(
             initialize: function () {
                 component.prototype.initialize.call(this);
 
-                // init with defaults
-                this._components = {};
+                if (!this.components) {
+                    this.components = {};
+                }
             },
             /**
              * The template markup from the template store
@@ -21,6 +22,9 @@ define(
              * @type {jQuery}
              */
             $_templateMarkup: null,
+            getMarkup: function () {
+                return this.$_templateMarkup;
+            },
             /**
              * List of components that have been attached to this view.
              * This will be populated by the framework if it was not provided
@@ -29,7 +33,7 @@ define(
              * @property _components
              * @type {Object}
              */
-            _components: null,
+            components: null,
             /**
              * Add a component to the view. Components that are not added explicitly
              * are still going to be added by the framework, and their model will be constructed
@@ -40,7 +44,7 @@ define(
              * @return this
              */
             add: function (cpm) {
-                this._components[cpm.id] = cpm;
+                this.components[cpm.id] = cpm;
 
                 return this;
             },
@@ -51,7 +55,10 @@ define(
              * @returns {component}
              */
             get: function (id) {
-                return this._components[id];
+                return this.components[id];
+            },
+            hasChildren: function () {
+                return Object.keys(this.components).length;
             },
             /**
              * Scan the template and attach components to html elements
@@ -60,18 +67,23 @@ define(
              */
             bind: function ($markup) {
                 var DATA_ATTR = '[data-eid]',
-                    that = this;
+                    context = [];
 
+                context.push(this);
                 function processElm() {
-                    var id = $(this).data().eid,
-                        curComponent = that.get(id);
+                    var id, curComponent,
+                        that = context.slice(-1)[0]; // peek the last elm on the stack;
 
-                    curComponent.$el = $(this);
-                    if (!curComponent.model &&
-                        (that.model && that.model.hasOwnProperty(curComponent.dataProp))) {
-                        curComponent.model = that.model[curComponent.dataProp];
+                    id = $(this).data().eid;
+                    while (that && !(curComponent = that.get(id))) {
+                        that = context.pop();
                     }
 
+                    if (!that || !curComponent) {
+                        throw 'Something\'s wrong, could not file component with ID ' + id;
+                    }
+
+                    curComponent.$el = $(this);
                     // bind the model associated with this component
                     if (curComponent.model) {
                         curComponent.bindModel();
@@ -79,12 +91,45 @@ define(
 
                     curComponent.onBind();
 
-                    if (curComponent.bind) {
-                        curComponent.bind($(this));
+                    if (curComponent.hasChildren &&
+                        curComponent.hasChildren()) {
+                        context.push(curComponent);
                     }
                 };
 
                 $markup.find(DATA_ATTR).each(processElm);
+            },
+            /**
+             * Scan the template and attach components to html elements
+             *
+             * @return {void}
+             */
+            _process: function () {
+                this.$_templateMarkup = $('<div/>').append(this.template);
+                this.bind(this.$_templateMarkup);
+            },
+            /**
+             * Render the component tree
+             *
+             * @method render
+             */
+            render: function () {
+                var component;
+
+                this._process();
+
+                // run through the list of components and render them
+                for (var key in this.components) {
+                    component = this.components[key];
+
+                    component.onBeforeRender();
+
+                    typeof component === 'function' ?
+                        component().render() : component.render();
+
+                    component.attachBehaviors();
+                    component.onAfterRender();
+                }
             }
         });
     });

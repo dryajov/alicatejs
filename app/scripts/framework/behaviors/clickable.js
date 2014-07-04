@@ -11,7 +11,7 @@ define(
 
         return behavior.extend({
             /**
-             * Callback called on the onclick event
+             * Callback called on the click event
              *
              * @method
              */
