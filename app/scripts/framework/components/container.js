@@ -43,10 +43,12 @@ define(
              * @param cpm
              * @return this
              */
-            add: function (cpm) {
-                this.components[cpm.id] = cpm;
-
+            add: function (cpm, id) {
+                this.components[cpm.id || id] = cpm;
                 return this;
+            },
+            replace: function (cpm, id) {
+                this.add(cpm, id);
             },
             /**
              * Get a component by id
@@ -80,7 +82,14 @@ define(
                     }
 
                     if (!that || !curComponent) {
-                        throw 'Something\'s wrong, could not file component with ID ' + id;
+                        throw 'Something\'s wrong, could not find component with ID ' + id;
+                    }
+
+                    // if this is a function then call it,
+                    // it should construct a component
+                    if (typeof curComponent === 'function') {
+                        curComponent = curComponent();
+                        that.replace(curComponent);
                     }
 
                     curComponent.$el = $(this);
@@ -123,10 +132,7 @@ define(
                     component = this.components[key];
 
                     component.onBeforeRender();
-
-                    typeof component === 'function' ?
-                        component().render() : component.render();
-
+                    component.render();
                     component.attachBehaviors();
                     component.onAfterRender();
                 }
