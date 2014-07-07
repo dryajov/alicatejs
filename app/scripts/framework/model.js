@@ -1,7 +1,8 @@
 /**
  * Created by dmitriy.ryajov on 7/2/14.
- *
- *
+ */
+
+/**
  * A module representing a model.
  * @module model
  */
