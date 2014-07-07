@@ -1,3 +1,8 @@
+/**
+ * A module representing a component.
+ *
+ * @module component
+ */
 define(
     [
         'framework/base',
@@ -6,6 +11,11 @@ define(
     function (base, $) {
         'use strict';
 
+        /**
+         * A module representing a component
+         * @exports framework/components/component
+         * @version 1.0
+         */
         return base.extend({
             /**
              * Perform initial initialization
@@ -62,25 +72,62 @@ define(
              */
             behaviors: null,
             /**
+             * Determines is the component is visible
+             *
+             * @property visible
+             * @type {Boolean}
+             */
+            visible: true,
+            /**
+             * Set component visibility
+             *
+             * @param {Boolean} visible
+             */
+            setVisible: function (visible) {
+                if (this.$el) {
+                    if (this.visible != visible) {
+                        if (visible) {
+                            this.$el.show();
+                        } else {
+                            this.$el.hide();
+                        }
+                        this.render();
+                    }
+                }
+
+                this.visible = visible;
+            },
+            /**
+             * Is component visible
+             *
+             */
+            isVisible: function() {
+                return this.visible;
+            },
+            /**
              * Attache the current behaviors
              *
              */
-            attachBehaviors: function () {
+            bindBehaviors: function () {
                 for (var behavior in this.defaultBehaviors) {
-                    if (this.defaultBehaviors.hasOwnProperty(behavior)) {
+                    if (this.defaultBehaviors.hasOwnProperty(behavior) && !this.defaultBehaviors[behavior].attached) {
                         this.defaultBehaviors[behavior].attach(this);
                     }
                 }
             },
             /**
              * Add a behavior to the component
+             * Causes
              *
              * @param behavior
              */
             addBehavior: function (behavior) {
                 this.defaultBehaviors.push(behavior);
+                this.bindBehaviors();
             },
             /**
+             *
+             *
              * @method setModel
              * @param model
              */
@@ -102,27 +149,11 @@ define(
              * @method render
              */
             render: function () {
-            },
-            /**
-             * Called after the component is bound
-             * to an html element
-             *
-             */
-            onBind: function () {
-            },
-            /**
-             * Called before render, override to modify
-             * the component right before render
-             *
-             */
-            onBeforeRender: function () {
-            },
-            /**
-             * Called after render, override to modify
-             * the component right after render
-             *
-             */
-            onAfterRender: function () {
+                if (!this.visible) {
+                    this.$el && this.$el.hide();
+                } else {
+                    this.$el && this.$el.show();
+                }
             },
             /**
              * Bind the current model

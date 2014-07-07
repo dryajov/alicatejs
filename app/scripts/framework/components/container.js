@@ -1,6 +1,12 @@
 /**
  * Created by dmitriy.ryajov on 6/30/14.
  */
+
+/**
+ * A module representing a container
+ *
+ * @module container
+ */
 define(
     [
         'framework/components/component'
@@ -8,12 +14,24 @@ define(
     function (component) {
         'use strict';
 
+        /**
+         * A module representing a container
+         * @exports framework/components/container
+         * @version 1.0
+         */
         return component.extend({
             initialize: function () {
                 component.prototype.initialize.call(this);
-
-                if (!this.components) {
-                    this.components = {};
+            },
+            defaults: function () {
+                return {
+                    /**
+                     * List of components that have been attached to this view.
+                     *
+                     * @property _components
+                     * @type {Object}
+                     */
+                    components: {}
                 }
             },
             /**
@@ -22,18 +40,14 @@ define(
              * @type {jQuery}
              */
             $_templateMarkup: null,
+            /**
+             * Get the markup
+             *
+             * @returns {jQuery}
+             */
             getMarkup: function () {
                 return this.$_templateMarkup;
             },
-            /**
-             * List of components that have been attached to this view.
-             * This will be populated by the framework if it was not provided
-             * when the view is being defined.
-             *
-             * @property _components
-             * @type {Object}
-             */
-            components: null,
             /**
              * Add a component to the view. Components that are not added explicitly
              * are still going to be added by the framework, and their model will be constructed
@@ -47,8 +61,13 @@ define(
                 this.components[cpm.id || id] = cpm;
                 return this;
             },
+            /**
+             *
+             * @param cpm
+             * @param id
+             */
             replace: function (cpm, id) {
-                this.add(cpm, id);
+                return this.add(cpm, id);
             },
             /**
              * Get a component by id
@@ -59,63 +78,79 @@ define(
             get: function (id) {
                 return this.components[id];
             },
-            hasChildren: function () {
+            /**
+             * Get the number of children components
+             *
+             * @returns {Number}
+             */
+            getChildrenCount: function () {
                 return Object.keys(this.components).length;
             },
             /**
-             * Scan the template and attach components to html elements
              *
-             * @return {void}
+             * @param visible
              */
-            bind: function ($markup) {
-                var DATA_ATTR = '[data-eid]',
-                    context = [];
+            setVisible: function (visible) {
+                component.prototype.setVisible.call(this, visible);
 
-                context.push(this);
-                function processElm() {
-                    var id, curComponent,
-                        that = context.slice(-1)[0]; // peek the last elm on the stack;
-
-                    id = $(this).data().eid;
-                    while (that && !(curComponent = that.get(id))) {
-                        that = context.pop();
-                    }
-
-                    if (!that || !curComponent) {
-                        throw 'Something\'s wrong, could not find component with ID ' + id;
-                    }
-
-                    // if this is a function then call it,
-                    // it should construct a component
-                    if (typeof curComponent === 'function') {
-                        curComponent = curComponent();
-                        that.replace(curComponent);
-                    }
-
-                    curComponent.$el = $(this);
-                    // bind the model associated with this component
-                    if (curComponent.model) {
-                        curComponent.bindModel();
-                    }
-
-                    curComponent.onBind();
-
-                    if (curComponent.hasChildren &&
-                        curComponent.hasChildren()) {
-                        context.push(curComponent);
-                    }
-                };
-
-                $markup.find(DATA_ATTR).each(processElm);
+                for (var key in this.components) {
+                    this.components[key].setVisible(visible);
+                }
             },
             /**
              * Scan the template and attach components to html elements
              *
              * @return {void}
              */
-            _process: function () {
-                this.$_templateMarkup = $('<div/>').append(this.template);
-                this.bind(this.$_templateMarkup);
+            bind: function (markupIter) {
+                var id, component,
+                    $element;
+
+                while(markupIter.nextNode())  {
+                    $element = $(markupIter.currentNode);
+                    if (!$element.data()) {
+                        continue;
+                    }
+
+                    id = $element.data().eid
+                    if (id && id.length > 0) {
+
+                        component = this.get(id);
+                        if (component) {
+                            console.log('binding element id ' + id);
+                            this.bindComponent(component, $element);
+                            if (component.getChildrenCount &&
+                                component.getChildrenCount()) {
+                                component.bind(markupIter);
+                            }
+                        } else {
+                            return;
+                        }
+                    }
+                }
+
+            },
+            /**
+             * Bind the current component to the provided element
+             *
+             * @param component
+             * @param $element
+             */
+            bindComponent: function(component, $element) {
+                // if this is a function then call it,
+                // it should construct a component
+                if (typeof component === 'function') {
+                    component = component();
+                    this.replace(component);
+                }
+
+                component.$el = $element;
+                // bind the model associated with this component
+                if (component.model) {
+                    component.bindModel();
+                }
+
+                component.bindBehaviors();
             },
             /**
              * Render the component tree
@@ -123,18 +158,21 @@ define(
              * @method render
              */
             render: function () {
-                var component;
+                var cmp;
 
-                this._process();
+                component.prototype.render.call(this);
 
                 // run through the list of components and render them
                 for (var key in this.components) {
-                    component = this.components[key];
+                    cmp = this.components[key];
 
-                    component.onBeforeRender();
-                    component.render();
-                    component.attachBehaviors();
-                    component.onAfterRender();
+                    // only hide, don't show components depending
+                    // on visibility of container
+                    if (this.components[key].isVisible()) {
+                        this.components[key].visible = this.visible;
+                    }
+
+                    cmp.render();
                 }
             }
         });

@@ -1,3 +1,8 @@
+/**
+ * A module representing a label
+ *
+ * @module label
+ */
 define(
     [
         'framework/components/component'
@@ -5,6 +10,13 @@ define(
     function (component) {
         'use strict';
 
+        /**
+         * Interpolate simple templates of the form {val}
+         *
+         * @param text
+         * @param model
+         * @returns {*|XML|string|void|Context}
+         */
         function interpolate (text, model) {
             return text.replace(/{([^{}]*)}/g,
                 function (a, b) {
@@ -14,6 +26,11 @@ define(
             );
         }
 
+        /**
+         * A module representing a label
+         * @exports framework/components/label
+         * @version 1.0
+         */
         return component.extend({
             /**
              * The text to be rendered
@@ -41,6 +58,8 @@ define(
                 }
 
                 this.$el.html(data ? interpolate(this.text, data) : this.text);
+
+                component.prototype.render.call(this);
             }
         });
     });

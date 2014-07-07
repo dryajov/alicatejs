@@ -9,6 +9,16 @@ define(
         'use strict';
 
         return base.extend({
+            initialize: function () {
+                this.$el = $(this.$selector);
+
+                if (!this.$el) {
+                    throw 'Unable to attach to selector ' + this.$selector;
+                }
+
+                if (!this.templateStore)
+                    throw 'templateStore not provided!';
+            },
             /**
              * The name of the current app
              *
@@ -70,15 +80,6 @@ define(
             start: function (path) {
                 router.page(path);
                 router.page();
-            },
-            initialize: function () {
-                this.$el = $(this.$selector);
-
-                if (!this.$el)
-                    throw 'Unable to attach to selector ' + this.$selector;
-
-                if (!this.templateStore)
-                    throw 'templateStore not provided!';
             }
         });
     });

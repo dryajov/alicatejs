@@ -22,12 +22,20 @@ define(
              */
             component: null,
             /**
+             * Is this behavior attached
+             *
+             * @property attached
+             * @type {Boolean}
+             */
+            attached: false,
+            /**
              * Attaches to the passed component
              *
              * @param {component} component
              */
             attach: function (component) {
                 this.component = component;
+                this.attached = true;
             }
         });
     });

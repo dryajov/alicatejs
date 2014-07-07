@@ -1,13 +1,25 @@
 /**
  * Created by dmitriy.ryajov on 6/25/14.
  */
+
+/**
+ * A module representing a repeater
+ *
+ * @module repeater
+ */
 define(
     [
-        'framework/components/container'
+        'framework/components/container',
+        'framework/utils/constants'
     ],
-    function (container) {
+    function (container, constants) {
         'use strict';
 
+        /**
+         * A module representing a repeater
+         * @exports framework/components/repeater
+         * @version 1.0
+         */
         return container.extend({
             /**
              * Callback called when this component is being rendered
@@ -23,19 +35,27 @@ define(
              */
             $parent: null,
             /**
-             * Called after the component is bound to an html element
+             * Called to bind this and children components to the html element
              *
              */
-            onBind: function () {
+            bind: function (markupIter) {
                 this.$parent = this.$el.parent();
+                container.prototype.bind.call(this, markupIter);
+            },
+            /**
+             * Bind the component to the html element
+             *
+             * @param component
+             * @param $element
+             */
+            bindComponent: function(component, $element) {
             },
             /**
              * Render the current component
              */
             render: function () {
                 var data = this.model.get(),
-                    $domElm,
-                    that = this;
+                    $domElm, component;
 
                 if (!this.$el.is("div, p, span, li")) {
                     throw 'Invalid element!';
@@ -48,9 +68,43 @@ define(
                     for (var elm in data) {
                         if (data.hasOwnProperty(elm)) {
 
-                            container.prototype.render.call(this);
-
                             $domElm = this.$el.clone();
+
+                            // run through the list of components and render them
+                            for (var key in this.components) {
+                                component = this.components[key];
+
+                                // if this is a function then call it,
+                                // it should construct a component
+                                if (typeof component === 'function') {
+                                    component = component();
+                                    component.$el = $domElm.find('[data-eid=' + component.id + ']');
+                                    if (!component.$el) {
+                                        throw 'Unable to find elemnt with ID: ' + component.id;
+                                    }
+
+                                    component.id = component.id + '-' + elm; // make new id
+                                    component.bindBehaviors();
+
+                                    if (component.getChildrenCount &&
+                                        component.getChildrenCount()) {
+                                        var markupIter = document.createTreeWalker(component.$el[0], NodeFilter.SHOW_ELEMENT, {
+                                            acceptNode: function (node) {
+                                                return NodeFilter.FILTER_ACCEPT;
+                                            }
+                                        }, false);
+                                        component.bind(markupIter);
+                                    }
+
+                                    if (component.isVisible()) {
+                                        component.visible = this.visible;
+                                    }
+                                    component.render();
+                                } else {
+                                    throw 'Repeaters require a constructor function for contained elements.\n' +
+                                        'Wrap you component in a function() { return new Label({...}); }';
+                                }
+                            }
                             this.$parent.append($domElm);
 
                             if (this.onRender) {
