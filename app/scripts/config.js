@@ -1,3 +1,6 @@
+/**
+ * Created by dmitriy.ryajov on 7/8/14.
+ */
 require.config({
     baseUrl: 'scripts',
     paths: {
@@ -8,11 +11,4 @@ require.config({
             exports: "page"
         }
     }
-});
-
-require(['app', 'jquery'], function (app, $, eggplantjs) {
-    'use strict';
-    // use app here
-    console.log(app);
-    console.log('Running jQuery %s', $().jquery);
 });

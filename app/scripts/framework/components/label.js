@@ -28,6 +28,7 @@ define(
 
         /**
          * A module representing a label
+         *
          * @exports framework/components/label
          * @version 1.0
          */

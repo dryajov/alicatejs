@@ -15,6 +15,7 @@ define(
 
         /**
          * A module representing a module.
+         *
          * @exports framework/model
          * @version 1.0
          */
