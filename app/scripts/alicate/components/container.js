@@ -9,14 +9,15 @@
  */
 define(
     [
-        'framework/components/component'
+        'alicate/components/component'
     ],
     function (component) {
         'use strict';
 
         /**
          * A module representing a container
-         * @exports framework/components/container
+         *
+         * @exports alicate/components/container
          * @version 1.0
          */
         return component.extend({
@@ -24,7 +25,9 @@ define(
                 component.prototype.initialize.call(this);
             },
             defaults: function () {
-                return {
+                var props = component.prototype.defaults.call(this);
+
+                $.extend(props, {
                     /**
                      * List of components that have been attached to this view.
                      *
@@ -32,25 +35,13 @@ define(
                      * @type {Object}
                      */
                     components: {}
-                }
-            },
-            /**
-             * The template markup from the template store
-             *
-             * @type {jQuery}
-             */
-            $_templateMarkup: null,
-            /**
-             * Get the markup
-             *
-             * @returns {jQuery}
-             */
-            getMarkup: function () {
-                return this.$_templateMarkup;
+                });
+
+                return props;
             },
             /**
              * Add a component to the view. Components that are not added explicitly
-             * are still going to be added by the framework, and their model will be constructed
+             * are still going to be added by the alicate, and their model will be constructed
              * from the view model if one is provided.
              *
              * @method add
@@ -92,10 +83,7 @@ define(
              */
             setVisible: function (visible) {
                 component.prototype.setVisible.call(this, visible);
-
-                for (var key in this.components) {
-                    this.components[key].setVisible(visible);
-                }
+                this.render();
             },
             /**
              * Scan the template and attach components to html elements
@@ -106,15 +94,14 @@ define(
                 var id, component,
                     $element;
 
-                while(markupIter.nextNode())  {
+                while (markupIter.nextNode()) {
                     $element = $(markupIter.currentNode);
                     if (!$element.data()) {
                         continue;
                     }
 
-                    id = $element.data().eid
+                    id = $element.data().aid
                     if (id && id.length > 0) {
-
                         component = this.get(id);
                         if (component) {
                             console.log('binding element id ' + id);
@@ -128,7 +115,6 @@ define(
                         }
                     }
                 }
-
             },
             /**
              * Bind the current component to the provided element
@@ -136,7 +122,7 @@ define(
              * @param component
              * @param $element
              */
-            bindComponent: function(component, $element) {
+            bindComponent: function (component, $element) {
                 // if this is a function then call it,
                 // it should construct a component
                 if (typeof component === 'function') {

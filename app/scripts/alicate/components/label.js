@@ -5,7 +5,7 @@
  */
 define(
     [
-        'framework/components/component'
+        'alicate/components/component'
     ],
     function (component) {
         'use strict';
@@ -29,10 +29,30 @@ define(
         /**
          * A module representing a label
          *
-         * @exports framework/components/label
+         * @exports alicate/components/label
          * @version 1.0
          */
         return component.extend({
+            defaults: function () {
+                var props = component.prototype.defaults.call(this);
+
+                $.extend(props, {
+                    /**
+                     * A list of allowed html element selectors that this component
+                     * can attach to
+                     *
+                     * @property allowedElements
+                     * @type {String[]}
+                     */
+                    allowedElements: [
+                        "div",
+                        "span",
+                        "p"
+                    ]
+                });
+
+                return props;
+            },
             /**
              * The text to be rendered
              *
@@ -48,15 +68,9 @@ define(
             render: function () {
                 // TODO: Verify that we're rendering into a
                 // valid element
-                var data = '';
+                var data = this.getModelData();
 
-                if (!this.$el.is("div, p, span")) {
-                    throw 'Invalid element!';
-                }
-
-                if (this.model) {
-                    data = this.model.get();
-                }
+                this._checkIsValidElement();
 
                 this.$el.html(data ? interpolate(this.text, data) : this.text);
 

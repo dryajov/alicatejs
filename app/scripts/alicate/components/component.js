@@ -5,7 +5,7 @@
  */
 define(
     [
-        'framework/base',
+        'alicate/base',
         'jquery'
     ],
     function (base, $) {
@@ -13,7 +13,8 @@ define(
 
         /**
          * A module representing a component
-         * @exports framework/components/component
+         *
+         * @exports alicate/components/component
          * @version 1.0
          */
         return base.extend({
@@ -41,7 +42,15 @@ define(
                      * @property defaultBehaviors
                      * @type {behavior[]}
                      */
-                    defaultBehaviors: []
+                    defaultBehaviors: [],
+                    /**
+                     * A list of allowed html element selectors that this component
+                     * can attach to
+                     *
+                     * @property allowedElements
+                     * @type {Boolean[]}
+                     */
+                    allowedElements: []
                 }
             },
             /**
@@ -79,6 +88,24 @@ define(
              */
             visible: true,
             /**
+             * Performs a check if this is an element we can attach to
+             *
+             */
+            _checkIsValidElement: function () {
+                if (!this.$el.is(this.allowedElements.join(','))) {
+                    throw 'Invalid element!';
+                }
+            },
+            /**
+             * Return the compiled markup of
+             * this component
+             *
+             * @returns {*}
+             */
+            getMarkup: function () {
+                return this.$el.html();
+            },
+            /**
              * Set component visibility
              *
              * @param {Boolean} visible
@@ -86,22 +113,16 @@ define(
             setVisible: function (visible) {
                 if (this.$el) {
                     if (this.visible != visible) {
-                        if (visible) {
-                            this.$el.show();
-                        } else {
-                            this.$el.hide();
-                        }
+                        this.visible = visible;
                         this.render();
                     }
                 }
-
-                this.visible = visible;
             },
             /**
              * Is component visible
              *
              */
-            isVisible: function() {
+            isVisible: function () {
                 return this.visible;
             },
             /**
@@ -117,7 +138,6 @@ define(
             },
             /**
              * Add a behavior to the component
-             * Causes
              *
              * @param behavior
              */
@@ -126,7 +146,7 @@ define(
                 this.bindBehaviors();
             },
             /**
-             *
+             * Set this component model
              *
              * @method setModel
              * @param model
@@ -144,12 +164,24 @@ define(
                 return this.model;
             },
             /**
+             * Get this component model's data
+             *
+             * @returns {*}
+             */
+            getModelData: function () {
+                if (this.model && this.model.get) {
+                    return this.model.get();
+                }
+
+                return this.model;
+            },
+            /**
              * Render the current element
              *
              * @method render
              */
             render: function () {
-                if (!this.visible) {
+                if (!this.isVisible()) {
                     this.$el && this.$el.hide();
                 } else {
                     this.$el && this.$el.show();
@@ -157,13 +189,16 @@ define(
             },
             /**
              * Bind the current model
-             *
              */
             bindModel: function () {
                 var $el = this.$el,
                     model = this.model,
                     component = this,
                     event = 'change.' + this.id;
+
+                if (!$el) {
+                    return;
+                }
 
                 $el.off(event);
                 $el.on(event, function () {

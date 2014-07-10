@@ -1,9 +1,9 @@
 define(
     [
         'jquery',
-        'framework/router',
-        'framework/base',
-        'framework/components/view'
+        'alicate/router',
+        'alicate/base',
+        'alicate/components/view'
     ],
     function ($, router, base) {
         'use strict';

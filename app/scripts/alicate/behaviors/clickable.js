@@ -3,7 +3,7 @@
  */
 define(
     [
-        'framework/behaviors/behavior',
+        'alicate/behaviors/behavior',
         'jquery'
     ],
     function (behavior, $) {

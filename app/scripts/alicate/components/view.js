@@ -5,16 +5,15 @@
  */
 define(
     [
-        'framework/components/container'
+        'alicate/components/container'
     ],
     function (container) {
         'use strict';
 
-        var DATA_ATTR = '[data-eid]';
-
         /**
          * A module representing a repeater
-         * @exports framework/components/view
+         *
+         * @exports alicate/components/view
          * @version 1.0
          */
         return container.extend({
@@ -39,8 +38,8 @@ define(
              * @return {void}
              */
             _process: function () {
-                this.$_templateMarkup = $('<div/>').append(this.template);
-                this.bind(document.createTreeWalker(this.$_templateMarkup[0], NodeFilter.SHOW_ELEMENT, {
+                this.$el = $('<div/>').append(this.template);
+                this.bind(document.createTreeWalker(this.$el[0], NodeFilter.SHOW_ELEMENT, {
                     acceptNode: function (node) {
                         return NodeFilter.FILTER_ACCEPT;
                     }

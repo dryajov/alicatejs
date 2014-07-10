@@ -3,7 +3,7 @@
  */
 define(
     [
-        'framework/base'
+        'alicate/base'
     ],
     function (base) {
         return base.extend({

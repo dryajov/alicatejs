@@ -9,15 +9,15 @@
  */
 define(
     [
-        'framework/components/container',
-        'framework/utils/constants'
+        'alicate/components/container'
     ],
-    function (container, constants) {
+    function (container) {
         'use strict';
 
         /**
          * A module representing a repeater
-         * @exports framework/components/repeater
+         *
+         * @exports alicate/components/repeater
          * @version 1.0
          */
         return container.extend({
@@ -78,7 +78,7 @@ define(
                                 // it should construct a component
                                 if (typeof component === 'function') {
                                     component = component();
-                                    component.$el = $domElm.find('[data-eid=' + component.id + ']');
+                                    component.$el = $domElm.find('[data-aid=' + component.id + ']');
                                     if (!component.$el) {
                                         throw 'Unable to find elemnt with ID: ' + component.id;
                                     }

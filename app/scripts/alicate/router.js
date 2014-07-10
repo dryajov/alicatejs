@@ -1,5 +1,5 @@
 define(
-    'framework/router',
+    'alicate/router',
     [
         'jquery',
         'pagejs'

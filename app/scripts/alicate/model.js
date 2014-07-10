@@ -8,7 +8,7 @@
  */
 define(
     [
-        'framework/observable'
+        'alicate/observable'
     ],
     function (observable) {
         'use strict';
@@ -16,7 +16,7 @@ define(
         /**
          * A module representing a module.
          *
-         * @exports framework/model
+         * @exports alicate/model
          * @version 1.0
          */
         return observable.extend({

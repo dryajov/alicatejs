@@ -3,9 +3,9 @@
 
 // # Globbing
 // for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
+// 'test/specs/{,*/}*.js'
 // use this if you want to recursively match all subfolders:
-// 'test/spec/**/*.js'
+// 'test/specs/**/*.js'
 
 module.exports = function (grunt) {
 
@@ -22,7 +22,8 @@ module.exports = function (grunt) {
             yeoman: {
                 // Configurable paths
                 app: 'app',
-                dist: 'dist'
+                dist: 'dist',
+                test: 'test'
             },
 
             // Watches files for changes and runs tasks based on the changed files
@@ -35,7 +36,7 @@ module.exports = function (grunt) {
                     }
                 },
                 jstest: {
-                    files: ['test/spec/{,*/}*.js'],
+                    files: ['test/specs/{,*/}*.js'],
                     tasks: ['test:watch']
                 },
                 gruntfile: {
@@ -76,7 +77,8 @@ module.exports = function (grunt) {
                         base: [
                             '.tmp',
                             'test',
-                            '<%= yeoman.app %>'
+                            '<%= yeoman.app %>',
+                            '.'
                         ]
                     }
                 },
@@ -86,6 +88,15 @@ module.exports = function (grunt) {
                         base: '<%= yeoman.dist %>',
                         livereload: false
                     }
+                }
+            },
+
+            open: {
+                server: {
+                    path: 'http://127.0.0.1:9001'
+                },
+                test  : {
+                    path: 'http://127.0.0.1:9001/_SpecRunner.html'
                 }
             },
 
@@ -116,7 +127,7 @@ module.exports = function (grunt) {
                     'Gruntfile.js',
                     '<%= yeoman.app %>/scripts/{,*/}*.js',
                     '!<%= yeoman.app %>/scripts/vendor/*',
-                    'test/spec/{,*/}*.js'
+                    'test/specs/{,*/}*.js'
                 ]
             },
 
@@ -150,7 +161,7 @@ module.exports = function (grunt) {
 
             jsdoc: {
                 dist: {
-                    src: ['<%= yeoman.app %>/scripts/**/*.js', '<%= yeoman.test %>/spec/**/*.js'],
+                    src: ['<%= yeoman.app %>/scripts/**/*.js', '<%= yeoman.test %>/specs/**/*.js'],
                     options: {
                         destination: '<%= yeoman.dist %>/doc'
                     }
@@ -168,12 +179,11 @@ module.exports = function (grunt) {
             },
 
             jasmine: {
-                taskName: {
+                alicate: {
                     src: '<%= yeoman.app %>/scripts/**/*.js',
                     options: {
-                        specs: '<%= yeoman.test %>/specs/**/*Spec.js',
-                        helpers: '<%= yeoman.test %>/specs/**/*Helper.js',
-                        host: 'http://127.0.0.1:8000/',
+                        specs: '<%= yeoman.test %>/specs/**/*.js',
+                        host: 'http://127.0.0.1:9001/',
                         template: require('grunt-template-jasmine-requirejs'),
                         templateOptions: {
                             requireConfigFile: '<%= yeoman.app %>/scripts/config.js'
@@ -187,6 +197,17 @@ module.exports = function (grunt) {
     grunt.registerTask('serve', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
+
+        if (target === 'test') {
+            return grunt.task.run([
+                'clean:server',
+                'jasmine:alicate:build',
+                'concurrent:server',
+                'connect:test',
+                'open:test',
+                'watch'
+            ]);
         }
 
         grunt.task.run([
@@ -206,7 +227,8 @@ module.exports = function (grunt) {
         if (target !== 'watch') {
             grunt.task.run([
                 'clean:server',
-                'concurrent:test'
+                'connect:test',
+                'jasmine'
             ]);
         }
 
