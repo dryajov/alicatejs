@@ -19,8 +19,7 @@ With eggplantjs, all the logic from the template is gone. This is accomplished b
 and controlling the execution flow from javascript. This is in turn accomplished by marking some of the desired elements with
 identifiers that eggplantjs picks up and makes available in the code as javascript objects. This componnents are suficiently
 abstract as to be able to attach to a range of similar HTML elements, and at the same time sufficiently concrete as to
-not to allow creating invalid HTML code. In other words, eggplanjs won't allow you to attach a component such as TextField
-to a div, since divs are non editable.
+not to allow creating invalid HTML code. 
 
 The concept of componetizing arbitrary HTML elements is not new, other frameworks such as Apache Wicket (java), have done
 similar things in the past, the thing that sets eggplantjs apart from Apache Wicket (for example), is that it doesn not impose any sort of
