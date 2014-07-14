@@ -5,7 +5,7 @@ define(
         'alicate/base',
         'alicate/components/view'
     ],
-    function ($, router, base) {
+    function makeAlicateApp($, router, base) {
         'use strict';
 
         return base.extend({
@@ -20,6 +20,13 @@ define(
                     throw 'templateStore not provided!';
             },
             /**
+             * The root view of this page
+             *
+             * @property index
+             * @type {String}
+             */
+            index: null,
+            /**
              * The name of the current app
              *
              * @property {String} name
@@ -29,7 +36,8 @@ define(
             /**
              * The selector to attach this app to
              *
-             * @property {String} id
+             * @property id
+             * @type {String}
              * @default ''
              */
             $selector: '',
@@ -47,7 +55,7 @@ define(
             /**
              * The templateStore of this application
              *
-             * @type {Object}
+             * @property {Object} templateStore
              */
             templateStore: null,
             /**
@@ -63,23 +71,22 @@ define(
 
                 view.template = this.templateStore[view.templateName];
 
-                router.page(path, function (ctx) {
-                    var params = ctx.params;
-
+                router.mount(path, function (params) {
                     that.$el.empty();
-                    view.render()
-                    that.$el.append(view.getMarkup());
+                    view.render();
+                    that.$el.append(view.$el);
                 });
+
                 return this;
             },
             /**
              * Start application
              *
-             * @return {app} Returns this app
+             * @param {String} route optional param
+             * representing the initial route to load
              */
-            start: function (path) {
-                router.page(path);
-                router.page();
+            start: function (route) {
+                router.go(this.index || route);
             }
         });
     });

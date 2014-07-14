@@ -11,7 +11,7 @@ define(
     [
         'alicate/components/container'
     ],
-    function (container) {
+    function makeRepeater(container) {
         'use strict';
 
         /**
@@ -39,7 +39,7 @@ define(
              *
              */
             bind: function (markupIter) {
-                this.$parent = this.$el.parent();
+                this.$parent = this.$el.parent() || this.$el.appendTo('<div></div>');
                 container.prototype.bind.call(this, markupIter);
             },
             /**
@@ -48,13 +48,13 @@ define(
              * @param component
              * @param $element
              */
-            bindComponent: function(component, $element) {
+            bindComponent: function (component, $element) {
             },
             /**
              * Render the current component
              */
             render: function () {
-                var data = this.model.get(),
+                var data = this.getModelData(),
                     $domElm, component;
 
                 if (!this.$el.is("div, p, span, li")) {
@@ -96,9 +96,7 @@ define(
                                         component.bind(markupIter);
                                     }
 
-                                    if (component.isVisible()) {
-                                        component.visible = this.visible;
-                                    }
+                                    component.visible = this.visible;
                                     component.render();
                                 } else {
                                     throw 'Repeaters require a constructor function for contained elements.\n' +
@@ -113,6 +111,13 @@ define(
                             }
                         }
                     }
+
+                    if (!this.isVisible()) {
+                        this.$el && this.$el.hide();
+                    } else {
+                        this.$el && this.$el.show();
+                    }
+
                 } else {
                     throw 'Model should return an Array or Object!';
                 }

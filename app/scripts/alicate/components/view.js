@@ -7,7 +7,7 @@ define(
     [
         'alicate/components/container'
     ],
-    function (container) {
+    function makeView(container) {
         'use strict';
 
         /**

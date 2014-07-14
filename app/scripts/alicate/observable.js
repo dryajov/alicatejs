@@ -5,7 +5,7 @@ define(
     [
         'alicate/base'
     ],
-    function (base) {
+    function makeObservable(base) {
         'use strict';
 
         return base.extend({

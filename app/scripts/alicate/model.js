@@ -10,7 +10,7 @@ define(
     [
         'alicate/observable'
     ],
-    function (observable) {
+    function makeModel(observable) {
         'use strict';
 
         /**

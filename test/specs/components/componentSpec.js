@@ -99,8 +99,10 @@ define(
                 });
 
                 it('Component test visible', function () {
+                    // let jquery set this element's visibility,
+                    // otherwise its going to have no style attached
+                    component.setVisible(false);
                     component.setVisible(true);
-                    component.render();
 
                     expect(component.isVisible()).toBe(true);
                     expect(component.$el.css('display')).toBe('block');
@@ -108,7 +110,6 @@ define(
 
                 it('Component test hidden', function () {
                     component.setVisible(false);
-                    component.render();
 
                     expect(component.isVisible()).toBe(false);
                     expect(component.$el.css('display')).toBe('none');

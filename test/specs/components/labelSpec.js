@@ -101,7 +101,7 @@ define(
                     });
 
                     label.render();
-                    expect(label.getMarkup()).toBe('Hello World!');
+                    expect(label.getValue()).toBe('Hello World!');
                 });
 
                 it('Label to render Hello "World from alicate!"', function () {
@@ -113,7 +113,7 @@ define(
                         });
 
                     label.render();
-                    expect(label.getMarkup()).toBe('Hello World from alicate!');
+                    expect(label.getValue()).toBe('Hello World from alicate!');
                 });
             });
         });

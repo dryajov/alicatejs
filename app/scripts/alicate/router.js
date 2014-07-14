@@ -4,8 +4,17 @@ define(
         'jquery',
         'pagejs'
     ],
-    function ($, pagejs) {
+    function makeRouter($, page) {
         'use strict';
 
-        return {page: pagejs};
+        return {
+            mount: function (route, callback) {
+                page(route, function(ctx){
+                    callback(ctx.params);
+                });
+            },
+            go: function(route) {
+                page(route);
+            }
+        };
     });

@@ -6,7 +6,7 @@ define(
         'alicate/behaviors/behavior',
         'jquery'
     ],
-    function (behavior, $) {
+    function makeClickable(behavior, $) {
         'use strict';
 
         return behavior.extend({

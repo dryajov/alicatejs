@@ -7,7 +7,7 @@ define(
     [
         'alicate/components/component'
     ],
-    function (component) {
+    function makeLabel(component) {
         'use strict';
 
         /**
@@ -17,7 +17,7 @@ define(
          * @param model
          * @returns {*|XML|string|void|Context}
          */
-        function interpolate (text, model) {
+        function interpolate(text, model) {
             return text.replace(/{([^{}]*)}/g,
                 function (a, b) {
                     var r = model[b];

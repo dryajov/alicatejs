@@ -11,7 +11,7 @@ define(
     [
         'alicate/components/component'
     ],
-    function (component) {
+    function makeContainer(component) {
         'use strict';
 
         /**
@@ -151,13 +151,7 @@ define(
                 // run through the list of components and render them
                 for (var key in this.components) {
                     cmp = this.components[key];
-
-                    // only hide, don't show components depending
-                    // on visibility of container
-                    if (this.components[key].isVisible()) {
-                        this.components[key].visible = this.visible;
-                    }
-
+                    this.components[key].setVisible(this.visible);
                     cmp.render();
                 }
             }

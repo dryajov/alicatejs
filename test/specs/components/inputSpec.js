@@ -108,12 +108,12 @@ define(
                 });
 
                 it('Input to render "Hello World!"', function () {
-                    expect(input.$el.val()).toBe('Hello World!');
+                    expect(input.getValue()).toBe('Hello World!');
                 });
 
                 it('Input to render "Hello World from alicate!"', function () {
                     model.set('Hello World from alicate!');
-                    expect(input.$el.val()).toBe('Hello World from alicate!');
+                    expect(input.getValue()).toBe('Hello World from alicate!');
                 });
 
 

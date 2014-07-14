@@ -11,7 +11,7 @@ define(
     [
         'alicate/components/component'
     ],
-    function (component) {
+    function makeInput(component) {
         'use strict';
 
         /**
@@ -40,6 +40,9 @@ define(
                 });
 
                 return props;
+            },
+            getValue: function () {
+                return this.$el.val();
             },
             /**
              * Render the input component

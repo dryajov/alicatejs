@@ -5,7 +5,7 @@ define(
     [
         'alicate/base'
     ],
-    function (base) {
+    function makeBehavior(base) {
         return base.extend({
             /**
              * Any arbitrary identifier for this behavior

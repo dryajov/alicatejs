@@ -2,7 +2,7 @@ define(
     [
         'jquery'
     ],
-    function loadBase($) {
+    function makeBase($) {
         "use strict";
 
         var Base = function BaseConstructor(values) {

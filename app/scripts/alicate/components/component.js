@@ -8,7 +8,7 @@ define(
         'alicate/base',
         'jquery'
     ],
-    function (base, $) {
+    function makeComponent(base, $) {
         'use strict';
 
         /**
@@ -87,6 +87,14 @@ define(
              * @type {Boolean}
              */
             visible: true,
+            /**
+             * Get the current rendered value of this component
+             *
+             * @return {String}
+             */
+            getValue: function () {
+                return this.$el.text();
+            },
             /**
              * Performs a check if this is an element we can attach to
              *

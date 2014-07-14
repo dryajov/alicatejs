@@ -139,7 +139,6 @@ define(
 
                     it('Component test visible', function () {
                         container.setVisible(true);
-                        container.render();
 
                         expect(container.isVisible()).toBe(true);
                         expect(container.$el.css('display')).toBe('block');
@@ -147,7 +146,6 @@ define(
 
                     it('Component test hidden', function () {
                         container.setVisible(false);
-                        container.render();
 
                         expect(container.isVisible()).toBe(false);
                         expect(container.$el.css('display')).toBe('none');
@@ -155,7 +153,6 @@ define(
 
                     it('Container test components visible', function () {
                         container.setVisible(true);
-                        container.render();
 
                         for (var key in container.components) {
                             var component = container.components[key];
@@ -167,7 +164,6 @@ define(
 
                     it('Container test components hidden', function () {
                         container.setVisible(false);
-                        container.render();
 
                         for (var key in container.components) {
                             var component = container.components[key];
