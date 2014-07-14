@@ -139,7 +139,8 @@ define(
              */
             bindBehaviors: function () {
                 for (var behavior in this.defaultBehaviors) {
-                    if (this.defaultBehaviors.hasOwnProperty(behavior) && !this.defaultBehaviors[behavior].attached) {
+                    if (this.defaultBehaviors.hasOwnProperty(behavior) &&
+                        !this.defaultBehaviors[behavior].attached) {
                         this.defaultBehaviors[behavior].attach(this);
                     }
                 }
