@@ -51,8 +51,6 @@ define(
              * @return {Object}  this object
              */
             render: function () {
-                // TODO: Verify that we're rendering into a
-                // valid element
                 var data = this.getModelData();
 
                 this._checkIsValidElement();

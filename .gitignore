@@ -6,5 +6,7 @@ dist
 .grunt
 *.iml
 _SpecRunner.html
+atlassian-ide-plugin.xml
 app/bower_components
 test/bower_components
+
