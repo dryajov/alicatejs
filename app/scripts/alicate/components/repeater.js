@@ -149,6 +149,9 @@ define(
                 } else {
                     throw 'Model should return an Array or Object!';
                 }
+            },
+            onItemRender: function(item) {
+
             }
         });
     }

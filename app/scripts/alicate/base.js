@@ -8,7 +8,7 @@ define(
         var Base = function BaseConstructor(values) {
                 var defaults = {},
                     classDefaults = typeof this.defaults === 'function'
-                        ? this.defaults() : this.defaults;
+                        ? this.defaults.call(this) : this.defaults;
 
                 $.extend(true, defaults, classDefaults, values);
                 this.defaults = defaults;

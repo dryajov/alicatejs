@@ -119,6 +119,8 @@ define(
                                 component.bind(markupIter);
                             }
                         } else {
+                             // backup one step so that the next component
+                             // picks it up from where we left
                              markupIter.previousNode();
                             return;
                         }

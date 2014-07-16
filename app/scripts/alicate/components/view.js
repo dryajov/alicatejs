@@ -38,14 +38,10 @@ define(
              * @type {String}
              */
             template: '',
-            /**
-             * Scan the template and attach components to html elements
-             *
-             * @return {void}
-             */
-            _process: function () {
+            bind: function() {
                 this.$el = $('<div/>').append(this.template);
-                this.bind(markupiter.createMarkupIter(this.$el[0]));
+                container.prototype.bind.call(this, markupiter.createMarkupIter(this.$el[0]));
+
             },
             /**
              * Render the component tree
@@ -53,7 +49,6 @@ define(
              * @method render
              */
             render: function () {
-                this._process();
                 container.prototype.render.call(this);
             }
         });

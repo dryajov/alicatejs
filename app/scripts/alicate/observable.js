@@ -49,7 +49,7 @@ define(
                 }
             },
             /**
-             * Trigger update the listeners with the new data
+             * Trigger an update on the listeners with the new data
              *
              * @param data
              */

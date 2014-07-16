@@ -16,8 +16,9 @@ define(
                     throw 'Unable to attach to selector ' + this.$selector;
                 }
 
-                if (!this.templateStore)
+                if (!this.templateStore) {
                     throw 'templateStore not provided!';
+                }
             },
             /**
              * The root view of this page
@@ -26,13 +27,6 @@ define(
              * @type {String}
              */
             index: null,
-            /**
-             * The name of the current app
-             *
-             * @property {String} name
-             * @default ''
-             */
-            name: '',
             /**
              * The selector to attach this app to
              *
@@ -73,6 +67,7 @@ define(
 
                 router.mount(path, function (params) {
                     that.$el.empty();
+                    view.bind();
                     view.render();
                     that.$el.append(view.$el);
                 });

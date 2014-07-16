@@ -10,9 +10,9 @@
 define(
     [
         'alicate/components/label',
-        'alicate/behaviors/clickable'
+        'alicate/behaviors/eventable'
     ],
-    function makeLabel(label, clickable) {
+    function makeLabel(label, eventable) {
         'use strict';
 
         /**
@@ -23,8 +23,9 @@ define(
          */
         return label.extend({
             initialize: function() {
-                this.defaultBehaviors.push(new clickable({
-                    onClick: this.onClick
+                this.defaultBehaviors.push(new eventable({
+                    event: 'click',
+                    handler: this.onClick
                 }));
 
                 label.prototype.initialize.call(this);
