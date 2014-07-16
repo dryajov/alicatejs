@@ -17,10 +17,13 @@ define(
              */
             onClick: null,
             attach: function (component) {
-                var $el = component.$el;
+                var $el = component.$el,
+                    that = this;
 
                 behavior.prototype.attach.call(this, component);
-                $el.on('click.' + component.id, this.onClick);
+                $el.on('click.' + component.id, function () {
+                    that.onClick.call(component)
+                });
             }
         });
     });

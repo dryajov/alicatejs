@@ -9,9 +9,10 @@
  */
 define(
     [
-        'alicate/components/container'
+        'alicate/components/container',
+        'alicate/markupiter'
     ],
-    function makeRepeater(container) {
+    function makeRepeater(container, markupiter) {
         'use strict';
 
         /**
@@ -21,12 +22,20 @@ define(
          * @version 1.0
          */
         return container.extend({
-            /**
-             * Callback called when this component is being rendered
-             *
-             * @function onRender
-             */
-            onRender: null,
+            defaults: function () {
+                var props = container.prototype.defaults.call(this);
+
+                $.extend(props, {
+                    /**
+                     * List of components that have been attached to this view.
+                     *
+                     * @property {Object} generatedChildren
+                     */
+                    generatedChildren: {}
+                });
+
+                return props;
+            },
             /**
              * The parent of this repeated element
              *
@@ -35,12 +44,38 @@ define(
              */
             $parent: null,
             /**
+             * Remove the component from this container
+             *
+             * @param id
+             */
+            remove: function (id) {
+                this.generatedChildren[id].$el.remove();
+                delete this.generatedChildren[id];
+            },
+            /**
              * Called to bind this and children components to the html element
              *
+             * @param markupIter
              */
             bind: function (markupIter) {
-                this.$parent = this.$el.parent() || this.$el.appendTo('<div></div>');
-                container.prototype.bind.call(this, markupIter);
+                this.$parent = this.$el.parent() ||
+                    this.$el.appendTo('<div></div>');
+
+                // Get the next sibling or go up to the
+                // parent and get positioned on the next
+                // sibling
+                while (!markupIter.nextSibling()) {
+                    if(!markupIter.parentNode()) {
+                        return;
+                    }
+                }
+
+                // we need to backup here 'cause nextSibling will
+                // position the stream on the element we have to
+                // process next and calling nextNode in the outer loop
+                // will skip it
+                markupIter.previousNode();
+                return;
             },
             /**
              * Bind the component to the html element
@@ -55,7 +90,7 @@ define(
              */
             render: function () {
                 var data = this.getModelData(),
-                    $domElm, component;
+                    $domElm, component, itemCount = 0;
 
                 if (!this.$el.is("div, p, span, li")) {
                     throw 'Invalid element!';
@@ -65,50 +100,43 @@ define(
                 this.$parent.html('');
                 this.$el.remove();
                 if (typeof data !== 'Object') {
-                    for (var elm in data) {
-                        if (data.hasOwnProperty(elm)) {
+                    for (var prop in data) {
+                        if (data.hasOwnProperty(prop)) {
 
                             $domElm = this.$el.clone();
 
                             // run through the list of components and render them
-                            for (var key in this.components) {
-                                component = this.components[key];
+                            for (var key in this.children) {
+                                component = this.children[key];
 
-                                // if this is a function then call it,
-                                // it should construct a component
                                 if (typeof component === 'function') {
-                                    component = component();
+                                    component = component(data[prop]);
                                     component.$el = $domElm.find('[data-aid=' + component.id + ']');
                                     if (!component.$el) {
                                         throw 'Unable to find elemnt with ID: ' + component.id;
                                     }
 
-                                    component.id = component.id + '-' + elm; // make new id
+                                    component.parent = this;
+                                    component.id = component.id + '-' + itemCount; // make new id
                                     component.bindBehaviors();
 
                                     if (component.getChildrenCount &&
                                         component.getChildrenCount()) {
-                                        var markupIter = document.createTreeWalker(component.$el[0], NodeFilter.SHOW_ELEMENT, {
-                                            acceptNode: function (node) {
-                                                return NodeFilter.FILTER_ACCEPT;
-                                            }
-                                        }, false);
+                                        var markupIter = markupiter.createMarkupIter(component.$el[0]);
                                         component.bind(markupIter);
                                     }
 
                                     component.visible = this.visible;
                                     component.render();
+
+                                    this.generatedChildren[component.id] = component;
                                 } else {
                                     throw 'Repeaters require a constructor function for contained elements.\n' +
                                         'Wrap you component in a function() { return new Label({...}); }';
                                 }
                             }
                             this.$parent.append($domElm);
-
-                            if (this.onRender) {
-                                this.onRender
-                                    .call($domElm, data[elm]);
-                            }
+                            itemCount++;
                         }
                     }
 

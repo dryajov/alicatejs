@@ -88,6 +88,12 @@ define(
              */
             visible: true,
             /**
+             * The parent of this component
+             *
+             * @property {container}
+             */
+            parent: null,
+            /**
              * Get the current rendered value of this component
              *
              * @return {String}

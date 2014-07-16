@@ -24,17 +24,13 @@ define(
              * The data held by this model
              *
              */
-            data: null,
+            data: '',
             /**
              * Get the data of the model
              *
              * @returns {null}
              */
             get: function () {
-                if (this.property && this.property.length > 0) {
-                    return this.data[this.property];
-                }
-
                 return this.data;
             },
             /**

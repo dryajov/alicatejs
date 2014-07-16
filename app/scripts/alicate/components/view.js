@@ -5,9 +5,10 @@
  */
 define(
     [
-        'alicate/components/container'
+        'alicate/components/container',
+        'alicate/markupiter'
     ],
-    function makeView(container) {
+    function makeView(container, markupiter) {
         'use strict';
 
         /**
@@ -17,6 +18,11 @@ define(
          * @version 1.0
          */
         return container.extend({
+            initialize: function() {
+                if (this.templateName.length < 1) {
+                    throw 'templateName missing!';
+                }
+            },
             id: 'view',
             /**
              * The name of the template that this view renders
@@ -39,11 +45,7 @@ define(
              */
             _process: function () {
                 this.$el = $('<div/>').append(this.template);
-                this.bind(document.createTreeWalker(this.$el[0], NodeFilter.SHOW_ELEMENT, {
-                    acceptNode: function (node) {
-                        return NodeFilter.FILTER_ACCEPT;
-                    }
-                }, false));
+                this.bind(markupiter.createMarkupIter(this.$el[0]));
             },
             /**
              * Render the component tree

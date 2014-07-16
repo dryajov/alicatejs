@@ -45,7 +45,7 @@ define(
                     });
 
                     it('Repeater to have components defined', function () {
-                        expect(container.components).toBeDefined();
+                        expect(container.children).toBeDefined();
                     });
 
                     it('Repeater to have getMarkup defined', function () {
@@ -134,7 +134,7 @@ define(
 
                         repeater = new Repeater({
                             id: 'test-container',
-                            components: components,
+                            children: components,
                             $el: $('<div data-aid=test-container></div>'),
                             $parent: $('<div></div>')
                         });

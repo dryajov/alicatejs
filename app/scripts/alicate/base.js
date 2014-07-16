@@ -10,7 +10,7 @@ define(
                     classDefaults = typeof this.defaults === 'function'
                         ? this.defaults() : this.defaults;
 
-                $.extend(defaults, classDefaults, values);
+                $.extend(true, defaults, classDefaults, values);
                 this.defaults = defaults;
 
                 if (!this.initialize) {
@@ -24,7 +24,7 @@ define(
                     };
                 }
 
-                $.extend(this, this.defaults);
+                $.extend(true, this, this.defaults);
 
                 this.initialize.apply(this);
                 return this;
@@ -52,7 +52,7 @@ define(
                 }
 
                 // Add static properties to the constructor function, if supplied.
-                $.extend(child, parent, staticProps);
+                $.extend(true, child, parent, staticProps);
 
                 // Set the prototype chain to inherit from `parent`, without calling
                 // `parent`'s constructor function.
@@ -65,7 +65,7 @@ define(
                 // Add prototype properties (instance properties) to the subclass,
                 // if supplied.
                 if (protoProps) {
-                    $.extend(child.prototype, protoProps);
+                    $.extend(true, child.prototype, protoProps);
                 }
 
                 // Set a convenience property in case the parent's prototype is needed

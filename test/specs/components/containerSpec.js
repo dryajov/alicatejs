@@ -45,7 +45,7 @@ define(
                     });
 
                     it('Container to have components defined', function () {
-                        expect(container.components).toBeDefined();
+                        expect(container.children).toBeDefined();
                     });
 
                     it('Container to have getMarkup defined', function () {
@@ -132,7 +132,7 @@ define(
 
                         container = new Container({
                             id: 'test-container',
-                            components: components,
+                            children: components,
                             $el: $('<div data-aid=test-container></div>')
                         });
                     });
@@ -154,8 +154,8 @@ define(
                     it('Container test components visible', function () {
                         container.setVisible(true);
 
-                        for (var key in container.components) {
-                            var component = container.components[key];
+                        for (var key in container.children) {
+                            var component = container.children[key];
 
                             expect(component.isVisible()).toBe(true);
                             expect(component.$el.css('display')).toBe('block');
@@ -165,8 +165,8 @@ define(
                     it('Container test components hidden', function () {
                         container.setVisible(false);
 
-                        for (var key in container.components) {
-                            var component = container.components[key];
+                        for (var key in container.children) {
+                            var component = container.children[key];
 
                             expect(component.isVisible()).toBe(false);
                             expect(component.$el.css('display')).toBe('none');

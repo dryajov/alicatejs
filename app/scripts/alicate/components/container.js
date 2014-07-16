@@ -34,7 +34,7 @@ define(
                      * @property _components
                      * @type {Object}
                      */
-                    components: {}
+                    children: {}
                 });
 
                 return props;
@@ -49,7 +49,7 @@ define(
              * @return this
              */
             add: function (cpm, id) {
-                this.components[cpm.id || id] = cpm;
+                this.children[cpm.id || id] = cpm;
                 return this;
             },
             /**
@@ -61,13 +61,25 @@ define(
                 return this.add(cpm, id);
             },
             /**
+             * Remove the component from this container
+             *
+             * @param id
+             */
+            remove: function (id) {
+                if (this.children[id].$el) {
+                    this.children[id].$el.remove();
+                }
+
+                delete this.children[id];
+            },
+            /**
              * Get a component by id
              *
              * @param id
              * @returns {component}
              */
             get: function (id) {
-                return this.components[id];
+                return this.children[id];
             },
             /**
              * Get the number of children components
@@ -75,7 +87,7 @@ define(
              * @returns {Number}
              */
             getChildrenCount: function () {
-                return Object.keys(this.components).length;
+                return Object.keys(this.children).length;
             },
             /**
              *
@@ -96,11 +108,7 @@ define(
 
                 while (markupIter.nextNode()) {
                     $element = $(markupIter.currentNode);
-                    if (!$element.data()) {
-                        continue;
-                    }
-
-                    id = $element.data().aid
+                    id = $element.data().aid;
                     if (id && id.length > 0) {
                         component = this.get(id);
                         if (component) {
@@ -111,6 +119,7 @@ define(
                                 component.bind(markupIter);
                             }
                         } else {
+                             markupIter.previousNode();
                             return;
                         }
                     }
@@ -131,6 +140,7 @@ define(
                 }
 
                 component.$el = $element;
+                component.parent = this;
                 // bind the model associated with this component
                 if (component.model) {
                     component.bindModel();
@@ -149,9 +159,9 @@ define(
                 component.prototype.render.call(this);
 
                 // run through the list of components and render them
-                for (var key in this.components) {
-                    cmp = this.components[key];
-                    this.components[key].setVisible(this.visible);
+                for (var key in this.children) {
+                    cmp = this.children[key];
+                    this.children[key].visible = this.visible;
                     cmp.render();
                 }
             }

@@ -3,5 +3,8 @@ dist
 .tmp
 .sass-cache
 .idea
+.grunt
+*.iml
+_SpecRunner.html
 app/bower_components
 test/bower_components

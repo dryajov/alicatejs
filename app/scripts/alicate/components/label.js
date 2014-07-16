@@ -11,22 +11,6 @@ define(
         'use strict';
 
         /**
-         * Interpolate simple templates of the form {val}
-         *
-         * @param text
-         * @param model
-         * @returns {*|XML|string|void|Context}
-         */
-        function interpolate(text, model) {
-            return text.replace(/{([^{}]*)}/g,
-                function (a, b) {
-                    var r = model[b];
-                    return typeof r === 'string' || typeof r === 'number' ? r : a;
-                }
-            );
-        }
-
-        /**
          * A module representing a label
          *
          * @exports alicate/components/label
@@ -47,7 +31,8 @@ define(
                     allowedElements: [
                         "div",
                         "span",
-                        "p"
+                        "p",
+                        "a"
                     ]
                 });
 
@@ -72,9 +57,24 @@ define(
 
                 this._checkIsValidElement();
 
-                this.$el.html(data ? interpolate(this.text, data) : this.text);
+                this.$el.html(data ? this.interpolate(this.text, data) : this.text);
 
                 component.prototype.render.call(this);
+            },
+            /**
+             * Interpolate simple templates of the form {val}
+             *
+             * @param text
+             * @param model
+             * @returns {*|XML|string|void|Context}
+             */
+            interpolate: function (text, model) {
+                return text.replace(/{([^{}]*)}/g,
+                    function (a, b) {
+                        var r = model[b];
+                        return typeof r === 'string' || typeof r === 'number' ? r : a;
+                    }
+                );
             }
         });
     });
