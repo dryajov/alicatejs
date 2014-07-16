@@ -10,9 +10,10 @@
 define(
     [
         'alicate/components/container',
-        'alicate/markupiter'
+        'alicate/markupiter',
+        'alicate/model'
     ],
-    function makeRepeater(container, markupiter) {
+    function makeRepeater(container, markupiter, model) {
         'use strict';
 
         /**
@@ -44,15 +45,6 @@ define(
              */
             $parent: null,
             /**
-             * Remove the component from this container
-             *
-             * @param id
-             */
-            remove: function (id) {
-                this.generatedChildren[id].$el.remove();
-                delete this.generatedChildren[id];
-            },
-            /**
              * Called to bind this and children components to the html element
              *
              * @param markupIter
@@ -60,6 +52,9 @@ define(
             bind: function (markupIter) {
                 this.$parent = this.$el.parent() ||
                     this.$el.appendTo('<div></div>');
+
+                // remove/detach element from the dom
+                this.$el.remove();
 
                 // Get the next sibling or go up to the
                 // parent and get positioned on the next
@@ -75,7 +70,6 @@ define(
                 // process next and calling nextNode in the outer loop
                 // will skip it
                 markupIter.previousNode();
-                return;
             },
             /**
              * Bind the component to the html element
@@ -90,51 +84,33 @@ define(
              */
             render: function () {
                 var data = this.getModelData(),
-                    $domElm, component, itemCount = 0;
+                    $domElm, component,
+                    itemCount = 0, itemContainer,
+                    iter;
 
                 if (!this.$el.is("div, p, span, li")) {
                     throw 'Invalid element!';
                 }
 
-                // remove/detach element from the dom
                 this.$parent.html('');
-                this.$el.remove();
                 if (typeof data !== 'Object') {
                     for (var prop in data) {
                         if (data.hasOwnProperty(prop)) {
 
                             $domElm = this.$el.clone();
+                            itemContainer = new container({
+                                id: this.id + '-' +itemCount,
+                                model: new model({data: data[prop]}),
+                                $el: $domElm,
+                                parent: this
+                            });
 
-                            // run through the list of components and render them
-                            for (var key in this.children) {
-                                component = this.children[key];
-
-                                if (typeof component === 'function') {
-                                    component = component(data[prop]);
-                                    component.$el = $domElm.find('[data-aid=' + component.id + ']');
-                                    if (!component.$el) {
-                                        throw 'Unable to find elemnt with ID: ' + component.id;
-                                    }
-
-                                    component.parent = this;
-                                    component.id = component.id + '-' + itemCount; // make new id
-                                    component.bindBehaviors();
-
-                                    if (component.getChildrenCount &&
-                                        component.getChildrenCount()) {
-                                        var markupIter = markupiter.createMarkupIter(component.$el[0]);
-                                        component.bind(markupIter);
-                                    }
-
-                                    component.visible = this.visible;
-                                    component.render();
-
-                                    this.generatedChildren[component.id] = component;
-                                } else {
-                                    throw 'Repeaters require a constructor function for contained elements.\n' +
-                                        'Wrap you component in a function() { return new Label({...}); }';
-                                }
-                            }
+                            this.onItemRender(itemContainer);
+                            iter = markupiter.createMarkupIter($domElm[0]);
+                            iter.nextNode();
+                            itemContainer.bind(iter);
+                            itemContainer.render();
+                            this.children[itemContainer.id] = itemContainer;
                             this.$parent.append($domElm);
                             itemCount++;
                         }

@@ -114,8 +114,7 @@ define(
                         if (component) {
                             console.log('binding element id ' + id);
                             this.bindComponent(component, $element);
-                            if (component.getChildrenCount &&
-                                component.getChildrenCount()) {
+                            if (component.bind) {
                                 component.bind(markupIter);
                             }
                         } else {
