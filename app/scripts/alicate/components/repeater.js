@@ -32,7 +32,13 @@ define(
                      *
                      * @property {Object} generatedChildren
                      */
-                    generatedChildren: {}
+                    generatedChildren: {},
+                    allowedElements: [
+                        "div",
+                        "p",
+                        "span",
+                        "li"
+                    ]
                 });
 
                 return props;
@@ -53,14 +59,11 @@ define(
                 this.$parent = this.$el.parent() ||
                     this.$el.appendTo('<div></div>');
 
-                // remove/detach element from the dom
-                this.$el.remove();
-
                 // Get the next sibling or go up to the
                 // parent and get positioned on the next
                 // sibling
                 while (!markupIter.nextSibling()) {
-                    if(!markupIter.parentNode()) {
+                    if (!markupIter.parentNode()) {
                         return;
                     }
                 }
@@ -84,22 +87,23 @@ define(
              */
             render: function () {
                 var data = this.getModelData(),
-                    $domElm, component,
-                    itemCount = 0, itemContainer,
+                    $domElm,
+                    itemCount = 0,
+                    itemContainer,
                     iter;
 
-                if (!this.$el.is("div, p, span, li")) {
-                    throw 'Invalid element!';
-                }
+                this._checkIsValidElement();
 
                 this.$parent.html('');
+                // remove/detach element from the dom
+                this.$el.remove();
                 if (typeof data !== 'Object') {
                     for (var prop in data) {
                         if (data.hasOwnProperty(prop)) {
 
                             $domElm = this.$el.clone();
                             itemContainer = new container({
-                                id: this.id + '-' +itemCount,
+                                id: this.id + '-' + itemCount,
                                 model: new model({data: data[prop]}),
                                 $el: $domElm,
                                 parent: this
@@ -126,8 +130,13 @@ define(
                     throw 'Model should return an Array or Object!';
                 }
             },
-            onItemRender: function(item) {
-
+            /**
+             * Called when a repeated item is rendered, override this method
+             * to attach the components that this repeater is going to repeat
+             *
+             * @param item
+             */
+            onItemRender: function (item) {
             }
         });
     }
