@@ -11,18 +11,16 @@ define(
 
         return behavior.extend({
             /**
-             * The name of the attribute
+             * A hash of key/values of the attributes
+             *
+             * @property {Object} attributes
              */
-            attr: '',
-            /**
-             * The value of the attaribute
-             */
-            val: '',
+            attributes: {},
             attach: function (component) {
-                var $el = component.$el;
-
                 behavior.prototype.attach.call(this, component);
-                $el.attr(this.attr, this.val);
+                for (var attr in this.attributes) {
+                    component.$el.attr(attr, this.attributes[attr]);
+                }
             }
         });
     });
