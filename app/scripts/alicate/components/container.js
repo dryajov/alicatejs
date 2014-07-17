@@ -162,7 +162,9 @@ define(
                 // run through the list of components and render them
                 for (var key in this.children) {
                     cmp = this.children[key];
-                    this.children[key].visible = this.visible;
+                    if (this.children[key].isVisible()) {
+                        this.children[key].visible = this.visible;
+                    }
                     cmp.render();
                 }
             }
