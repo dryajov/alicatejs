@@ -39,8 +39,8 @@ define(
                     that = this;
 
                 behavior.prototype.attach.call(this, component);
-                $el.on(this.event + '.' + component.id, function () {
-                    that.handler.call(component)
+                $el.on(this.event + '.' + component.id, function (event) {
+                    that.handler.call(component, event);
                 });
             }
         });
