@@ -41,6 +41,26 @@ define(
 
                 return props;
             },
+            /**
+             * Should the component be enabled/disabled
+             *
+             */
+            enabled: true,
+            /**
+             * Enable/Disable the element
+             * @param {Boolean} enabled
+             */
+            setEnabled: function(enabled) {
+                if (this.enabled !== enabled) {
+                    this.enabled = enabled;
+                    this.render();
+                }
+            },
+            /**
+             * Get the value of this html element
+             *
+             * @returns {*}
+             */
             getValue: function () {
                 return this.$el.val();
             },
@@ -60,6 +80,7 @@ define(
                 this.$el.val(data);
 
                 component.prototype.render.call(this);
+                this.$el.prop('disabled', !this.enabled);
             }
         });
     });

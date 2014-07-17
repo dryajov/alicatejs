@@ -22,14 +22,6 @@ define(
          * @version 1.0
          */
         return label.extend({
-            initialize: function() {
-                this.defaultBehaviors.push(new eventable({
-                    event: 'click',
-                    handler: this.onClick
-                }));
-
-                label.prototype.initialize.call(this);
-            },
             defaults: function () {
                 var props = label.prototype.defaults.call(this);
 
@@ -51,19 +43,27 @@ define(
                 return props;
             },
             /**
+             * Should the component be enabled/disabled
+             *
+             */
+            enabled: true,
+            /**
+             * Enable/Disable the element
+             * @param {Boolean} enabled
+             */
+            setEnabled: function(enabled) {
+                if (this.enabled !== enabled) {
+                    this.enabled = enabled;
+                    this.render();
+                }
+            },
+            /**
              * The text to be rendered
              *
              * @property text
              * @type {String}
              */
             text: '',
-            /**
-             * Default event handler for this button
-             *
-             */
-            onClick: function () {
-
-            },
             /**
              * Render the text into the attached html element
              *
@@ -83,6 +83,8 @@ define(
                     case "input":
                         this.$el.attr('value', text);
                 }
+
+                this.$el.prop('disabled', !this.enabled);
             }
         });
     });
