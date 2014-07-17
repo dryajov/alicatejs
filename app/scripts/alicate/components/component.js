@@ -39,16 +39,14 @@ define(
                     /**
                      * A list of default behaviors that components want to add
                      *
-                     * @property defaultBehaviors
-                     * @type {behavior[]}
+                     * @property {behavior[]} defaultBehaviors
                      */
                     defaultBehaviors: [],
                     /**
                      * A list of allowed html element selectors that this component
                      * can attach to
                      *
-                     * @property allowedElements
-                     * @type {Boolean[]}
+                     * @property {Boolean[]} allowedElements
                      */
                     allowedElements: []
                 }
@@ -56,15 +54,13 @@ define(
             /**
              * The id of the data element to attach to
              *
-             * @property id
-             * @type {String}
+             * @property {String} id
              */
             id: '',
             /**
              * The html element reference that this component is attached to
              *
-             * @property $el
-             * @type {Object}
+             * @property {Object} $el
              **/
             $el: null,
             /**
@@ -76,27 +72,25 @@ define(
             /**
              * A list of user attached behaviors associated with this component
              *
-             * @property _behavior
-             * @type {Array}
+             * @property {Array} behaviors
              */
             behaviors: null,
             /**
              * Determines is the component is visible
              *
-             * @property visible
-             * @type {Boolean}
+             * @property {Boolean} visible
              */
             visible: true,
             /**
              * The parent of this component
              *
-             * @property {container}
+             * @property {container} parent
              */
             parent: null,
             /**
              * Get the current rendered value of this component
              *
-             * @return {String}
+             * @return {String}  getValue
              */
             getValue: function () {
                 return this.$el.text();
