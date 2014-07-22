@@ -1,14 +1,12 @@
 /**
- * A module representing a view
- *
- * @module view
+ * Created by dmitriy.ryajov on 7/1/14.
  */
 define(
     [
         'alicate/components/container',
         'alicate/markupiter'
     ],
-    function makeView(container, markupiter) {
+    function makeView(Container, Markupiter) {
         'use strict';
 
         /**
@@ -17,8 +15,8 @@ define(
          * @exports alicate/components/view
          * @version 1.0
          */
-        return container.extend({
-            initialize: function() {
+        return Container.extend({
+            initialize: function () {
                 if (this.templateName.length < 1) {
                     throw 'templateName missing!';
                 }
@@ -38,9 +36,10 @@ define(
              * @type {String}
              */
             template: '',
-            bind: function() {
+            bind: function () {
                 this.$el = $('<div/>').append(this.template);
-                container.prototype.bind.call(this, markupiter.createMarkupIter(this.$el[0]));
+                Container.prototype.bind.call(this,
+                    Markupiter.createMarkupIter(this.$el[0]));
 
             },
             /**
@@ -49,7 +48,7 @@ define(
              * @method render
              */
             render: function () {
-                container.prototype.render.call(this);
+                Container.prototype.render.call(this);
             }
         });
     });

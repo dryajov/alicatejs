@@ -5,8 +5,15 @@ define(
     [
         'alicate/base'
     ],
-    function makeBehavior(base) {
-        return base.extend({
+    function makeBehavior(Base) {
+
+        /**
+         * A module representing a behavior
+         *
+         * @exports alicate/behaviors/behavior
+         * @version 1.0
+         */
+        return Base.extend({
             /**
              * Any arbitrary identifier for this behavior
              *

@@ -1,13 +1,11 @@
 /**
- * A module representing a label
- *
- * @module label
+ * Created by dmitriy.ryajov on 7/1/14.
  */
 define(
     [
         'alicate/components/component'
     ],
-    function makeLabel(component) {
+    function makeLabel(Component) {
         'use strict';
 
         /**
@@ -16,9 +14,9 @@ define(
          * @exports alicate/components/label
          * @version 1.0
          */
-        return component.extend({
+        return Component.extend({
             defaults: function () {
-                var props = component.prototype.defaults.call(this);
+                var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
                     /**
@@ -32,7 +30,8 @@ define(
                         "div",
                         "span",
                         "p",
-                        "a"
+                        "a",
+                        "option"
                     ]
                 });
 
@@ -57,7 +56,7 @@ define(
 
                 this.$el.html(data ? this.interpolate(this.text, data) : this.text);
 
-                component.prototype.render.call(this);
+                Component.prototype.render.call(this);
             },
             /**
              * Interpolate simple templates of the form {val}

@@ -1,17 +1,11 @@
 /**
  * Created by dmitriy.ryajov on 6/30/14.
  */
-
-/**
- * A module representing a container
- *
- * @module container
- */
 define(
     [
         'alicate/components/component'
     ],
-    function makeContainer(component) {
+    function makeContainer(Component) {
         'use strict';
 
         /**
@@ -20,12 +14,18 @@ define(
          * @exports alicate/components/container
          * @version 1.0
          */
-        return component.extend({
+        return Component.extend({
             initialize: function () {
-                component.prototype.initialize.call(this);
+                Component.prototype.initialize.call(this);
+
+                for (var key in this.children) {
+                    if (this.children[key].isVisible()) {
+                        this.children[key].visible = this.visible;
+                    }
+                }
             },
             defaults: function () {
-                var props = component.prototype.defaults.call(this);
+                var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
                     /**
@@ -94,7 +94,10 @@ define(
              * @param visible
              */
             setVisible: function (visible) {
-                component.prototype.setVisible.call(this, visible);
+                Component.prototype.setVisible.call(this, visible);
+                for (var key in this.children) {
+                    this.children[key].visible = this.visible;
+                }
                 this.render();
             },
             /**
@@ -103,51 +106,51 @@ define(
              * @return {void}
              */
             bind: function (markupIter) {
-                var id, component,
+                var id, cmp,
                     $element;
 
-                while (markupIter.nextNode()) {
+                Component.prototype.bind.call(this, markupIter);
+                markupIter.nextNode();
+                do {
                     $element = $(markupIter.currentNode);
                     id = $element.data().aid;
                     if (id && id.length > 0) {
-                        component = this.get(id);
-                        if (component) {
+                        cmp = this.get(id);
+                        if (cmp) {
                             console.log('binding element id ' + id);
-                            this.bindComponent(component, $element);
-                            if (component.bind) {
-                                component.bind(markupIter);
-                            }
+                            this.bindComponent(cmp, $element);
+                            cmp.bind(markupIter);
                         } else {
-                             // backup one step so that the next component
-                             // picks it up from where we left
-                             markupIter.previousNode();
+                            // backup one step so that the next component
+                            // picks it up from where we left
+                            markupIter.previousNode();
                             return;
                         }
                     }
-                }
+                } while (markupIter.nextNode());
             },
             /**
              * Bind the current component to the provided element
              *
-             * @param component
+             * @param cmp
              * @param $element
              */
-            bindComponent: function (component, $element) {
+            bindComponent: function (cmp, $element) {
                 // if this is a function then call it,
                 // it should construct a component
-                if (typeof component === 'function') {
-                    component = component();
-                    this.replace(component);
+                if (typeof cmp === 'function') {
+                    cmp = cmp();
+                    this.replace(cmp);
                 }
 
-                component.$el = $element;
-                component.parent = this;
+                cmp.$el = $element;
+                cmp.parent = this;
                 // bind the model associated with this component
-                if (component.model) {
-                    component.bindModel();
+                if (cmp.model) {
+                    cmp.bindModel();
                 }
 
-                component.bindBehaviors();
+                cmp.bindBehaviors();
             },
             /**
              * Render the component tree
@@ -157,14 +160,11 @@ define(
             render: function () {
                 var cmp;
 
-                component.prototype.render.call(this);
+                Component.prototype.render.call(this);
 
                 // run through the list of components and render them
                 for (var key in this.children) {
                     cmp = this.children[key];
-                    if (this.children[key].isVisible()) {
-                        this.children[key].visible = this.visible;
-                    }
                     cmp.render();
                 }
             }

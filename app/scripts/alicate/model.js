@@ -1,16 +1,11 @@
 /**
  * Created by dmitriy.ryajov on 7/2/14.
  */
-
-/**
- * A module representing a model.
- * @module model
- */
 define(
     [
         'alicate/observable'
     ],
-    function makeModel(observable) {
+    function makeModel(Observable) {
         'use strict';
 
         /**
@@ -19,12 +14,12 @@ define(
          * @exports alicate/model
          * @version 1.0
          */
-        return observable.extend({
+        return Observable.extend({
             /**
              * The data held by this model
              *
              */
-            data: '',
+            data: null,
             /**
              * Get the data of the model
              *

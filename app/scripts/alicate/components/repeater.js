@@ -1,19 +1,13 @@
 /**
  * Created by dmitriy.ryajov on 6/25/14.
  */
-
-/**
- * A module representing a repeater
- *
- * @module repeater
- */
 define(
     [
         'alicate/components/container',
         'alicate/markupiter',
         'alicate/model'
     ],
-    function makeRepeater(container, markupiter, model) {
+    function makeRepeater(Container, Markupiter, Model) {
         'use strict';
 
         /**
@@ -22,9 +16,9 @@ define(
          * @exports alicate/components/repeater
          * @version 1.0
          */
-        return container.extend({
+        return Container.extend({
             defaults: function () {
-                var props = container.prototype.defaults.call(this);
+                var props = Container.prototype.defaults.call(this);
 
                 $.extend(props, {
                     /**
@@ -37,7 +31,8 @@ define(
                         "div",
                         "p",
                         "span",
-                        "li"
+                        "li",
+                        "option"
                     ]
                 });
 
@@ -50,29 +45,29 @@ define(
              * @type {jQuery}
              */
             $parent: null,
+            getMarkup: function () {
+                return this.$parent.html();
+            },
             /**
              * Called to bind this and children components to the html element
              *
              * @param markupIter
              */
             bind: function (markupIter) {
-                this.$parent = this.$el.parent() ||
-                    this.$el.appendTo('<div></div>');
+                this.$parent = this.$el.parent().length
+                    ? this.$el.parent()
+                    : $('<div/>');
 
                 // Get the next sibling or go up to the
                 // parent and get positioned on the next
                 // sibling
-                while (!markupIter.nextSibling()) {
-                    if (!markupIter.parentNode()) {
-                        return;
-                    }
+                if (markupIter.nextSibling()) {
+                    markupIter.previousNode();
+                } else {
+                    markupIter.lastChild();
                 }
 
-                // we need to backup here 'cause nextSibling will
-                // position the stream on the element we have to
-                // process next and calling nextNode in the outer loop
-                // will skip it
-                markupIter.previousNode();
+                return;
             },
             /**
              * Bind the component to the html element
@@ -89,8 +84,7 @@ define(
                 var data = this.getModelData(),
                     $domElm,
                     itemCount = 0,
-                    itemContainer,
-                    iter;
+                    item;
 
                 this._checkIsValidElement();
 
@@ -99,36 +93,48 @@ define(
                 this.$el.remove();
                 if (typeof data !== 'Object') {
                     for (var prop in data) {
-                        if (data.hasOwnProperty(prop)) {
-
-                            $domElm = this.$el.clone();
-                            itemContainer = new container({
-                                id: this.id + '-' + itemCount,
-                                model: new model({data: data[prop]}),
-                                $el: $domElm,
-                                parent: this
-                            });
-
-                            this.onItemRender(itemContainer);
-                            iter = markupiter.createMarkupIter($domElm[0]);
-                            iter.nextNode();
-                            itemContainer.bind(iter);
-                            itemContainer.render();
-                            this.children[itemContainer.id] = itemContainer;
-                            this.$parent.append($domElm);
-                            itemCount++;
-                        }
+                        $domElm = this.$el.clone();
+                        item = this.makeItemObject(itemCount, data[prop], $domElm);
+                        this.bindItemObject(item, $domElm);
+                        itemCount++;
                     }
-
-                    if (!this.isVisible()) {
-                        this.$el && this.$el.hide();
-                    } else {
-                        this.$el && this.$el.show();
-                    }
-
                 } else {
                     throw 'Model should return an Array or Object!';
                 }
+
+                if (!this.isVisible()) {
+                    this.$el && this.$el.hide();
+                } else {
+                    this.$el && this.$el.show();
+                }
+            },
+            /**
+             *
+             * @param itemCount
+             * @param data
+             * @param $domElm
+             * @returns {Container}
+             */
+            makeItemObject: function (itemCount, data, $domElm) {
+                return new Container({
+                    id: this.id + '-' + itemCount,
+                    model: new Model({data: data}),
+                    $el: $domElm,
+                    parent: this
+                });
+            },
+            /**
+             *
+             * @param item
+             * @param $domElm
+             */
+            bindItemObject: function (item, $domElm) {
+                this.onItemRender(item);
+                item.bind(Markupiter.createMarkupIter($domElm[0]));
+                item.bindModel();
+                item.render();
+                this.children[item.id] = item;
+                this.$parent.append($domElm);
             },
             /**
              * Called when a repeated item is rendered, override this method

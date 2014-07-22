@@ -2,17 +2,12 @@
  * Created by dmitriy.ryajov on 7/15/14.
  */
 
-/**
- * A module representing a button
- *
- * @module button
- */
 define(
     [
         'alicate/components/label',
-        'alicate/behaviors/eventable'
+        'alicate/components/component'
     ],
-    function makeLabel(label, eventable) {
+    function makeLabel(Label, Component) {
         'use strict';
 
         /**
@@ -21,9 +16,9 @@ define(
          * @exports alicate/components/button
          * @version 1.0
          */
-        return label.extend({
+        return Label.extend({
             defaults: function () {
-                var props = label.prototype.defaults.call(this);
+                var props = Label.prototype.defaults.call(this);
 
                 $.extend(props, {
                     /**
@@ -51,7 +46,7 @@ define(
              * Enable/Disable the element
              * @param {Boolean} enabled
              */
-            setEnabled: function(enabled) {
+            setEnabled: function (enabled) {
                 if (this.enabled !== enabled) {
                     this.enabled = enabled;
                     this.render();
@@ -85,6 +80,7 @@ define(
                 }
 
                 this.$el.prop('disabled', !this.enabled);
+                Component.prototype.render.call(this);
             }
         });
     });

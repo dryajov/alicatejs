@@ -6,10 +6,16 @@ define(
         'alicate/behaviors/behavior',
         'jquery'
     ],
-    function makeClickable(behavior, $) {
+    function makeClickable(Behavior, $) {
         'use strict';
 
-        return behavior.extend({
+        /**
+         * A module representing a atrrmodifier
+         *
+         * @exports alicate/behaviors/atrrmodifier
+         * @version 1.0
+         */
+        return Behavior.extend({
             /**
              * A hash of key/values of the attributes
              *
@@ -17,7 +23,7 @@ define(
              */
             attributes: {},
             attach: function (component) {
-                behavior.prototype.attach.call(this, component);
+                Behavior.prototype.attach.call(this, component);
                 for (var attr in this.attributes) {
                     component.$el.attr(attr, this.attributes[attr]);
                 }

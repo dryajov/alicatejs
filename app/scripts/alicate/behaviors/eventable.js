@@ -6,11 +6,17 @@ define(
         'alicate/behaviors/behavior',
         'jquery'
     ],
-    function makeClickable(behavior, $) {
+    function makeClickable(Behavior, $) {
         'use strict';
 
-        return behavior.extend({
-            initialize: function() {
+        /**
+         * A module representing a eventable
+         *
+         * @exports alicate/behaviors/eventable
+         * @version 1.0
+         */
+        return Behavior.extend({
+            initialize: function () {
                 if (!this.handler) {
                     throw 'handler is missing!';
                 }
@@ -38,7 +44,7 @@ define(
                 var $el = component.$el,
                     that = this;
 
-                behavior.prototype.attach.call(this, component);
+                Behavior.prototype.attach.call(this, component);
                 $el.on(this.event + '.' + component.id, function (event) {
                     that.handler.call(component, event);
                 });

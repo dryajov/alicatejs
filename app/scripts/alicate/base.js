@@ -1,3 +1,6 @@
+/**
+ * Created by dmitriy.ryajov on 6/26/14.
+ */
 define(
     [
         'jquery'
@@ -8,7 +11,7 @@ define(
         var Base = function BaseConstructor(values) {
                 var defaults = {},
                     classDefaults = typeof this.defaults === 'function'
-                        ? this.defaults.call(this) : this.defaults;
+                        ? this.defaults.call(values) : this.defaults;
 
                 $.extend(true, defaults, classDefaults, values);
                 this.defaults = defaults;

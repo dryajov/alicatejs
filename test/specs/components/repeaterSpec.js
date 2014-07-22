@@ -4,9 +4,12 @@
 define(
     [
         'alicate/components/repeater',
-        'alicate/components/component'
+        'alicate/components/component',
+        'alicate/components/label',
+        'alicate/markupiter',
+        'alicate/model'
     ],
-    function (Repeater, Component) {
+    function (Repeater, Component, Label, MarkupIter, Model) {
         'use strict';
 
         describe('Repeater suite', function () {
@@ -121,22 +124,16 @@ define(
                     var repeater;
 
                     beforeEach(function () {
-                        var components = {};
-
-                        for (var num in [1, 2, 3]) {
-                            components['test' + num] = function () {
-                                return new Component({
-                                    id: 'test' + num,
-                                    $el: $('<div data-aid="test"' + num + '>some text</div>')
-                                })
-                            };
-                        }
-
                         repeater = new Repeater({
                             id: 'test-container',
-                            children: components,
                             $el: $('<div data-aid=test-container></div>'),
-                            $parent: $('<div></div>')
+                            $parent: $('<div></div>'),
+                            onItemRender: function (item) {
+                                item.add(new Component({
+                                    id: 'test' + num,
+                                    $el: $('<div data-aid="test"' + item.getModelData() + '>some text</div>')
+                                }))
+                            }
                         });
 
                         repeater.render();
@@ -159,29 +156,62 @@ define(
                         expect(repeater.$el.css('display')).toBe('none');
                     });
 
-                    // TODO: Need to figure out what to do with dynamically
-                    // created components
-//                    it('Repeater test components visible', function () {
-//                        repeater.setVisible(true);
-//
-//                        for (var key in repeater.components) {
-//                            var component = repeater.components[key];
-//
-//                            expect(component.isVisible()).toBe(true);
-//                            expect(component.$el.css('display')).toBe('block');
-//                        }
-//                    });
-//
-//                    it('Repeater test components hidden', function () {
-//                        repeater.setVisible(false);
-//
-//                        for (var key in repeater.components) {
-//                            var component = repeater.components[key];
-//
-//                            expect(component.isVisible()).toBe(false);
-//                            expect(component.$el.css('display')).toBe('none');
-//                        }
-//                    });
+                    it('Repeater test components visible', function () {
+                        repeater.setVisible(true);
+
+                        for (var key in repeater.children) {
+                            var component = repeater.children[key];
+
+                            expect(component.isVisible()).toBe(true);
+                            expect(component.$el.css('display')).toBe('block');
+                        }
+                    });
+
+                    it('Repeater test components hidden', function () {
+                        repeater.setVisible(false);
+
+                        for (var key in repeater.children) {
+                            var component = repeater.children[key];
+
+                            expect(component.isVisible()).toBe(false);
+                            expect(component.$el.css('display')).toBe('none');
+                        }
+                    });
+                });
+
+                describe('Repeater test nested repeaters', function () {
+                    it('Repeater test nested repeater', function () {
+                        var $template = $('<div data-aid="repeater1">' +
+                                '<div data-aid="data1"></div>' +
+                                '<div data-aid="repeater2">' +
+                                '<div data-aid="data2"></div>' +
+                                '</div></div>'),
+                            repeater1 = new Repeater({
+                                id: 'repeater1',
+                                $el: $template,
+                                model: new Model({data: [1]}),
+                                onItemRender: function (item) {
+                                    item.add(new Label({
+                                        id: 'data1',
+                                        text: 'some data'
+                                    })).add(new Repeater({
+                                        id: 'repeater2',
+                                        model: new Model({data: [1]}),
+                                        onItemRender: function (item) {
+                                            item.add(new Label({
+                                                id: 'data2',
+                                                text: 'some more text'
+                                            }))
+                                        }
+                                    }));
+                                }
+                            });
+
+                        repeater1.bind(MarkupIter.createMarkupIter($template[0]));
+                        repeater1.render();
+
+                        expect(repeater1.getMarkup()).not.toBeUndefined();
+                    });
                 });
 
             });

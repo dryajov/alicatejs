@@ -5,10 +5,16 @@ define(
     [
         'alicate/base'
     ],
-    function makeObservable(base) {
+    function makeObservable(Base) {
         'use strict';
 
-        return base.extend({
+        /**
+         * A module representing an observable
+         *
+         * @exports alicate/observable
+         * @version 1.0
+         */
+        return Base.extend({
             initialize: function () {
                 this._subscribers = [];
             },

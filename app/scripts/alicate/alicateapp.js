@@ -1,3 +1,6 @@
+/**
+ * Created by dmitriy.ryajov on 6/26/14.
+ */
 define(
     [
         'jquery',
@@ -5,10 +8,17 @@ define(
         'alicate/base',
         'alicate/components/view'
     ],
-    function makeAlicateApp($, router, base) {
+    function makeAlicateApp($, Router, Base) {
         'use strict';
 
-        return base.extend({
+
+        /**
+         * A module representing an alicate application
+         *
+         * @exports alicate/alicateapp
+         * @version 1.0
+         */
+        return Base.extend({
             initialize: function () {
                 this.$el = $(this.$selector);
 
@@ -64,8 +74,11 @@ define(
                 this._views[path] = view;
 
                 view.template = this.templateStore[view.templateName];
+                if (!view.template) {
+                    throw 'No template found for ' + view.templateName;
+                }
 
-                router.mount(path, function (params) {
+                Router.mount(path, function (params) {
                     that.$el.empty();
                     view.bind();
                     view.render();
@@ -81,7 +94,7 @@ define(
              * representing the initial route to load
              */
             start: function (route) {
-                router.go(this.index || route);
+                Router.go(this.index || route);
             }
         });
     });

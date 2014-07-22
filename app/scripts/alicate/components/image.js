@@ -1,20 +1,25 @@
 /**
- * Created by dmitriy.ryajov on 7/1/14.
+ * Created by dmitriy.ryajov on 7/17/14.
  */
 define(
     [
         'alicate/components/component'
     ],
-    function makeInput(Component) {
+    function makeLabel(Component) {
         'use strict';
 
         /**
-         * A module representing an input
+         * A module representing a button
          *
-         * @exports alicate/components/input
+         * @exports alicate/components/image
          * @version 1.0
          */
         return Component.extend({
+            initialize: function () {
+                if (!this.src.length) {
+                    throw 'src is missing!';
+                }
+            },
             defaults: function () {
                 var props = Component.prototype.defaults.call(this);
 
@@ -27,37 +32,28 @@ define(
                      * @type {String[]}
                      */
                     allowedElements: [
-                        "input",
-                        "textarea",
-                        "select"
+                        "img"
                     ]
                 });
 
                 return props;
             },
             /**
-             * Get the value of this html element
+             * The text to be rendered
              *
-             * @returns {*}
+             * @property text
+             * @type {String}
              */
-            getValue: function () {
-                return this.$el.val();
-            },
+            src: '',
             /**
-             * Render the input component
+             * Render the text into the attached html element
              *
+             * @return {Object}  this object
              */
             render: function () {
-                var data;
-
                 this._checkIsValidElement();
 
-                if (this.model) {
-                    data = this.getModelData();
-                }
-
-                this.$el.val(data);
-
+                this.$el.attr('src', this.src);
                 Component.prototype.render.call(this);
             }
         });

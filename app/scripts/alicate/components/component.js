@@ -1,14 +1,10 @@
-/**
- * A module representing a component.
- *
- * @module component
- */
 define(
     [
         'alicate/base',
+        'alicate/behaviors/eventable',
         'jquery'
     ],
-    function makeComponent(base, $) {
+    function makeComponent(Base, Eventable, $) {
         'use strict';
 
         /**
@@ -17,7 +13,7 @@ define(
          * @exports alicate/components/component
          * @version 1.0
          */
-        return base.extend({
+        return Base.extend({
             /**
              * Perform initial initialization
              *
@@ -48,7 +44,19 @@ define(
                      *
                      * @property {Boolean[]} allowedElements
                      */
-                    allowedElements: []
+                    allowedElements: [],
+                    /**
+                     * List of attributes of this component
+                     *
+                     * @property {Object} attributes
+                     */
+                    attributes: {},
+                    /**
+                     * List of properties of this component
+                     *
+                     * @property {Object} property
+                     */
+                    properties: {}
                 }
             },
             /**
@@ -88,18 +96,104 @@ define(
              */
             parent: null,
             /**
+             * Is component bout
+             *
+             * @property {Boolean} isBound
+             */
+            isBound: false,
+            /**
+             * Should the component be enabled/disabled
+             *
+             */
+            enabled: true,
+            /**
+             * Enable/Disable the element
+             * @param {Boolean} enabled
+             */
+            setEnabled: function (enabled) {
+                if (this.enabled !== enabled) {
+                    this.enabled = enabled;
+                    this.render();
+                }
+            },
+            /**
+             * Get html attribute
+             *
+             * @param {String} attr
+             * @param {String} val
+             */
+            setAttr: function (attr, val) {
+                this.attributes[attr] = val;
+                return this;
+            },
+            /**
+             * Set html attribute
+             *
+             * @param {String} attr
+             * @returns {*}
+             */
+            getAttr: function (attr) {
+                return this.attributes[attr];
+            },
+            /**
+             * Get html property
+             *
+             * @param prop
+             * @returns {*}
+             */
+            getProp: function (prop) {
+                return this.properties[prop];
+            },
+            /**
+             * Set html property
+             *
+             * @param prop
+             * @param val
+             * @returns {*}
+             */
+            setProp: function (prop, val) {
+                return this.properties[prop];
+            },
+            /**
+             * Bind event handler to component for the specified event
+             *
+             * @param event
+             * @param callback
+             * @returns {Component}
+             */
+            on: function (event, callback) {
+                this.addBehavior(new Eventable({
+                    event: event + '.' + this.id,
+                    handler: callback
+                }));
+
+                return this;
+            },
+            /**
              * Get the current rendered value of this component
              *
              * @return {String}  getValue
              */
             getValue: function () {
-                return this.$el.text();
+                var value;
+
+                if ($(this).is("input, textarea, select")) {
+                    value = $(this).val();
+                } else {
+                    value = $(this).text();
+                }
+
+                return value;
             },
             /**
              * Performs a check if this is an element we can attach to
              *
              */
             _checkIsValidElement: function () {
+                if (!this.$el) {
+                    throw 'Element ' + this.id + ' is not bound!';
+                }
+
                 if (!this.$el.is(this.allowedElements.join(','))) {
                     throw 'Invalid element!';
                 }
@@ -138,9 +232,12 @@ define(
              *
              */
             bindBehaviors: function () {
+                if (!this.isBound) {
+                    return;
+                }
+
                 for (var behavior in this.defaultBehaviors) {
-                    if (this.defaultBehaviors.hasOwnProperty(behavior) &&
-                        !this.defaultBehaviors[behavior].attached) {
+                    if (!this.defaultBehaviors[behavior].attached) {
                         this.defaultBehaviors[behavior].attach(this);
                     }
                 }
@@ -153,6 +250,8 @@ define(
             addBehavior: function (behavior) {
                 this.defaultBehaviors.push(behavior);
                 this.bindBehaviors();
+
+                return this;
             },
             /**
              * Set this component model
@@ -190,10 +289,20 @@ define(
              * @method render
              */
             render: function () {
-                if (!this.isVisible()) {
-                    this.$el && this.$el.hide();
-                } else {
-                    this.$el && this.$el.show();
+                this.bindBehaviors();
+
+                if (this.$el) {
+                    for (var attr in this.attributes) {
+                        this.$el.attr(attr, this.attributes[attr]);
+                    }
+
+                    if (!this.isVisible()) {
+                        this.$el.hide();
+                    } else {
+                        this.$el.show();
+                    }
+
+                    this.$el.prop('disabled', !this.enabled);
                 }
             },
             /**
@@ -203,7 +312,8 @@ define(
                 var $el = this.$el,
                     model = this.model,
                     component = this,
-                    event = 'change.' + this.id;
+                    event = 'change.' + this.id,
+                    that = this;
 
                 if (!$el) {
                     return;
@@ -211,20 +321,20 @@ define(
 
                 $el.off(event);
                 $el.on(event, function () {
-                    var value;
-
-                    if ($(this).is("input, textarea, select")) {
-                        value = $(this).val();
-                    } else {
-                        value = $(this).text();
-                    }
-
-                    model.set(value);
+                    model.set(that.getValue());
                 });
 
                 model.subscribe(function () {
                     component.render();
                 });
+            },
+            /**
+             * Scan the template and attach components to html elements
+             *
+             * @return {void}
+             */
+            bind: function (markupIter) {
+                this.isBound = true;
             }
         });
     });
