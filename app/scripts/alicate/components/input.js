@@ -11,6 +11,7 @@ define(
         /**
          * A module representing an input
          *
+         * @module Input
          * @exports alicate/components/input
          * @version 1.0
          */
@@ -20,11 +21,7 @@ define(
 
                 $.extend(props, {
                     /**
-                     * A list of allowed html element selectors that this component
-                     * can attach to
-                     *
-                     * @property allowedElements
-                     * @type {String[]}
+                     * @property {String[]} allowedElements - Elements this component can attach to
                      */
                     allowedElements: [
                         "input",

@@ -11,7 +11,9 @@ define(
         /**
          * A module representing a container
          *
+         * @module Container
          * @exports alicate/components/container
+         * @extends Component
          * @version 1.0
          */
         return Component.extend({
@@ -29,10 +31,7 @@ define(
 
                 $.extend(props, {
                     /**
-                     * List of components that have been attached to this view.
-                     *
-                     * @property _components
-                     * @type {Object}
+                     * @property {Object} components - List of components that have been attached to this view.
                      */
                     children: {}
                 });
@@ -45,7 +44,8 @@ define(
              * from the view model if one is provided.
              *
              * @method add
-             * @param cpm
+             * @param {Component} cpm - Component to be added to this container
+             * @param {String} id - Id of the component to be added
              * @return this
              */
             add: function (cpm, id) {
@@ -53,17 +53,18 @@ define(
                 return this;
             },
             /**
+             * Replace a component with another component
              *
-             * @param cpm
-             * @param id
+             * @param {Component} cpm - The new component
+             * @param {String} id - The id of the component to be replaced
              */
             replace: function (cpm, id) {
                 return this.add(cpm, id);
             },
             /**
-             * Remove the component from this container
+             * Removes a component from this container
              *
-             * @param id
+             * @param {String} id - Id of the component to be removed
              */
             remove: function (id) {
                 if (this.children[id].$el) {
@@ -75,8 +76,8 @@ define(
             /**
              * Get a component by id
              *
-             * @param id
-             * @returns {component}
+             * @param {String} id - Id of the component to retrieve
+             * @returns {Component}
              */
             get: function (id) {
                 return this.children[id];
@@ -90,8 +91,9 @@ define(
                 return Object.keys(this.children).length;
             },
             /**
+             * Set component visibility
              *
-             * @param visible
+             * @param {Boolean} visible - Set visible/hidden
              */
             setVisible: function (visible) {
                 Component.prototype.setVisible.call(this, visible);
@@ -103,6 +105,7 @@ define(
             /**
              * Scan the template and attach components to html elements
              *
+             * @param {MarkupIter} markupIter - A markup iterator
              * @return {void}
              */
             bind: function (markupIter) {
@@ -132,8 +135,8 @@ define(
             /**
              * Bind the current component to the provided element
              *
-             * @param cmp
-             * @param $element
+             * @param {Component} cmp - The component to bind
+             * @param {jQuery} $element - jQuery wrapped dom element
              */
             bindComponent: function (cmp, $element) {
                 // if this is a function then call it,
@@ -154,8 +157,6 @@ define(
             },
             /**
              * Render the component tree
-             *
-             * @method render
              */
             render: function () {
                 var cmp;

@@ -13,6 +13,7 @@ define(
         /**
          * A module representing a button
          *
+         * @module Button
          * @exports alicate/components/button
          * @version 1.0
          */
@@ -22,29 +23,23 @@ define(
 
                 $.extend(props, {
                     /**
-                     * A list of allowed html element selectors that this component
-                     * can attach to
-                     *
-                     * @property allowedElements
-                     * @type {String[]}
+                     * @property {String[]} allowedElements - Elements this component can attach to
                      */
                     allowedElements: [
                         "button",
                         "input"
-                    ],
-                    defaultBehaviors: []
+                    ]
                 });
 
                 return props;
             },
             /**
-             * Should the component be enabled/disabled
+             * @property {Boolean} - Should the component be enabled/disabled
              *
              */
             enabled: true,
             /**
-             * Enable/Disable the element
-             * @param {Boolean} enabled
+             * @param {Boolean} enabled - Enable/Disable this element
              */
             setEnabled: function (enabled) {
                 if (this.enabled !== enabled) {
@@ -53,16 +48,9 @@ define(
                 }
             },
             /**
-             * The text to be rendered
-             *
-             * @property text
-             * @type {String}
-             */
-            text: '',
-            /**
              * Render the text into the attached html element
              *
-             * @return {Object}  this object
+             * @return {Object} - this object
              */
             render: function () {
                 var data = this.getModelData(),

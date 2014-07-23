@@ -9,10 +9,20 @@ define(
         /**
          * A module representing an markup iterator
          *
+         * @module MarkupIter
          * @exports alicate/markupiter
          * @version 1.0
          */
         return {
+            /**
+             * Create a markup iter
+             *
+             * @param elment
+             * @param all
+             * @returns {TreeWalker}
+             * @method createMarkupIter
+             * @static
+             */
             createMarkupIter: function (elment, all) {
                 return document.createTreeWalker(elment, NodeFilter.SHOW_ELEMENT, {
                     acceptNode: function (node) {

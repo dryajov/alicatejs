@@ -12,6 +12,7 @@ define(
         /**
          * A module representing a eventable
          *
+         * @module Eventable
          * @exports alicate/behaviors/eventable
          * @version 1.0
          */

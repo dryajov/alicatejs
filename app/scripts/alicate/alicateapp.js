@@ -11,10 +11,28 @@ define(
     function makeAlicateApp($, Router, Base) {
         'use strict';
 
-
         /**
          * A module representing an alicate application
          *
+         * <p>
+         * This module provides an entry point to your alicate applications.
+         *
+         * It allows mounting {@link View}'s on desired paths
+         * and provides a way to bind the application to a particular element in the dom,
+         * using a css selector.
+         *
+         * <p>
+         *
+         * @example
+         * var app = new AlicateApp({
+         *                  templateStore: templates,
+         *                  $selector: '#selector'
+         *              });
+         *
+         *  return app.mount('/link1', new MyView());
+         *
+         * @module AlicateApp
+         * @extends Base
          * @exports alicate/alicateapp
          * @version 1.0
          */
@@ -31,47 +49,36 @@ define(
                 }
             },
             /**
-             * The root view of this page
-             *
-             * @property index
-             * @type {String}
+             * @property {String} index - The index view of this page
              */
             index: null,
             /**
-             * The selector to attach this app to
-             *
-             * @property id
-             * @type {String}
-             * @default ''
+             * @property {String} id - The selector to attach this app to
              */
             $selector: '',
             /**
-             * the element the app is attached to
-             * @type {jquery}
+             * @property {jQuery} $el - The element the app is attached to
              */
             $el: null,
             /**
-             * Collection of views
-             *
-             * @property {view[]} views
+             * @property {View[]} views - Collection of views
              */
-            _views: {},
+            views: {},
             /**
-             * The templateStore of this application
-             *
-             * @property {Object} templateStore
+             * @property {Object} templateStore - The templateStore of this application
              */
             templateStore: null,
             /**
-             * Mount a view on a particular path
+             * Associate a view with a path
              *
+             * @method mount
              * @param {String} path
              * @param {view} view
              * @return {app} Returns this app
              */
             mount: function (path, view) {
                 var that = this;
-                this._views[path] = view;
+                this.views[path] = view;
 
                 view.template = this.templateStore[view.templateName];
                 if (!view.template) {
@@ -90,11 +97,12 @@ define(
             /**
              * Start application
              *
+             * @method start
              * @param {String} route optional param
              * representing the initial route to load
              */
             start: function (route) {
-                Router.go(this.index || route);
+                Router.go(route || this.index);
             }
         });
     });

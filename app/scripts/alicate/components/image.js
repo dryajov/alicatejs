@@ -11,6 +11,7 @@ define(
         /**
          * A module representing a button
          *
+         * @module Image
          * @exports alicate/components/image
          * @version 1.0
          */

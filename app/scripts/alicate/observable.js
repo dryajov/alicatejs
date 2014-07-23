@@ -11,7 +11,9 @@ define(
         /**
          * A module representing an observable
          *
+         * @module Observable
          * @exports alicate/observable
+         * @extends Base
          * @version 1.0
          */
         return Base.extend({
@@ -19,16 +21,15 @@ define(
                 this._subscribers = [];
             },
             /**
-             * Stores the listeners
-             *
-             * @property _subscribers
+             * @property {Object[]} _subscribers - Stores the listeners
+             * @private
              * @type {Array}
              */
             _subscribers: null,
             /**
              * Subscribe to the current observable
              *
-             * @param subscriber
+             * @param {Object} subscriber - The object to subscribe to this observable
              */
             subscribe: function (subscriber) {
                 for (var l in this._subscribers) {
@@ -43,7 +44,7 @@ define(
             /**
              * Unsubscribe from the observable
              *
-             * @param listener
+             * @param {Object} listener - The object to unsubscribe
              * @returns {Function} removed listener
              */
             unsubscribe: function (listener) {
@@ -57,7 +58,7 @@ define(
             /**
              * Trigger an update on the listeners with the new data
              *
-             * @param data
+             * @param {Any} data - The data to be passed to the updated subscriber
              */
             update: function (data) {
                 for (var l in this._subscribers) {

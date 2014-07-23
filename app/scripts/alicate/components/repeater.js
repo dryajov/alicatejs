@@ -13,7 +13,9 @@ define(
         /**
          * A module representing a repeater
          *
+         * @module Repeater
          * @exports alicate/components/repeater
+         * @extends Container
          * @version 1.0
          */
         return Container.extend({
@@ -22,11 +24,12 @@ define(
 
                 $.extend(props, {
                     /**
-                     * List of components that have been attached to this view.
-                     *
-                     * @property {Object} generatedChildren
+                     * @property {Object} generatedChildren - List of components that have been attached to this view.
                      */
                     generatedChildren: {},
+                    /**
+                     * @property {String[]} allowedElements - Elements this component can attach to
+                     */
                     allowedElements: [
                         "div",
                         "p",
@@ -39,19 +42,21 @@ define(
                 return props;
             },
             /**
-             * The parent of this repeated element
-             *
-             * @property $parent
-             * @type {jQuery}
+             * @property {jQuery} $parent - The parent of this repeated element
              */
             $parent: null,
+            /**
+             * Return the compiled markup of
+             * this component
+             *
+             * @returns {String}
+             */
             getMarkup: function () {
                 return this.$parent.html();
             },
             /**
-             * Called to bind this and children components to the html element
-             *
-             * @param markupIter
+             * @param {MarkupIter} markupIter - Called to bind this and children components to the html element
+             * @method bind
              */
             bind: function (markupIter) {
                 this.$parent = this.$el.parent().length
@@ -72,13 +77,16 @@ define(
             /**
              * Bind the component to the html element
              *
-             * @param component
-             * @param $element
+             * @param {Component} component
+             * @param {jQuery} $element
+             * @method bindComponent
              */
             bindComponent: function (component, $element) {
             },
             /**
              * Render the current component
+             *
+             * @method render
              */
             render: function () {
                 var data = this.getModelData(),
@@ -96,6 +104,7 @@ define(
                         $domElm = this.$el.clone();
                         item = this.makeItemObject(itemCount, data[prop], $domElm);
                         this.bindItemObject(item, $domElm);
+                        this.$parent.append($domElm);
                         itemCount++;
                     }
                 } else {
@@ -109,10 +118,14 @@ define(
                 }
             },
             /**
+             * Make an item object.
              *
-             * @param itemCount
-             * @param data
-             * @param $domElm
+             * Overwrite to create a component of any desired type,
+             * by default returns a {@link Container}.
+             *
+             * @param {Integer} itemCount - Current item number
+             * @param {Any} data - A model item
+             * @param {jQuery} $domElm - jQuery wrapped dom element attached to this item
              * @returns {Container}
              */
             makeItemObject: function (itemCount, data, $domElm) {
@@ -124,9 +137,10 @@ define(
                 });
             },
             /**
+             * Post process an item
              *
-             * @param item
-             * @param $domElm
+             * @param {Component} item - The component to be post processed
+             * @param {jQuery} $domElm - The jQuery wrapped dom element
              */
             bindItemObject: function (item, $domElm) {
                 this.onItemRender(item);
@@ -134,13 +148,12 @@ define(
                 item.bindModel();
                 item.render();
                 this.children[item.id] = item;
-                this.$parent.append($domElm);
             },
             /**
              * Called when a repeated item is rendered, override this method
              * to attach the components that this repeater is going to repeat
              *
-             * @param item
+             * @param {Container} item - The item to ber rendered
              */
             onItemRender: function (item) {
             }

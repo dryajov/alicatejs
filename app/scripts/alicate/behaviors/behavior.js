@@ -10,6 +10,7 @@ define(
         /**
          * A module representing a behavior
          *
+         * @module Behavior
          * @exports alicate/behaviors/behavior
          * @version 1.0
          */

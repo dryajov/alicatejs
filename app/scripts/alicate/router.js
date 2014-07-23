@@ -16,6 +16,7 @@ define(
         /**
          * A module representing a router
          *
+         * @module Router
          * @exports alicate/router
          * @version 1.0
          */

@@ -12,6 +12,7 @@ define(
         /**
          * A module representing a atrrmodifier
          *
+         * @module AttrModifier
          * @exports alicate/behaviors/atrrmodifier
          * @version 1.0
          */

@@ -15,6 +15,7 @@ define(
         /**
          * A module representing an dropdown
          *
+         * @module DropDown
          * @exports alicate/components/dropdown
          * @version 1.0
          */

@@ -11,19 +11,20 @@ define(
         /**
          * A module representing a module.
          *
+         * @module Model
          * @exports alicate/model
+         * @extends Observable
          * @version 1.0
          */
         return Observable.extend({
             /**
-             * The data held by this model
-             *
+             * @property {Any} - The data held by this model
              */
             data: null,
             /**
              * Get the data of the model
              *
-             * @returns {null}
+             * @returns {Any}
              */
             get: function () {
                 return this.data;
@@ -31,7 +32,7 @@ define(
             /**
              * Set the data of the model
              *
-             * @param value
+             * @param {Any} value - The value to set on this model
              */
             set: function (value) {
                 this.data = value;

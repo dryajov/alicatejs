@@ -10,9 +10,11 @@ define(
         'use strict';
 
         /**
-         * A module representing a repeater
+         * A module representing a view
          *
+         * @module View
          * @exports alicate/components/view
+         * @extends Container
          * @version 1.0
          */
         return Container.extend({
@@ -21,19 +23,13 @@ define(
                     throw 'templateName missing!';
                 }
             },
-            id: 'view',
+            id: null,
             /**
-             * The name of the template that this view renders
-             *
-             * @property template
-             * @type {String}
+             * @property {String} template - The name of the template that this view renders
              */
             templateName: '',
             /**
-             * The string markup (unaltered)
-             *
-             * @property template
-             * @type {String}
+             * @property {String} template - The string markup (unaltered)
              */
             template: '',
             bind: function () {
@@ -43,9 +39,7 @@ define(
 
             },
             /**
-             * Render the component tree
-             *
-             * @method render
+             * @method render - Render the component tree
              */
             render: function () {
                 Container.prototype.render.call(this);

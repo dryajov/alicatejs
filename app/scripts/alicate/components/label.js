@@ -11,6 +11,7 @@ define(
         /**
          * A module representing a label
          *
+         * @module Label
          * @exports alicate/components/label
          * @version 1.0
          */
@@ -20,11 +21,7 @@ define(
 
                 $.extend(props, {
                     /**
-                     * A list of allowed html element selectors that this component
-                     * can attach to
-                     *
-                     * @property allowedElements
-                     * @type {String[]}
+                     * @property {String[]} allowedElements - Elements this component can attach to
                      */
                     allowedElements: [
                         "div",
@@ -38,16 +35,22 @@ define(
                 return props;
             },
             /**
-             * The text to be rendered
+             * The text supports simplistic value interpolation
+             * of the form of {myStringVal}, where the value in curly
+             * braces will be replaced by a matching property in the
+             * model.
              *
-             * @property text
-             * @type {String}
+             * @property {String} text - The text to be rendered.
+             *
+             * @example
+             * 'The {value} in curly braces will be replaced with the
+             * value of a matching property returned by the model'
              */
             text: '',
             /**
              * Render the text into the attached html element
              *
-             * @return {Object}  this object
+             * @return {Object} this object
              */
             render: function () {
                 var data = this.getModelData();
@@ -59,10 +62,12 @@ define(
                 Component.prototype.render.call(this);
             },
             /**
+             * TODO: This needs to be moved to utility class
+             *
              * Interpolate simple templates of the form {val}
              *
-             * @param text
-             * @param model
+             * @param {String} text - The text to be interpolated
+             * @param {Object} model - An object where the prop to be interpolated is looked up
              * @returns {*|XML|string|void|Context}
              */
             interpolate: function (text, model) {

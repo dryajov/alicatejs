@@ -10,17 +10,12 @@ define(
         /**
          * A module representing a component
          *
+         * @module Component
          * @exports alicate/components/component
+         * @extends Base
          * @version 1.0
          */
         return Base.extend({
-            /**
-             * Perform initial initialization
-             *
-             * <strong>NOTE:</strong>
-             * Subclasses should <strong>always</strong> call the parent's
-             * initialize function!
-             */
             initialize: function () {
                 if (this.behaviors) {
                     $.merge(this.defaultBehaviors, this.behaviors);
@@ -33,82 +28,57 @@ define(
             defaults: function () {
                 return {
                     /**
-                     * A list of default behaviors that components want to add
-                     *
-                     * @property {behavior[]} defaultBehaviors
+                     * @property {behavior[]} defaultBehaviors - A list of default behaviors of the component
                      */
                     defaultBehaviors: [],
                     /**
-                     * A list of allowed html element selectors that this component
-                     * can attach to
-                     *
-                     * @property {Boolean[]} allowedElements
+                     * @property {Boolean[]} allowedElements - Elements this component can attach to
                      */
                     allowedElements: [],
                     /**
-                     * List of attributes of this component
-                     *
-                     * @property {Object} attributes
+                     * @property {Object} attributes - List of attributes of this component
                      */
                     attributes: {},
                     /**
-                     * List of properties of this component
-                     *
-                     * @property {Object} property
+                     * @property {Object} property - List of properties of this component
                      */
                     properties: {}
                 }
             },
             /**
-             * The id of the data element to attach to
-             *
-             * @property {String} id
+             * @property {String} id - The id of the data element to attach to
              */
             id: '',
             /**
-             * The html element reference that this component is attached to
-             *
-             * @property {Object} $el
+             * @property {Object} $el - The html element reference that this component is attached to
              **/
             $el: null,
             /**
-             * The model for this component
-             *
-             * @property _model
+             * @property model - The model for this component
              */
             model: null,
             /**
-             * A list of user attached behaviors associated with this component
-             *
-             * @property {Array} behaviors
+             * @property {Array} behaviors - A list of user attached behaviors associated with this component
              */
             behaviors: null,
             /**
-             * Determines is the component is visible
-             *
-             * @property {Boolean} visible
+             * @property {Boolean} visible - Determines is the component is visible
              */
             visible: true,
             /**
-             * The parent of this component
-             *
-             * @property {container} parent
+             * @property {container} parent - The parent of this component
              */
             parent: null,
             /**
-             * Is component bout
-             *
-             * @property {Boolean} isBound
+             * @property {Boolean} isBound - Is component bout
              */
             isBound: false,
             /**
-             * Should the component be enabled/disabled
-             *
+             * @property {Boolean} - Should the component be enabled/disabled
              */
             enabled: true,
             /**
-             * Enable/Disable the element
-             * @param {Boolean} enabled
+             * @param {Boolean} enabled - Enable/Disable the element
              */
             setEnabled: function (enabled) {
                 if (this.enabled !== enabled) {
@@ -119,8 +89,8 @@ define(
             /**
              * Get html attribute
              *
-             * @param {String} attr
-             * @param {String} val
+             * @param {String} attr - Attribute name
+             * @param {String} val - Value
              */
             setAttr: function (attr, val) {
                 this.attributes[attr] = val;
@@ -129,8 +99,8 @@ define(
             /**
              * Set html attribute
              *
-             * @param {String} attr
-             * @returns {*}
+             * @param {String} attr - Attribute name
+             * @returns {Any}
              */
             getAttr: function (attr) {
                 return this.attributes[attr];
@@ -138,7 +108,7 @@ define(
             /**
              * Get html property
              *
-             * @param prop
+             * @param {String} prop - Property name
              * @returns {*}
              */
             getProp: function (prop) {
@@ -147,9 +117,9 @@ define(
             /**
              * Set html property
              *
-             * @param prop
-             * @param val
-             * @returns {*}
+             * @param {String} prop - Property name
+             * @param {Any} val - Value
+             * @returns {Any}
              */
             setProp: function (prop, val) {
                 return this.properties[prop];
@@ -157,9 +127,9 @@ define(
             /**
              * Bind event handler to component for the specified event
              *
-             * @param event
-             * @param callback
-             * @returns {Component}
+             * @param {Event} event - Event name
+             * @param callback - Callback
+             * @returns {this}
              */
             on: function (event, callback) {
                 this.addBehavior(new Eventable({
@@ -172,7 +142,7 @@ define(
             /**
              * Get the current rendered value of this component
              *
-             * @return {String}  getValue
+             * @return {String}
              */
             getValue: function () {
                 var value;
@@ -199,10 +169,9 @@ define(
                 }
             },
             /**
-             * Return the compiled markup of
-             * this component
+             * Return the compiled markup of this component
              *
-             * @returns {*}
+             * @returns {Any}
              */
             getMarkup: function () {
                 return this.$el.html();
@@ -210,7 +179,7 @@ define(
             /**
              * Set component visibility
              *
-             * @param {Boolean} visible
+             * @param {Boolean} visible - Set visible/hidden
              */
             setVisible: function (visible) {
                 if (this.$el) {
@@ -223,12 +192,13 @@ define(
             /**
              * Is component visible
              *
+             * @return {Boolean}
              */
             isVisible: function () {
                 return this.visible;
             },
             /**
-             * Attache the current behaviors
+             * Attache the behaviors
              *
              */
             bindBehaviors: function () {
@@ -245,7 +215,7 @@ define(
             /**
              * Add a behavior to the component
              *
-             * @param behavior
+             * @param {Behavior} behavior - The behavior to be added
              */
             addBehavior: function (behavior) {
                 this.defaultBehaviors.push(behavior);
@@ -256,8 +226,7 @@ define(
             /**
              * Set this component model
              *
-             * @method setModel
-             * @param model
+             * @param {Model} model - A model
              */
             setModel: function (model) {
                 this.model = model;
@@ -274,7 +243,7 @@ define(
             /**
              * Get this component model's data
              *
-             * @returns {*}
+             * @returns {Any}
              */
             getModelData: function () {
                 if (this.model && this.model.get) {
@@ -285,8 +254,6 @@ define(
             },
             /**
              * Render the current element
-             *
-             * @method render
              */
             render: function () {
                 this.bindBehaviors();
