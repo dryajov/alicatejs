@@ -23,13 +23,17 @@ not to allow creating invalid markup.
 ####Core concepts
 
 #####View
-   A `View` represents an alicate `Component` that has an unparsed html fragment (logicless template) associated. The `View` initiates the rendering of the components tree.
+
+* A `View` represents an alicate `Component` that has an unparsed html fragment (logicless template) associated. The `View` initiates the rendering of the components tree.
 
 #####Component
-   A `Component` is the building block of the framework, it is the abstract class extended by the rest of the components in the framework. 
+
+* A `Component` is the building block of the framework, it is the abstract class extended by the rest of the components in the framework. 
 
 #####Model
-   A `Model` is consumed by components in the framework, it provides an interface to interact with external data. A `Model` has a `data` property and `get` and `set` method that access the underlying `data`. `Models` are two way bound, a change in the model `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an **updateble** html element that the component is associated with, will update the underlying `data`. It is, what in some other frameworks is considered a **View Model**.
+
+* A `Model` is consumed by components in the framework, it provides an interface to interact with external data. A `Model` has a `data` property and `get` and `set` method that access the underlying `data`. `Models` are two way bound, a change in the model `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an **updateble** html element that the component is associated with, will update the underlying `data`. It is, what in some other frameworks is considered a **View Model**.
 
 #####Html Fragment (logicless template)
-   An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements.
+
+* An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements.
