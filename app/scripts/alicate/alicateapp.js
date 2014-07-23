@@ -71,7 +71,6 @@ define(
             /**
              * Associate a view with a path
              *
-             * @method mount
              * @param {String} path
              * @param {view} view
              * @return {app} Returns this app
@@ -97,7 +96,6 @@ define(
             /**
              * Start application
              *
-             * @method start
              * @param {String} route optional param
              * representing the initial route to load
              */

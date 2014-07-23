@@ -39,7 +39,7 @@ define(
 
             },
             /**
-             * @method render - Render the component tree
+             * Render the component tree
              */
             render: function () {
                 Container.prototype.render.call(this);

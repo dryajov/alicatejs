@@ -14,6 +14,7 @@ define(
          *
          * @module Eventable
          * @exports alicate/behaviors/eventable
+         * @extends Behavior
          * @version 1.0
          */
         return Behavior.extend({
@@ -27,13 +28,12 @@ define(
                 }
             },
             /**
-             * Callback called on the click event
-             *
+             * @property {Function} handler - Callback called on the click event
              * @function
              */
             handler: null,
             /**
-             * The name of the event to listen for
+             * @property {Event} event - The name of the event to listen for
              */
             event: null,
             /**

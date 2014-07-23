@@ -13,10 +13,11 @@ define(
         'use strict';
 
         /**
-         * A module representing an dropdown
+         * A module representing a dropdown
          *
          * @module DropDown
          * @exports alicate/components/dropdown
+         * @extends Container
          * @version 1.0
          */
         return Container.extend({
@@ -35,6 +36,9 @@ define(
                     allowedElements: [
                         "select"
                     ],
+                    /**
+                     * @property {Object} components - List of components that have been attached to this view.
+                     */
                     children: {
                         /**
                          * The "select" tag
@@ -49,6 +53,9 @@ define(
                                     ]
                                 }
                             },
+                            /**
+                             * @override
+                             */
                             makeItemObject: function (itemCount, data, $domElm) {
                                 return new Component({
                                     id: this.id + '-' + itemCount,
@@ -70,9 +77,18 @@ define(
 
                 return props;
             },
+            /**
+             * @property {String} - Indicates the currently selected
+             */
             selected: null,
+            /**
+             * @override
+             */
             bindModel: function () {
             },
+            /**
+             * @override
+             */
             render: function () {
                 Container.prototype.render.call(this);
 

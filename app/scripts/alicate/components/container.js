@@ -43,7 +43,6 @@ define(
              * are still going to be added by the alicate, and their model will be constructed
              * from the view model if one is provided.
              *
-             * @method add
              * @param {Component} cpm - Component to be added to this container
              * @param {String} id - Id of the component to be added
              * @return this

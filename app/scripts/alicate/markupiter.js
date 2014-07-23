@@ -17,10 +17,10 @@ define(
             /**
              * Create a markup iter
              *
-             * @param elment
-             * @param all
+             * @param {Dom} elment - The element to iterate on
+             * @param {Boolean} all - Return all elements regardless
+             *      if they are marked with a `data-aid` attribute or not
              * @returns {TreeWalker}
-             * @method createMarkupIter
              * @static
              */
             createMarkupIter: function (elment, all) {

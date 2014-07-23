@@ -56,7 +56,6 @@ define(
             },
             /**
              * @param {MarkupIter} markupIter - Called to bind this and children components to the html element
-             * @method bind
              */
             bind: function (markupIter) {
                 this.$parent = this.$el.parent().length
@@ -79,14 +78,11 @@ define(
              *
              * @param {Component} component
              * @param {jQuery} $element
-             * @method bindComponent
              */
             bindComponent: function (component, $element) {
             },
             /**
              * Render the current component
-             *
-             * @method render
              */
             render: function () {
                 var data = this.getModelData(),

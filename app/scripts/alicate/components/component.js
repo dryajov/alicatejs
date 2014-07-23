@@ -273,6 +273,12 @@ define(
                 }
             },
             /**
+             * Scan the template and attach components to html elements
+             */
+            bind: function (markupIter) {
+                this.isBound = true;
+            },
+            /**
              * Bind the current model
              */
             bindModel: function () {
@@ -294,14 +300,6 @@ define(
                 model.subscribe(function () {
                     component.render();
                 });
-            },
-            /**
-             * Scan the template and attach components to html elements
-             *
-             * @return {void}
-             */
-            bind: function (markupIter) {
-                this.isBound = true;
             }
         });
     });

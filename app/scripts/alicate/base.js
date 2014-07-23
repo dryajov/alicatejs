@@ -8,6 +8,13 @@ define(
     function makeBase($) {
         "use strict";
 
+        /**
+         * Prototype object
+         *
+         * @param values
+         * @returns {makeBase.BaseConstructor}
+         * @constructor
+         */
         var Base = function BaseConstructor(values) {
                 var defaults = {},
                     classDefaults = typeof this.defaults === 'function'
@@ -20,8 +27,6 @@ define(
                     /**
                      * Sub types can override this method to perform post construction
                      * setup.
-                     *
-                     * @method initialize
                      */
                     this.initialize = function initialize() {
                     };
@@ -36,6 +41,10 @@ define(
             /**
              * Sets up inheritance chain. See Backbone.js
              * {@link https://github.com/documentcloud/backbone/blob/master/backbone.js#L1527}
+             *
+             * @param protoProps
+             * @param staticProps
+             * @returns {*}
              */
             extend = function extend(protoProps, staticProps) {
 

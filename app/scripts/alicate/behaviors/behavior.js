@@ -12,34 +12,26 @@ define(
          *
          * @module Behavior
          * @exports alicate/behaviors/behavior
+         * @extends Base
          * @version 1.0
          */
         return Base.extend({
             /**
-             * Any arbitrary identifier for this behavior
-             *
-             * @property id
-             * @type {String}
+             * @property {String} id - Any arbitrary identifier for this behavior
              */
             id: '',
             /**
-             * The component that the behavior is attached to
-             *
-             * @property component
-             * @type {component}
+             * @property {Component} component - The component that the behavior is attached to
              */
             component: null,
             /**
-             * Is this behavior attached
-             *
-             * @property attached
-             * @type {Boolean}
+             * @property {Boolean} attached - Is this behavior attached
              */
             attached: false,
             /**
              * Attaches to the passed component
              *
-             * @param {component} component
+             * @param {Component} component - Component to attach to
              */
             attach: function (component) {
                 this.component = component;
