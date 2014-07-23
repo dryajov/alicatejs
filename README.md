@@ -9,6 +9,7 @@ With the advent of new and evermore complex javascript frameworks, we've seen an
 that templates are a simplistic solution to a complex problem, and it introduces more problems that it solves.
 
 Some problems with templates are:
+
 - Foreign syntax.
     - Doesn't integrate well with existing target language and as such is not easily debuggable
 - It's the wrong level of abstraction.
@@ -54,23 +55,40 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 ###Hello World in Alicatejs
 
 ```
-var templateStore = {'helloworld.html': '<div data-aid="hello">[THIS WILL BE REPLACED]</div>'},
-app = new AlicateApp({
-        templateStore: templateStore,
-        selector: '#myapp',
-        index: '/helloworld'
+define(
+    [
+    'alicate/alicateapp',
+    'alicate/components/View',
+    'alicate/components/Label'
+    ],
+    function(AlicateApp, View, Label){
+        'use strict';
+
+        var templateStore = {'helloworld.html': '<div data-aid="hello">[THIS WILL BE REPLACED]</div>'},
+        app = new AlicateApp({
+                templateStore: templateStore,
+                selector: '#myapp',
+                index: '/helloworld'
+            });
+
+        app.mount('/helloworld', new View({
+                templateName: 'helloworld.html',
+                children: {
+                    hello: new Label({
+                        id: 'hello',
+                        text: 'Hello World from Alicate!!'
+                        })
+                }
+            })).start();
     });
 
-app.mount('/helloworld', new View({
-        templateName: 'helloworld.html',
-        children: {
-            hello: new Label({
-                id: 'hello',
-                text: 'Hello World from Alicate!!'
-                })
-        }
-    })).start();
 ```
-The program above demonstrates the core concepts of alicate in action.
+The snippet above demonstrates the core concepts of alicate in action.
 
-An application is constructed, that will attach itself to the `#myapp` selector, with the `/helloworld` path as its index. Once we have an application, we can start mounting our views on a desired path, this will cause alicatejs to render the view when the browser navigates to that path. This view has one child, a `Label` component, that renders the contents of its `text` property to the associated html element.  
+An application that will attach itself to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
+
+###Why AMD?
+Javascript lacks a standard way of defining and importing modules, the Asynchronous Module Definition API fills in this gap pretty nicely. I feel like using AMD, gives the code base a lot more structure and makes it more manageable and easy to work with.
+
+###Why jQuery?
+jQuery allows to interact with the DOM without worrying about browser specific quirks and due to its popularity chances are that you're is already using it.
