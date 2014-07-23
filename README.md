@@ -34,7 +34,7 @@ A `View` represents an alicate `Component` that has an unparsed html fragment (l
 
 A `Component` is the building block of the framework, it is the abstract class extended by the rest of the components in the framework. There are a range of components that will attach to a subset of similar html elements.
 
-This components are:
+These components are:
 
 * Label
 * Input
