@@ -1,6 +1,10 @@
 ##What is alicatejs?
+![alicatejs](logo.jpg)
+
 
 Alicatejs is an MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+
+####Motivation
 With the advent of new and evermore complex javascript frameworks, we've seen an explosion of templating engines. I believe
 that templates are a simplistic solution to a complex problem, and it introduces more problems that it solves.
 
