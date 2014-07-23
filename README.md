@@ -91,4 +91,4 @@ An application that will attach itself to the `#myapp` selector, is constructed,
 Javascript lacks a standard way of defining and importing modules, the Asynchronous Module Definition API fills in this gap pretty nicely. I feel like using AMD, gives the code base a lot more structure and makes it more manageable and easy to work with.
 
 ###Why jQuery?
-jQuery allows to interact with the DOM without worrying about browser specific quirks and due to its popularity chances are that you're is already using it.
+jQuery allows to interact with the DOM without worrying about browser specific quirks and due to its popularity chances are that it is already deployed to the end user site.
