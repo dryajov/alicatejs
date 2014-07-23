@@ -60,4 +60,4 @@ app.mount('/helloworld', new View({
 ```
 The program above demonstrates the core concepts of alicate in action.
 
-An application is constructed, that will attach itself to the `#myapp` selector, with the `/helloworld` path as its index. Once we have an application, we can start mounting our views on a desired path, this will cause alicatejs to render the view when the browser navigates to that path. This view has one child, a `Label` component, that renders the contents of its _text_ property of its `text` property to the associated html element.  
+An application is constructed, that will attach itself to the `#myapp` selector, with the `/helloworld` path as its index. Once we have an application, we can start mounting our views on a desired path, this will cause alicatejs to render the view when the browser navigates to that path. This view has one child, a `Label` component, that renders the contents of its `text` property to the associated html element.  
