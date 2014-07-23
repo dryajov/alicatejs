@@ -46,7 +46,7 @@ These components are:
 
 #####Model
 
-A `Model` is consumed by the components, it provides an interface to interact with external data. A `Model` has a `data` property and `get` and `set` methods that access the underlying `data`. `Models` are two way bound, a change in the model `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an __updateble__ html element that the component is associated with, will update the underlying `data` (and all the registered subscribers). It is, what in some other frameworks is considered a **View Model**.
+A `Model` is consumed by the components, it provides an interface to interact with external data. A `Model` has a `data` property and `get` and `set` methods that access the underlying `data`. `Models` are two way bound, a change in the model's `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an __updateble__ html element that the component is associated with, will update the underlying `data` (and all the registered subscribers). It is, what in some other frameworks is considered a **View Model**.
 
 #####Html Fragment (logicless template)
 
@@ -88,7 +88,7 @@ The snippet above demonstrates the core concepts of alicate in action.
 An application that will attach itself to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
 
 ###Why AMD?
-Javascript lacks a standard way of defining and importing modules, the Asynchronous Module Definition API fills in this gap pretty nicely. I feel like using AMD, gives the code base a lot more structure and makes it more manageable and easy to work with.
+Javascript lacks a standard way of defining and importing modules, the Asynchronous Module Definition API fills in this gap pretty nicely. Using AMD, gives the code base a lot more structure and makes it more pleasant to work with.
 
 ###Why jQuery?
-jQuery allows to interact with the DOM without worrying about browser specific quirks and due to its popularity chances are that it is already deployed to the end user site.
+jQuery allows to interact with the DOM without worrying about browser specific quirks, and due to its popularity chances are that it is already deployed to the end user site.
