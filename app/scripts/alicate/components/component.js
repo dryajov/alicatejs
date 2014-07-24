@@ -28,7 +28,7 @@ define(
             defaults: function () {
                 return {
                     /**
-                     * @property {behavior[]} defaultBehaviors - A list of default behaviors of the component
+                     * @property {Behavior[]} defaultBehaviors - A list of default behaviors of the component
                      */
                     defaultBehaviors: [],
                     /**
@@ -160,13 +160,16 @@ define(
              *
              */
             _checkIsValidElement: function () {
-                if (!this.$el) {
-                    throw 'Element ' + this.id + ' is not bound!';
-                }
-
-                if (!this.$el.is(this.allowedElements.join(','))) {
-                    throw 'Invalid element!\n' +
-                        'Element: ' + this.$el.prop("tagName");
+                if (this.$el) {
+                    if (!this.$el.is(this.allowedElements.join(','))) {
+                        throw 'Component ' + this.id +
+                            ' is not allowed to attach to ' +
+                            this.$el.prop("tagName") + ' tag';
+                    }
+                } else {
+                    if (this.isBound) {
+                        throw 'Element ' + this.id + ' is null!';
+                    }
                 }
             },
             /**
@@ -270,8 +273,12 @@ define(
                         this.$el.show();
                     }
 
-                    this.$el.prop('disabled', !this.enabled);
+                    if (this.$el.prop('disabled') !== !this.enabled) {
+                        this.$el.prop('disabled', !this.enabled);
+                    }
                 }
+
+                console.log('Rendered ' + this.id);
             },
             /**
              * Scan the template and attach components to html elements

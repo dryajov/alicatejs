@@ -51,10 +51,8 @@ define(
 
                 if (this.model) {
                     data = this.getModelData();
+                    this.$el.val(data);
                 }
-
-                this.$el.val(data);
-
                 Component.prototype.render.call(this);
             }
         });

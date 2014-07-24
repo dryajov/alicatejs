@@ -57,9 +57,9 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 ```
 define(
     [
-    'alicate/alicateapp',
-    'alicate/components/View',
-    'alicate/components/Label'
+        'alicate/alicateapp',
+        'alicate/components/View',
+        'alicate/components/Label'
     ],
     function(AlicateApp, View, Label){
         'use strict';
