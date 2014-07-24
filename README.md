@@ -52,7 +52,9 @@ A `Model` is consumed by the components, it provides an interface to interact wi
 
 #####Html Fragment (logicless template)
 
-An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is just a hash object with the key being the template name, and the value, the html fragment to be rendered. There is a grunt plugin (grunt-template-store) available that will construct a template store.
+An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is just a hash object with the key being the template name, and the value, the html fragment to be rendered.
+
+There is a grunt plugin (_grunt-template-store_) available that will aid with the generation of the template store.
 
 ###Hello World in Alicatejs
 
