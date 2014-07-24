@@ -165,7 +165,8 @@ define(
                 }
 
                 if (!this.$el.is(this.allowedElements.join(','))) {
-                    throw 'Invalid element!';
+                    throw 'Invalid element!\n' +
+                        'Element: ' + this.$el.prop("tagName");
                 }
             },
             /**

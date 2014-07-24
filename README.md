@@ -1,8 +1,8 @@
 ##What is alicatejs?
-![alicatejs](logo.jpg)
+![alicatejs](logo.jpg?raw)
 
 
-Alicatejs is an MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+Alicatejs is a single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
 
 ###Motivation
 With the advent of new and evermore complex javascript frameworks, we've seen an explosion of templating engines. I believe
@@ -50,7 +50,7 @@ A `Model` is consumed by the components, it provides an interface to interact wi
 
 #####Html Fragment (logicless template)
 
-An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is just a hash object with the key being the template name and the value, the html fragment to be rendered. There is a grunt plugin (grunt-template-store) available that will construct a template store.
+An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is just a hash object with the key being the template name, and the value, the html fragment to be rendered. There is a grunt plugin (grunt-template-store) available that will construct a template store.
 
 ###Hello World in Alicatejs
 
@@ -91,4 +91,4 @@ An application that will attach itself to the `#myapp` selector, is constructed,
 Javascript lacks a standard way of defining and importing modules, the Asynchronous Module Definition API fills in this gap pretty nicely. Using AMD, gives the code base a lot more structure and makes it more pleasant to work with.
 
 ###Why jQuery?
-jQuery allows to interact with the DOM without worrying about browser specific quirks, and due to its popularity chances are that it is already deployed to the end user site.
+jQuery allows to interact with the DOM without worrying about browser specific quirks, and due to its popularity chances are that it's already deployed to the end user site.

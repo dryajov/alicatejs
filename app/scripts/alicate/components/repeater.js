@@ -30,13 +30,6 @@ define(
                     /**
                      * @property {String[]} allowedElements - Elements this component can attach to
                      */
-                    allowedElements: [
-                        "div",
-                        "p",
-                        "span",
-                        "li",
-                        "option"
-                    ]
                 });
 
                 return props;
@@ -45,6 +38,12 @@ define(
              * @property {jQuery} $parent - The parent of this repeated element
              */
             $parent: null,
+            /**
+             * @override
+             */
+            _checkIsValidElement: function () {
+
+            },
             /**
              * Return the compiled markup of
              * this component
