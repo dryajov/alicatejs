@@ -1,3 +1,5 @@
+####NOTE: This is in early alpha stage, not production ready!!!
+
 ##What is alicatejs?
 ![alicatejs](logo.jpg?raw)
 
