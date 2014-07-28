@@ -2,9 +2,10 @@ define(
     [
         'alicate/base',
         'alicate/behaviors/eventable',
+        'alicate/model',
         'jquery'
     ],
-    function makeComponent(Base, Eventable, $) {
+    function makeComponent(Base, Eventable, Model, $) {
         'use strict';
 
         /**
@@ -16,7 +17,7 @@ define(
          * @version 1.0
          */
         return Base.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 if (this.behaviors) {
                     $.merge(this.defaultBehaviors, this.behaviors);
                 }
@@ -25,7 +26,7 @@ define(
                     throw 'Missing id!'
                 }
             },
-            defaults: function () {
+            defaults: function defaults() {
                 return {
                     /**
                      * @property {Behavior[]} defaultBehaviors - A list of default behaviors of the component
@@ -80,7 +81,7 @@ define(
             /**
              * @param {Boolean} enabled - Enable/Disable the element
              */
-            setEnabled: function (enabled) {
+            setEnabled: function setEnabled(enabled) {
                 if (this.enabled !== enabled) {
                     this.enabled = enabled;
                     this.render();
@@ -92,7 +93,7 @@ define(
              * @param {String} attr - Attribute name
              * @param {String} val - Value
              */
-            setAttr: function (attr, val) {
+            setAttr: function setAttr(attr, val) {
                 this.attributes[attr] = val;
                 return this;
             },
@@ -102,7 +103,7 @@ define(
              * @param {String} attr - Attribute name
              * @returns {Any}
              */
-            getAttr: function (attr) {
+            getAttr: function getAttr(attr) {
                 return this.attributes[attr];
             },
             /**
@@ -111,7 +112,7 @@ define(
              * @param {String} prop - Property name
              * @returns {*}
              */
-            getProp: function (prop) {
+            getProp: function getProp(prop) {
                 return this.properties[prop];
             },
             /**
@@ -121,7 +122,7 @@ define(
              * @param {Any} val - Value
              * @returns {Any}
              */
-            setProp: function (prop, val) {
+            setProp: function setProp(prop, val) {
                 return this.properties[prop];
             },
             /**
@@ -131,7 +132,7 @@ define(
              * @param callback - Callback
              * @returns {this}
              */
-            on: function (event, callback) {
+            on: function on(event, callback) {
                 this.addBehavior(new Eventable({
                     event: event + '.' + this.id,
                     handler: callback
@@ -144,13 +145,13 @@ define(
              *
              * @return {String}
              */
-            getValue: function () {
+            getValue: function getValue() {
                 var value;
 
-                if ($(this).is("input, textarea, select")) {
-                    value = $(this).val();
+                if (this.$el.is("input, textarea, select")) {
+                    value = this.$el.val();
                 } else {
-                    value = $(this).text();
+                    value = this.$el.text();
                 }
 
                 return value;
@@ -159,7 +160,7 @@ define(
              * Performs a check if this is an element we can attach to
              *
              */
-            _checkIsValidElement: function () {
+            _checkIsValidElement: function _checkIsValidElement() {
                 if (this.$el) {
                     if (!this.$el.is(this.allowedElements.join(','))) {
                         throw 'Component ' + this.id +
@@ -177,7 +178,7 @@ define(
              *
              * @returns {Any}
              */
-            getMarkup: function () {
+            getMarkup: function getMarkup() {
                 return this.$el.html();
             },
             /**
@@ -185,7 +186,7 @@ define(
              *
              * @param {Boolean} visible - Set visible/hidden
              */
-            setVisible: function (visible) {
+            setVisible: function setVisible(visible) {
                 if (this.$el) {
                     if (this.visible != visible) {
                         this.visible = visible;
@@ -198,14 +199,14 @@ define(
              *
              * @return {Boolean}
              */
-            isVisible: function () {
+            isVisible: function isVisible() {
                 return this.visible;
             },
             /**
              * Attache the behaviors
              *
              */
-            bindBehaviors: function () {
+            bindBehaviors: function bindBehaviors() {
                 if (!this.isBound) {
                     return;
                 }
@@ -221,7 +222,7 @@ define(
              *
              * @param {Behavior} behavior - The behavior to be added
              */
-            addBehavior: function (behavior) {
+            addBehavior: function addBehavior(behavior) {
                 this.defaultBehaviors.push(behavior);
                 this.bindBehaviors();
 
@@ -232,7 +233,7 @@ define(
              *
              * @param {Model} model - A model
              */
-            setModel: function (model) {
+            setModel: function setModel(model) {
                 this.model = model;
                 this.bindModel();
             },
@@ -241,7 +242,7 @@ define(
              *
              * @returns {null}
              */
-            getModel: function () {
+            getModel: function getModel() {
                 return this.model;
             },
             /**
@@ -249,8 +250,8 @@ define(
              *
              * @returns {Any}
              */
-            getModelData: function () {
-                if (this.model && this.model.get) {
+            getModelData: function getModelData() {
+                if (this.model instanceof Model) {
                     return this.model.get();
                 }
 
@@ -259,7 +260,7 @@ define(
             /**
              * Render the current element
              */
-            render: function () {
+            render: function render() {
                 this.bindBehaviors();
 
                 if (this.$el) {
@@ -278,18 +279,18 @@ define(
                     }
                 }
 
-                console.log('Rendered ' + this.id);
+//                console.log('Rendered ' + this.id);
             },
             /**
              * Scan the template and attach components to html elements
              */
-            bind: function (markupIter) {
+            bind: function bind(markupIter) {
                 this.isBound = true;
             },
             /**
              * Bind the current model
              */
-            bindModel: function () {
+            bindModel: function bindModel() {
                 var $el = this.$el,
                     model = this.model,
                     component = this,
@@ -300,14 +301,16 @@ define(
                     return;
                 }
 
-                $el.off(event);
-                $el.on(event, function () {
-                    model.set(that.getValue());
-                });
+                if (this.model instanceof Model) {
+                    $el.off(event);
+                    $el.on(event, function () {
+                        model.set(that.getValue());
+                    });
 
-                model.subscribe(function () {
-                    component.render();
-                });
+                    model.subscribe(function () {
+                        component.render();
+                    });
+                }
             }
         });
     });

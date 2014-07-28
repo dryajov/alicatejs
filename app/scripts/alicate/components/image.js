@@ -16,12 +16,12 @@ define(
          * @version 1.0
          */
         return Component.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 if (!this.src.length) {
                     throw 'src is missing!';
                 }
             },
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
@@ -51,7 +51,7 @@ define(
              *
              * @return {Object}  this object
              */
-            render: function () {
+            render: function render() {
                 this._checkIsValidElement();
 
                 this.$el.attr('src', this.src);

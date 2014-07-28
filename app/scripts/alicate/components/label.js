@@ -16,7 +16,7 @@ define(
          * @version 1.0
          */
         return Component.extend({
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
@@ -28,7 +28,8 @@ define(
                         "span",
                         "p",
                         "a",
-                        "option"
+                        "option",
+                        "label"
                     ]
                 });
 
@@ -52,7 +53,7 @@ define(
              *
              * @return {Object} this object
              */
-            render: function () {
+            render: function render() {
                 var data = this.getModelData();
 
                 this._checkIsValidElement();
@@ -70,7 +71,7 @@ define(
              * @param {Object} model - An object where the prop to be interpolated is looked up
              * @returns {*|XML|string|void|Context}
              */
-            interpolate: function (text, model) {
+            interpolate: function interpolate(text, model) {
                 return text.replace(/{([^{}]*)}/g,
                     function (a, b) {
                         var r = model[b];

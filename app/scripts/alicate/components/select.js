@@ -21,7 +21,7 @@ define(
          * @version 1.0
          */
         return Container.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 var that = this;
 
                 this.on('change', function (event) {
@@ -29,7 +29,7 @@ define(
                     that.index = event.target.index;
                 });
             },
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Container.prototype.defaults.call(this),
                     that = this;
 
@@ -54,7 +54,7 @@ define(
                         select: new Repeater({
                             id: that.id + '-option',
                             model: that.model,
-                            defaults: function () {
+                            defaults: function defaults() {
                                 return {
                                     allowedElements: [
                                         "option"
@@ -64,7 +64,7 @@ define(
                             /**
                              * @override
                              */
-                            makeItemObject: function (itemCount, data, $domElm) {
+                            makeItemObject: function makeItemObject(itemCount, data, $domElm) {
                                 return new Component({
                                     id: this.id + '-' + itemCount,
                                     model: new Model({data: data}),
@@ -73,11 +73,16 @@ define(
                                     attributes: {
                                         value: data
                                     },
-                                    render: function () {
+                                    render: function render() {
                                         Component.prototype.render.call(this);
                                         this.$el.text(this.getModelData());
                                     }
                                 });
+                            },
+                            onItemRender: function onItemRender(item) {
+                                if (that.onOptionRender) {
+                                    that.onOptionRender(item);
+                                }
                             }
                         })
                     }
@@ -86,16 +91,19 @@ define(
                 return props;
             },
             /**
-             * @property {String} - Indicates the currently selected
+             * @property {String} - The currently selected value
              */
             selected: null,
+            /**
+             * @property {Integer} - The currently selected index
+             */
             index: 0,
             /**
              * Set the selected option by value
              *
              * @param {String} val - value to set active
              */
-            setSelected: function (val) {
+            setSelected: function setSelected(val) {
                 this.selectedVal = val;
                 this.render();
                 return this;
@@ -105,7 +113,7 @@ define(
              *
              * @returns {String}
              */
-            getSelected: function () {
+            getSelected: function getSelected() {
                 return this.selectedVal;
             },
             /**
@@ -113,7 +121,7 @@ define(
              *
              * @param {Integer} index - Current index to be selected
              */
-            setSelectedByIndex: function (index) {
+            setSelectedByIndex: function setSelectedByIndex(index) {
                 this.$el.prop('selectedIndex', 1);
                 this.index = index;
                 this.selected = this.$el.val();
@@ -123,18 +131,18 @@ define(
             /**
              * @override
              */
-            getValue: function () {
+            getValue: function getValue() {
                 return this.getSelected();
             },
             /**
              * @override
              */
-            bindModel: function () {
+            bindModel: function bindModel() {
             },
             /**
              * @override
              */
-            render: function () {
+            render: function render() {
                 Container.prototype.render.call(this);
 
                 if (null !== this.selected) {
@@ -145,6 +153,8 @@ define(
 
                 this.selected = this.$el.val();
                 this.index = this.$el.prop('selectedIndex');
+            },
+            onOptionRender: function onOptionRender(option) {
             }
         });
     });

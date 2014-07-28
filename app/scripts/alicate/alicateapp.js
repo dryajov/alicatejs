@@ -37,7 +37,7 @@ define(
          * @version 1.0
          */
         return Base.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 this.$el = $(this.$selector);
 
                 if (!this.$el) {
@@ -75,7 +75,7 @@ define(
              * @param {view} view
              * @return {app} Returns this app
              */
-            mount: function (path, view) {
+            mount: function mount(path, view) {
                 var that = this;
                 this.views[path] = view;
 
@@ -99,7 +99,7 @@ define(
              * @param {String} route optional param
              * representing the initial route to load
              */
-            start: function (route) {
+            start: function start(route) {
                 Router.go(route || this.index);
             }
         });

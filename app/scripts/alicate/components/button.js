@@ -18,7 +18,7 @@ define(
          * @version 1.0
          */
         return Label.extend({
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Label.prototype.defaults.call(this);
 
                 $.extend(props, {
@@ -41,7 +41,7 @@ define(
             /**
              * @param {Boolean} enabled - Enable/Disable this element
              */
-            setEnabled: function (enabled) {
+            setEnabled: function setEnabled(enabled) {
                 if (this.enabled !== enabled) {
                     this.enabled = enabled;
                     this.render();
@@ -52,7 +52,7 @@ define(
              *
              * @return {Object} - this object
              */
-            render: function () {
+            render: function render() {
                 var data = this.getModelData(),
                     text = data ? this.interpolate(this.text, data) : this.text,
                     name = this.$el.prop('tagName').toLowerCase();

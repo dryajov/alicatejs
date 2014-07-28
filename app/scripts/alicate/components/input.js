@@ -16,7 +16,7 @@ define(
          * @version 1.0
          */
         return Component.extend({
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
@@ -37,14 +37,14 @@ define(
              *
              * @returns {*}
              */
-            getValue: function () {
+            getValue: function getValue() {
                 return this.$el.val();
             },
             /**
              * Render the input component
              *
              */
-            render: function () {
+            render: function render() {
                 var data;
 
                 this._checkIsValidElement();

@@ -48,11 +48,11 @@ These components are:
 
 #####Model
 
-A `Model` is consumed by the components, it provides an interface to interact with external data. A `Model` has a `data` property and `get` and `set` methods that access the underlying `data`. `Models` are two way bound, a change in the model's `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an __updateble__ html element that the component is associated with, will update the underlying `data` (and all the registered subscribers). It is, what in some other frameworks is considered a **View Model**.
+A `Model` is consumed by components, it provides an interface to interact with external data, it has a `data` property and `get` and `set` methods that access the underlying `data`. `Model`s are two way bound, a change in the model's `data` will trigger an update of the associated `Component` (you have to use the `set` method),  and a change on an __updateble__ html element that the component is associated with, will update the underlying `data` (and all the registered subscribers). It is, what in some other frameworks is considered a **View Model**.
 
 #####Html Fragment (logicless template)
 
-An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is just a hash object with the key being the template name, and the value, the html fragment to be rendered.
+An html fragment is any html element that is marked with the `data-aid` attribute, this attribute is used by the framework to bind components to the corresponding html elements. Html fragments are compiled int a template store. A template store is a hash object with the key being the template name, and the value, the html fragment to be rendered.
 
 There is a grunt plugin (_grunt-template-store_) available that will aid with the generation of the template store.
 

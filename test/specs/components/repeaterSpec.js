@@ -128,9 +128,10 @@ define(
                             id: 'test-container',
                             $el: $('<div data-aid=test-container></div>'),
                             $parent: $('<div></div>'),
+                            model: [1],
                             onItemRender: function (item) {
                                 item.add(new Component({
-                                    id: 'test' + num,
+                                    id: 'test',
                                     $el: $('<div data-aid="test"' + item.getModelData() + '>some text</div>')
                                 }))
                             }
@@ -179,14 +180,56 @@ define(
                     });
                 });
 
-                describe('Repeater test nested repeaters', function () {
+                describe('Repeater test valid markup', function () {
+                    it('test repeater without children', function () {
+                        var $template = $('<div data-aid=\"repeateme\">Hello!!</div>'),
+                            repeater = new Repeater({
+                                id: 'repeatme',
+                                model: [1, 2, 3],
+                                $el: $template
+                            });
+
+                        repeater.bind(MarkupIter.createMarkupIter($template[0]));
+                        repeater.render();
+
+                        expect(repeater.getMarkup())
+                            .toBe('<div data-aid="repeateme" style=\"display: block; ">Hello!!</div>' +
+                                '<div data-aid="repeateme" style=\"display: block; ">Hello!!</div>' +
+                                '<div data-aid="repeateme" style=\"display: block; ">Hello!!</div>');
+                    });
+
+                    it('test repeater with children', function () {
+                        var $template = $('<div data-aid="repeateme">' +
+                                '<span data-aid="label">[REPLACED WITH \'Hello!\']</span>' +
+                                '</div>'),
+                            repeater = new Repeater({
+                                id: 'repeatme',
+                                model: [1, 2, 3],
+                                $el: $template,
+                                onItemRender: function (item) {
+                                    item.add(new Label({
+                                        id: 'label',
+                                        text: 'Hello!'
+                                    }))
+                                }
+                            });
+
+                        repeater.bind(MarkupIter.createMarkupIter($template[0]));
+                        repeater.render();
+
+                        expect(repeater.getMarkup())
+                            .toBe('<div data-aid="repeateme" style="display: block; "><span data-aid="label" style="display: inline; ">Hello!</span></div>' +
+                                '<div data-aid="repeateme" style="display: block; "><span data-aid="label" style="display: inline; ">Hello!</span></div>' +
+                                '<div data-aid="repeateme" style="display: block; "><span data-aid="label" style="display: inline; ">Hello!</span></div>');
+                    });
+
                     it('Repeater test nested repeater', function () {
                         var $template = $('<div data-aid="repeater1">' +
                                 '<div data-aid="data1"></div>' +
                                 '<div data-aid="repeater2">' +
                                 '<div data-aid="data2"></div>' +
                                 '</div></div>'),
-                            repeater1 = new Repeater({
+                            repeater = new Repeater({
                                 id: 'repeater1',
                                 $el: $template,
                                 model: new Model({data: [1]}),
@@ -207,13 +250,47 @@ define(
                                 }
                             });
 
-                        repeater1.bind(MarkupIter.createMarkupIter($template[0]));
-                        repeater1.render();
+                        repeater.bind(MarkupIter.createMarkupIter($template[0]));
+                        repeater.render();
 
-                        expect(repeater1.getMarkup()).not.toBeUndefined();
+                        expect(repeater.getMarkup())
+                            .toBe('<div data-aid="repeater1" style="display: block; ">' +
+                                '<div data-aid="repeater2" style="display: block; ">' +
+                                '<div data-aid="data2" style="display: block; ">some more text</div>' +
+                                '</div>' +
+                                '</div>');
                     });
                 });
 
+                describe('Repeater test valid model', function () {
+                    it('test repeater valid model', function () {
+                        var $template = $('<div data-aid="repeateme">Hello!!</div>'),
+                            repeater = new Repeater({
+                                id: 'repeatme',
+                                model: [1, 2, 3],
+                                $el: $template
+                            });
+
+                        repeater.bind(MarkupIter.createMarkupIter($template[0]));
+                        expect(function () {
+                            repeater.render()
+                        }).not.toThrow('Model should return an Array or Object!');
+                    });
+
+                    it('test repeater invalid model', function () {
+                        var $template = $('<div data-aid="repeateme">Hello!!</div>'),
+                            repeater = new Repeater({
+                                id: 'repeatme',
+                                model: 'lol', // invalid model
+                                $el: $template
+                            });
+
+                        repeater.bind(MarkupIter.createMarkupIter($template[0]));
+                        expect(function () {
+                            repeater.render()
+                        }).toThrow('Model should return an Array or Object!');
+                    });
+                });
             });
         });
 

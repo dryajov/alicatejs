@@ -23,7 +23,7 @@ define(
              * @returns {TreeWalker}
              * @static
              */
-            createMarkupIter: function (elment, all) {
+            createMarkupIter: function createMarkupIter(elment, all) {
                 return document.createTreeWalker(elment, NodeFilter.SHOW_ELEMENT, {
                     acceptNode: function (node) {
                         if (all) {

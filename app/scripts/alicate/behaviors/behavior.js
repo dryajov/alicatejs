@@ -33,7 +33,7 @@ define(
              *
              * @param {Component} component - Component to attach to
              */
-            attach: function (component) {
+            attach: function attach(component) {
                 this.component = component;
                 this.attached = true;
             }

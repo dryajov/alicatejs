@@ -26,7 +26,7 @@ define(
              *
              * @returns {Any}
              */
-            get: function () {
+            get: function get() {
                 return this.data;
             },
             /**
@@ -34,7 +34,7 @@ define(
              *
              * @param {Any} value - The value to set on this model
              */
-            set: function (value) {
+            set: function set(value) {
                 this.data = value;
                 this.update(value);
             }

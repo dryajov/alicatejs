@@ -19,21 +19,6 @@ define(
          * @version 1.0
          */
         return Container.extend({
-            defaults: function () {
-                var props = Container.prototype.defaults.call(this);
-
-                $.extend(props, {
-                    /**
-                     * @property {Object} generatedChildren - List of components that have been attached to this view.
-                     */
-                    generatedChildren: {},
-                    /**
-                     * @property {String[]} allowedElements - Elements this component can attach to
-                     */
-                });
-
-                return props;
-            },
             /**
              * @property {jQuery} $parent - The parent of this repeated element
              */
@@ -41,8 +26,7 @@ define(
             /**
              * @override
              */
-            _checkIsValidElement: function () {
-
+            _checkIsValidElement: function _checkIsValidElement() {
             },
             /**
              * Return the compiled markup of
@@ -50,13 +34,13 @@ define(
              *
              * @returns {String}
              */
-            getMarkup: function () {
+            getMarkup: function getMarkup() {
                 return this.$parent.html();
             },
             /**
              * @param {MarkupIter} markupIter - Called to bind this and children components to the html element
              */
-            bind: function (markupIter) {
+            bind: function bind(markupIter) {
                 this.$parent = this.$el.parent().length
                     ? this.$el.parent()
                     : $('<div/>');
@@ -78,12 +62,12 @@ define(
              * @param {Component} component
              * @param {jQuery} $element
              */
-            bindComponent: function (component, $element) {
+            bindComponent: function bindComponent(component, $element) {
             },
             /**
              * Render the current component
              */
-            render: function () {
+            render: function render() {
                 var data = this.getModelData(),
                     $domElm,
                     itemCount = 0,
@@ -91,10 +75,10 @@ define(
 
                 this._checkIsValidElement();
 
-                this.$parent.html('');
-                // remove/detach element from the dom
-                this.$el.remove();
-                if (typeof data !== 'Object') {
+                if (Array.isArray(data)) {
+                    this.$parent.html('');
+                    // remove/detach element from the dom
+                    this.$el.remove();
                     for (var prop in data) {
                         $domElm = this.$el.clone();
                         item = this.makeItemObject(itemCount, data[prop], $domElm);
@@ -103,7 +87,7 @@ define(
                         itemCount++;
                     }
                 } else {
-                    throw 'Model should return an Array or Object!';
+                    throw 'Model should return an Array!';
                 }
 
                 if (!this.isVisible()) {
@@ -123,7 +107,7 @@ define(
              * @param {jQuery} $domElm - jQuery wrapped dom element attached to this item
              * @returns {Container}
              */
-            makeItemObject: function (itemCount, data, $domElm) {
+            makeItemObject: function makeItemObject(itemCount, data, $domElm) {
                 return new Container({
                     id: this.id + '-' + itemCount,
                     model: new Model({data: data}),
@@ -137,7 +121,7 @@ define(
              * @param {Component} item - The component to be post processed
              * @param {jQuery} $domElm - The jQuery wrapped dom element
              */
-            bindItemObject: function (item, $domElm) {
+            bindItemObject: function bindItemObject(item, $domElm) {
                 this.onItemRender(item);
                 item.bind(Markupiter.createMarkupIter($domElm[0]));
                 item.bindModel();
@@ -150,7 +134,7 @@ define(
              *
              * @param {Container} item - The item to ber rendered
              */
-            onItemRender: function (item) {
+            onItemRender: function onItemRender(item) {
             }
         });
     }

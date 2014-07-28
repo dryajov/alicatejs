@@ -80,6 +80,36 @@ module.exports = function (grunt) {
                             '<%= yeoman.app %>',
                             '.'
                         ]
+//                        ,
+//                        middleware: function (connect, options) {
+//                            // build paths
+//                            var src = [],
+//                                middlewares = [];
+//                            // 2. get sources to be instrumented from the config
+//                            //    you may need to adjust this to point to the correct option
+//                            grunt.file.expand(grunt.config.get('jasmine.alicate.src')).forEach(function (file) {
+//                                src.push('/' + file);
+//                            });
+//
+//                            middlewares.push(function (request, response, next) {
+//                                    if (src.indexOf(request.url) > -1) {
+//                                        // redirect to instrumented source
+//                                        request.url = '/.grunt/grunt-contrib-jasmine' + request.url;
+//                                    }
+//                                    return next();
+//                                }
+//                            );
+//
+//                            if (!Array.isArray(options.base)) {
+//                                options.base = [options.base];
+//                            }
+//                            options.base.forEach(function(base) {
+//                                // Serve static files.
+//                                middlewares.push(connect.static(base));
+//                            });
+//
+//                            return middlewares;
+//                        }
                     }
                 },
                 dist: {
@@ -90,12 +120,11 @@ module.exports = function (grunt) {
                     }
                 }
             },
-
             open: {
                 server: {
                     path: 'http://127.0.0.1:9001'
                 },
-                test  : {
+                test: {
                     path: 'http://127.0.0.1:9001/_SpecRunner.html'
                 }
             },
@@ -184,9 +213,25 @@ module.exports = function (grunt) {
                     options: {
                         specs: '<%= yeoman.test %>/specs/**/*.js',
                         host: 'http://127.0.0.1:9001/',
-                        template: require('grunt-template-jasmine-requirejs'),
+                        template: require('grunt-template-jasmine-istanbul'),
                         templateOptions: {
-                            requireConfigFile: '<%= yeoman.app %>/scripts/config.js'
+                            coverage: '<%= yeoman.test %>/coverage/coverage.json',
+                            report: [
+                                {
+                                    type: 'html',
+                                    options: {
+                                        dir: '<%= yeoman.test %>/coverage'
+                                    }
+                                },
+                                {
+                                    type: 'text-summary'
+                                }
+                            ],
+                            replace: false,
+                            template: require('grunt-template-jasmine-requirejs'),
+                            templateOptions: {
+                                requireConfigFile: '<%= yeoman.test %>/specs/config.js'
+                            }
                         }
                     }
                 }
@@ -230,6 +275,7 @@ module.exports = function (grunt) {
                 'connect:test',
                 'jasmine'
             ]);
+            return;
         }
 
         grunt.task.run([
@@ -241,7 +287,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'concurrent:dist',
-        'copy:dist',
+        'copy:dist'
     ]);
 
     grunt.registerTask('default', [

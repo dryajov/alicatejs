@@ -17,7 +17,7 @@ define(
          * @version 1.0
          */
         return Component.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 Component.prototype.initialize.call(this);
 
                 for (var key in this.children) {
@@ -26,7 +26,7 @@ define(
                     }
                 }
             },
-            defaults: function () {
+            defaults: function defaults() {
                 var props = Component.prototype.defaults.call(this);
 
                 $.extend(props, {
@@ -47,7 +47,7 @@ define(
              * @param {String} id - Id of the component to be added
              * @return this
              */
-            add: function (cpm, id) {
+            add: function add(cpm, id) {
                 this.children[cpm.id || id] = cpm;
                 return this;
             },
@@ -57,7 +57,7 @@ define(
              * @param {Component} cpm - The new component
              * @param {String} id - The id of the component to be replaced
              */
-            replace: function (cpm, id) {
+            replace: function replace(cpm, id) {
                 return this.add(cpm, id);
             },
             /**
@@ -65,7 +65,7 @@ define(
              *
              * @param {String} id - Id of the component to be removed
              */
-            remove: function (id) {
+            remove: function remove(id) {
                 if (this.children[id].$el) {
                     this.children[id].$el.remove();
                 }
@@ -78,7 +78,7 @@ define(
              * @param {String} id - Id of the component to retrieve
              * @returns {Component}
              */
-            get: function (id) {
+            get: function get(id) {
                 return this.children[id];
             },
             /**
@@ -86,7 +86,7 @@ define(
              *
              * @returns {Number}
              */
-            getChildrenCount: function () {
+            getChildrenCount: function getChildrenCount() {
                 return Object.keys(this.children).length;
             },
             /**
@@ -94,7 +94,7 @@ define(
              *
              * @param {Boolean} visible - Set visible/hidden
              */
-            setVisible: function (visible) {
+            setVisible: function setVisible(visible) {
                 Component.prototype.setVisible.call(this, visible);
                 for (var key in this.children) {
                     this.children[key].visible = this.visible;
@@ -107,7 +107,7 @@ define(
              * @param {MarkupIter} markupIter - A markup iterator
              * @return {void}
              */
-            bind: function (markupIter) {
+            bind: function bind(markupIter) {
                 var id, cmp,
                     $element;
 
@@ -119,7 +119,7 @@ define(
                     if (id && id.length > 0) {
                         cmp = this.get(id);
                         if (cmp) {
-                            console.log('binding element id ' + id);
+//                            console.log('binding element id ' + id);
                             this.bindComponent(cmp, $element);
                             cmp.bind(markupIter);
                         } else {
@@ -137,7 +137,7 @@ define(
              * @param {Component} cmp - The component to bind
              * @param {jQuery} $element - jQuery wrapped dom element
              */
-            bindComponent: function (cmp, $element) {
+            bindComponent: function bindComponent(cmp, $element) {
                 // if this is a function then call it,
                 // it should construct a component
                 if (typeof cmp === 'function') {
@@ -157,15 +157,12 @@ define(
             /**
              * Render the component tree
              */
-            render: function () {
-                var cmp;
-
+            render: function render() {
                 Component.prototype.render.call(this);
 
                 // run through the list of components and render them
                 for (var key in this.children) {
-                    cmp = this.children[key];
-                    cmp.render();
+                    cmp = this.children[key].render();
                 }
             }
         });

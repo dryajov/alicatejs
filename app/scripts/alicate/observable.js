@@ -17,7 +17,7 @@ define(
          * @version 1.0
          */
         return Base.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 this._subscribers = [];
             },
             /**
@@ -31,7 +31,7 @@ define(
              *
              * @param {Object} subscriber - The object to subscribe to this observable
              */
-            subscribe: function (subscriber) {
+            subscribe: function subscribe(subscriber) {
                 for (var l in this._subscribers) {
                     if (this._subscribers.hasOwnProperty(l) &&
                         this._subscribers[l] === subscriber) {
@@ -47,7 +47,7 @@ define(
              * @param {Object} listener - The object to unsubscribe
              * @returns {Function} removed listener
              */
-            unsubscribe: function (listener) {
+            unsubscribe: function unsubscribe(listener) {
                 for (var l in this._subscribers) {
                     if (this._subscribers.hasOwnProperty(l) &&
                         this._subscribers[l] === listener) {
@@ -60,7 +60,7 @@ define(
              *
              * @param {Any} data - The data to be passed to the updated subscriber
              */
-            update: function (data) {
+            update: function update(data) {
                 for (var l in this._subscribers) {
                     if (this._subscribers.hasOwnProperty(l)) {
                         this._subscribers[l](data);

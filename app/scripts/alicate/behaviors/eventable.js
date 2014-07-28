@@ -18,7 +18,7 @@ define(
          * @version 1.0
          */
         return Behavior.extend({
-            initialize: function () {
+            initialize: function initialize() {
                 if (!this.handler) {
                     throw 'handler is missing!';
                 }
@@ -41,7 +41,7 @@ define(
              *
              * @param component
              */
-            attach: function (component) {
+            attach: function attach(component) {
                 var $el = component.$el,
                     that = this;
 

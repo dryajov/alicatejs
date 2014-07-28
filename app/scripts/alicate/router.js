@@ -21,12 +21,12 @@ define(
          * @version 1.0
          */
         return {
-            mount: function (route, callback) {
+            mount: function mount(route, callback) {
                 page(route, function (ctx) {
                     callback(ctx.params);
                 });
             },
-            go: function (route) {
+            go: function go(route) {
                 page(route);
             }
         };
