@@ -9,7 +9,7 @@ define(
     function (Component, Model) {
         'use strict';
 
-        describe('Component suite', function(){
+        describe('Component suite', function () {
             describe('Component correctness', function () {
                 var component;
 
@@ -82,7 +82,7 @@ define(
                 it('Component class to throw on missing id', function () {
                     function createCmp() {
                         return new Component();
-                    };
+                    }
 
                     expect(createCmp).toThrow();
                 });

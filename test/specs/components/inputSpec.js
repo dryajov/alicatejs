@@ -83,7 +83,7 @@ define(
                 it('Input class to throw on missing id', function () {
                     function createCmp() {
                         return new Input();
-                    };
+                    }
 
                     expect(createCmp).toThrow();
                 });
@@ -92,7 +92,7 @@ define(
             describe('Input rendering', function () {
                 var model, input;
 
-                beforeEach(function(){
+                beforeEach(function () {
                     model = new Model({
                         data: 'Hello World!'
                     });

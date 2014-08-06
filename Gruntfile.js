@@ -79,37 +79,36 @@ module.exports = function (grunt) {
                             'test',
                             '<%= yeoman.app %>',
                             '.'
-                        ]
-//                        ,
-//                        middleware: function (connect, options) {
-//                            // build paths
-//                            var src = [],
-//                                middlewares = [];
-//                            // 2. get sources to be instrumented from the config
-//                            //    you may need to adjust this to point to the correct option
-//                            grunt.file.expand(grunt.config.get('jasmine.alicate.src')).forEach(function (file) {
-//                                src.push('/' + file);
-//                            });
-//
-//                            middlewares.push(function (request, response, next) {
-//                                    if (src.indexOf(request.url) > -1) {
-//                                        // redirect to instrumented source
-//                                        request.url = '/.grunt/grunt-contrib-jasmine' + request.url;
-//                                    }
-//                                    return next();
-//                                }
-//                            );
-//
-//                            if (!Array.isArray(options.base)) {
-//                                options.base = [options.base];
-//                            }
-//                            options.base.forEach(function(base) {
-//                                // Serve static files.
-//                                middlewares.push(connect.static(base));
-//                            });
-//
-//                            return middlewares;
-//                        }
+                        ],
+                        middleware: function (connect, options) {
+                            // build paths
+                            var src = [],
+                                middlewares = [];
+                            // 2. get sources to be instrumented from the config
+                            //    you may need to adjust this to point to the correct option
+                            grunt.file.expand(grunt.config.get('jasmine.alicate.src')).forEach(function (file) {
+                                src.push('/' + file);
+                            });
+
+                            middlewares.push(function (request, response, next) {
+                                    if (src.indexOf(request.url) > -1) {
+                                        // redirect to instrumented source
+                                        request.url = '/.grunt/grunt-contrib-jasmine' + request.url;
+                                    }
+                                    return next();
+                                }
+                            );
+
+                            if (!Array.isArray(options.base)) {
+                                options.base = [options.base];
+                            }
+                            options.base.forEach(function (base) {
+                                // Serve static files.
+                                middlewares.push(connect.static(base));
+                            });
+
+                            return middlewares;
+                        }
                     }
                 },
                 dist: {

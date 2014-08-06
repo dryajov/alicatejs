@@ -3,9 +3,10 @@ define(
         'alicate/base',
         'alicate/behaviors/eventable',
         'alicate/model',
-        'jquery'
+        'jquery',
+        'underscore'
     ],
-    function makeComponent(Base, Eventable, Model, $) {
+    function makeComponent(Base, Eventable, Model, $, _) {
         'use strict';
 
         /**
@@ -29,11 +30,13 @@ define(
             defaults: function defaults() {
                 return {
                     /**
-                     * @property {Behavior[]} defaultBehaviors - A list of default behaviors of the component
+                     * @property {Behavior[]} defaultBehaviors - A list of default
+                     * behaviors of the component
                      */
                     defaultBehaviors: [],
                     /**
-                     * @property {Boolean[]} allowedElements - Elements this component can attach to
+                     * @property {Boolean[]} allowedElements - Elements this component
+                     * can attach to
                      */
                     allowedElements: [],
                     /**
@@ -51,7 +54,8 @@ define(
              */
             id: '',
             /**
-             * @property {Object} $el - The html element reference that this component is attached to
+             * @property {Object} $el - The html element reference that this
+             * component is attached to
              **/
             $el: null,
             /**
@@ -59,7 +63,8 @@ define(
              */
             model: null,
             /**
-             * @property {Array} behaviors - A list of user attached behaviors associated with this component
+             * @property {Array} behaviors - A list of user attached behaviors
+             * associated with this component
              */
             behaviors: null,
             /**
@@ -124,6 +129,19 @@ define(
              */
             setProp: function setProp(prop, val) {
                 return this.properties[prop];
+            },
+            /**
+             * Callback called when the model is changing. It's
+             * triggered right before the data is being set on the
+             * model.
+             *
+             * @param newVal - the new val set on the model
+             * @param oldVal - the old value the model held
+             */
+            onModelChanging: function onModelChanging(newVal, oldVal){
+                if (!_.isEqual(newVal, oldVal)) {
+                    this.render();
+                }
             },
             /**
              * Bind event handler to component for the specified event
@@ -278,8 +296,6 @@ define(
                         this.$el.prop('disabled', !this.enabled);
                     }
                 }
-
-//                console.log('Rendered ' + this.id);
             },
             /**
              * Scan the template and attach components to html elements
@@ -307,8 +323,8 @@ define(
                         model.set(that.getValue());
                     });
 
-                    model.subscribe(function () {
-                        component.render();
+                    model.subscribe(function (newVal, oldVal) {
+                        component.onModelChanging(newVal, oldVal);
                     });
                 }
             }

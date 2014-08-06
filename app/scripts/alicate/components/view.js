@@ -25,7 +25,8 @@ define(
             },
             id: null,
             /**
-             * @property {String} template - The name of the template that this view renders
+             * @property {String} template - The name of the template
+             * that this view renders
              */
             templateName: '',
             /**

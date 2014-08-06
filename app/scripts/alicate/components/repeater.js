@@ -20,7 +20,8 @@ define(
          */
         return Container.extend({
             /**
-             * @property {jQuery} $parent - The parent of this repeated element
+             * @property {jQuery} $parent - The parent of this
+             * repeated element
              */
             $parent: null,
             /**
@@ -38,7 +39,8 @@ define(
                 return this.$parent.html();
             },
             /**
-             * @param {MarkupIter} markupIter - Called to bind this and children components to the html element
+             * @param {MarkupIter} markupIter - Called to bind this and children
+             * components to the html element
              */
             bind: function bind(markupIter) {
                 this.$parent = this.$el.parent().length
@@ -104,7 +106,8 @@ define(
              *
              * @param {Integer} itemCount - Current item number
              * @param {Any} data - A model item
-             * @param {jQuery} $domElm - jQuery wrapped dom element attached to this item
+             * @param {jQuery} $domElm - jQuery wrapped dom element
+             * attached to this item
              * @returns {Container}
              */
             makeItemObject: function makeItemObject(itemCount, data, $domElm) {

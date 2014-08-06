@@ -31,7 +31,8 @@ define(
 
                 $.extend(props, {
                     /**
-                     * @property {Object} components - List of components that have been attached to this view.
+                     * @property {Object} components - List of components
+                     * that have been attached to this view.
                      */
                     children: {}
                 });
@@ -162,7 +163,7 @@ define(
 
                 // run through the list of components and render them
                 for (var key in this.children) {
-                    cmp = this.children[key].render();
+                    this.children[key].render();
                 }
             }
         });

@@ -111,7 +111,7 @@ define(
                     it('Container class to throw on missing id', function () {
                         function createCmp() {
                             return new Container();
-                        };
+                        }
 
                         expect(createCmp).toThrow();
                     });

@@ -21,7 +21,8 @@ define(
 
                 $.extend(props, {
                     /**
-                     * @property {String[]} allowedElements - Elements this component can attach to
+                     * @property {String[]} allowedElements - Elements
+                     * this component can attach to
                      */
                     allowedElements: [
                         "input",

@@ -21,7 +21,8 @@ define(
 
                 $.extend(props, {
                     /**
-                     * @property {String[]} allowedElements - Elements this component can attach to
+                     * @property {String[]} allowedElements - Elements this
+                     * component can attach to
                      */
                     allowedElements: [
                         "div",
@@ -68,7 +69,8 @@ define(
              * Interpolate simple templates of the form {val}
              *
              * @param {String} text - The text to be interpolated
-             * @param {Object} model - An object where the prop to be interpolated is looked up
+             * @param {Object} model - An object where the prop to
+             * be interpolated is looked up
              * @returns {*|XML|string|void|Context}
              */
             interpolate: function interpolate(text, model) {

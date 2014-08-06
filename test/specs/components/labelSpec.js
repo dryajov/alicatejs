@@ -106,11 +106,11 @@ define(
 
                 it('Label to render Hello "World from alicate!"', function () {
                     var label = new Label({
-                            id: 'label',
-                            text: 'Hello World from {name}!',
-                            model: {name: 'alicate'},
-                            $el: $('<div data-aid="label">[SOME TEXT]</div>')
-                        });
+                        id: 'label',
+                        text: 'Hello World from {name}!',
+                        model: {name: 'alicate'},
+                        $el: $('<div data-aid="label">[SOME TEXT]</div>')
+                    });
 
                     label.render();
                     expect(label.getValue()).toBe('Hello World from alicate!');

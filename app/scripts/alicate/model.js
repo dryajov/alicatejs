@@ -9,7 +9,7 @@ define(
         'use strict';
 
         /**
-         * A module representing a module.
+         * A module representing a model.
          *
          * @module Model
          * @exports alicate/model
@@ -35,8 +35,9 @@ define(
              * @param {Any} value - The value to set on this model
              */
             set: function set(value) {
+                var oldVal = this.data;
                 this.data = value;
-                this.update(value);
+                this.update(value, oldVal);
             }
         });
     });

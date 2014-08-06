@@ -45,7 +45,8 @@ define(
                         "select"
                     ],
                     /**
-                     * @property {Object} components - List of components that have been attached to this view.
+                     * @property {Object} components - List of components that
+                     * have been attached to this view.
                      */
                     children: {
                         /**
