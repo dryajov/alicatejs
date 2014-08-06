@@ -157,6 +157,7 @@ define(
                 });
 
                 it('Repeater test components visible', function () {
+                    repeater.setVisible(false);
                     repeater.setVisible(true);
 
                     for (var key in repeater.children) {

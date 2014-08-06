@@ -131,6 +131,11 @@ define(
                 return this.properties[prop];
             },
             /**
+             * @property {Boolean} hasRendered - flag signaling if the model has
+             * changed since the last time the model got updated
+             */
+            hasRendered: false,
+            /**
              * Callback called when the model is changing. It's
              * triggered right before the data is being set on the
              * model.
@@ -138,10 +143,7 @@ define(
              * @param newVal - the new val set on the model
              * @param oldVal - the old value the model held
              */
-            onModelChanging: function onModelChanging(newVal, oldVal){
-                if (!_.isEqual(newVal, oldVal)) {
-                    this.render();
-                }
+            onModelChanged: function onModelChanged(newVal, oldVal){
             },
             /**
              * Bind event handler to component for the specified event
@@ -295,6 +297,8 @@ define(
                     if (this.$el.prop('disabled') !== !this.enabled) {
                         this.$el.prop('disabled', !this.enabled);
                     }
+
+                    this.hasRendered = true;
                 }
             },
             /**
@@ -323,8 +327,18 @@ define(
                         model.set(that.getValue());
                     });
 
+                    // trigger model changing callback
                     model.subscribe(function (newVal, oldVal) {
-                        component.onModelChanging(newVal, oldVal);
+                        if (!_.isEqual(newVal, oldVal)) {
+                            component.onModelChanged(newVal, oldVal);
+                        }
+                    });
+
+                    model.subscribe(function (newVal, oldVal) {
+                        if (!_.isEqual(newVal, oldVal)) {
+                            component.hasRendered = false;
+                            component.render();
+                        }
                     });
                 }
             }

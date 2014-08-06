@@ -9,7 +9,7 @@ define(
         'alicate/components/component',
         'alicate/model'
     ],
-    function makeInput(Label, Repeater, Container, Component, Model) {
+    function makeSelect(Label, Repeater, Container, Component, Model) {
         'use strict';
 
         /**
@@ -155,6 +155,12 @@ define(
                 this.selected = this.$el.val();
                 this.index = this.$el.prop('selectedIndex');
             },
+            /**
+             * Triggered when the option item is being rendered
+             *
+             * @param option - The component associated with
+             * the rendered option
+             */
             onOptionRender: function onOptionRender(option) {
             }
         });

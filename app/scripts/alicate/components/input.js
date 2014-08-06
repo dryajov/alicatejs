@@ -26,8 +26,7 @@ define(
                      */
                     allowedElements: [
                         "input",
-                        "textarea",
-                        "select"
+                        "textarea"
                     ]
                 });
 

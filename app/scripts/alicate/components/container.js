@@ -148,7 +148,8 @@ define(
 
                 cmp.$el = $element;
                 cmp.parent = this;
-                // bind the model associated with this component
+                // bind the model associated with
+                // this component
                 if (cmp.model) {
                     cmp.bindModel();
                 }
@@ -161,7 +162,8 @@ define(
             render: function render() {
                 Component.prototype.render.call(this);
 
-                // run through the list of components and render them
+                // run through the list of components
+                // and render them
                 for (var key in this.children) {
                     this.children[key].render();
                 }

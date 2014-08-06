@@ -77,8 +77,8 @@ define(
 
                 this._checkIsValidElement();
 
-                if (Array.isArray(data)) {
-                    this.$parent.html('');
+                if (Array.isArray(data) && !this.hasRendered) {
+                    this.$parent.empty();
                     // remove/detach element from the dom
                     this.$el.remove();
                     for (var prop in data) {
@@ -115,7 +115,8 @@ define(
                     id: this.id + '-' + itemCount,
                     model: new Model({data: data}),
                     $el: $domElm,
-                    parent: this
+                    parent: this,
+                    visible: this.visible
                 });
             },
             /**
