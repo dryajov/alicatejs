@@ -143,7 +143,7 @@ define(
              * @param newVal - the new val set on the model
              * @param oldVal - the old value the model held
              */
-            onModelChanged: function onModelChanged(newVal, oldVal){
+            onModelChanged: function onModelChanged(newVal, oldVal) {
             },
             /**
              * Bind event handler to component for the specified event
@@ -189,7 +189,7 @@ define(
                     }
                 } else {
                     if (this.isBound) {
-                        throw 'Element ' + this.id + ' is null!';
+                        throw 'Element ' + this.id + ' is not bound!';
                     }
                 }
             },
@@ -277,6 +277,10 @@ define(
 
                 return this.model;
             },
+            onPreRender: function onPreRender() {
+            },
+            onPostRender: function onPostRender() {
+            },
             /**
              * Render the current element
              */
@@ -284,6 +288,7 @@ define(
                 this.bindBehaviors();
 
                 if (this.$el) {
+                    this.onPreRender();
                     for (var attr in this.attributes) {
                         this.$el.attr(attr, this.attributes[attr]);
                     }
@@ -299,13 +304,17 @@ define(
                     }
 
                     this.hasRendered = true;
+                    this.onPostRender();
                 }
+            },
+            onComponentBound: function onComponentBound() {
             },
             /**
              * Scan the template and attach components to html elements
              */
             bind: function bind(markupIter) {
                 this.isBound = true;
+                this.onComponentBound();
             },
             /**
              * Bind the current model
@@ -327,17 +336,11 @@ define(
                         model.set(that.getValue());
                     });
 
-                    // trigger model changing callback
-                    model.subscribe(function (newVal, oldVal) {
-                        if (!_.isEqual(newVal, oldVal)) {
-                            component.onModelChanged(newVal, oldVal);
-                        }
-                    });
-
                     model.subscribe(function (newVal, oldVal) {
                         if (!_.isEqual(newVal, oldVal)) {
                             component.hasRendered = false;
                             component.render();
+                            component.onModelChanged(newVal, oldVal);
                         }
                     });
                 }
