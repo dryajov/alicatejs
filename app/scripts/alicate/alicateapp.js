@@ -84,9 +84,9 @@ define(
                     throw 'No template found for ' + view.templateName;
                 }
 
+                view.bind();
                 Router.mount(path, function (params) {
                     that.$el.empty();
-                    view.bind();
                     view.render();
                     that.$el.append(view.$el);
                 });
