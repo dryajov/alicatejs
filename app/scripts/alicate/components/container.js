@@ -109,18 +109,22 @@ define(
              * @return {void}
              */
             bind: function bind(markupIter) {
+                Component.prototype.bind.call(this, markupIter);
+
                 var id, cmp,
                     $element;
 
-                Component.prototype.bind.call(this, markupIter);
-                markupIter.nextNode();
+                if(!markupIter.nextNode()) {
+                    return;
+                }
+
                 do {
                     $element = $(markupIter.currentNode);
                     id = $element.data().aid;
                     if (id && id.length > 0) {
                         cmp = this.get(id);
                         if (cmp) {
-//                            console.log('binding element id ' + id);
+                            console.log('binding element id ' + id);
                             this.bindComponent(cmp, $element);
                             cmp.bind(markupIter);
                         } else {
@@ -160,13 +164,13 @@ define(
              * Render the component tree
              */
             render: function render() {
-                Component.prototype.render.call(this);
-
                 // run through the list of components
                 // and render them
                 for (var key in this.children) {
                     this.children[key].render();
                 }
+
+                Component.prototype.render.call(this);
             }
         });
     });
