@@ -3,13 +3,14 @@
  */
 define(
     [
+        'jquery',
         'alicate/components/label',
         'alicate/components/repeater',
         'alicate/components/container',
         'alicate/components/component',
         'alicate/model'
     ],
-    function makeSelect(Label, Repeater, Container, Component, Model) {
+    function makeSelect($, Label, Repeater, Container, Component, Model) {
         'use strict';
 
         /**
@@ -27,6 +28,7 @@ define(
                 this.on('change', function (event) {
                     that.selected = event.target.value;
                     that.index = event.target.index;
+                    that.render();
                 });
             },
             defaults: function defaults() {
@@ -50,9 +52,10 @@ define(
                      */
                     children: {
                         /**
-                         * The "select" tag
+                         * The "option" tag should have a data-aid with id "option"
+                         * otherwise the element wont bind correctly
                          */
-                        select: new Repeater({
+                        option: new Repeater({
                             id: that.id + '-option',
                             model: that.model,
                             defaults: function defaults() {
@@ -105,7 +108,7 @@ define(
              * @param {String} val - value to set active
              */
             setSelected: function setSelected(val) {
-                this.selectedVal = val;
+                this.selected = val;
                 this.render();
                 return this;
             },
@@ -115,7 +118,7 @@ define(
              * @returns {String}
              */
             getSelected: function getSelected() {
-                return this.selectedVal;
+                return this.selected;
             },
             /**
              * Set the current selection by index
@@ -133,12 +136,19 @@ define(
              * @override
              */
             getValue: function getValue() {
-                return this.getSelected();
+                return this.$el.val();
             },
             /**
              * @override
              */
             bindModel: function bindModel() {
+                var that = this;
+
+                if (this.model instanceof Model) {
+                    this.model.subscribe(function () {
+                        that.render();
+                    });
+                }
             },
             /**
              * @override
@@ -146,7 +156,8 @@ define(
             render: function render() {
                 Container.prototype.render.call(this);
 
-                if (null !== this.selected) {
+                if (null !== this.selected &&
+                    this.selected.length > 0) {
                     this.$el.val(this.selected);
                 } else {
                     this.$el.prop('selectedIndex', this.index);
