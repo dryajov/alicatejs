@@ -25,7 +25,7 @@ define(
              * @private
              * @type {Array}
              */
-            _subscribers: null,
+            _subscribers: [],
             /**
              * Subscribe to the current observable
              *
@@ -33,8 +33,7 @@ define(
              */
             subscribe: function subscribe(subscriber) {
                 for (var l in this._subscribers) {
-                    if (this._subscribers.hasOwnProperty(l) &&
-                        this._subscribers[l] === subscriber) {
+                    if (this._subscribers[l] === subscriber) {
                         return;
                     }
                 }
@@ -60,11 +59,10 @@ define(
              *
              * @param {Any} data - The data to be passed to the updated subscriber
              */
-            update: function update(data) {
+            update: function update(data, oldData) {
                 for (var l in this._subscribers) {
-                    if (this._subscribers.hasOwnProperty(l)) {
-                        this._subscribers[l](data);
-                    }
+                    console.log('Triggering update!');
+                    this._subscribers[l](data, oldData);
                 }
             }
         });
