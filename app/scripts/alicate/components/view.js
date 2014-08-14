@@ -37,7 +37,6 @@ define(
                 this.$el = $('<div/>').append(this.template);
                 Container.prototype.bind.call(this,
                     Markupiter.createMarkupIter(this.$el[0]));
-
             },
             /**
              * Render the component tree
