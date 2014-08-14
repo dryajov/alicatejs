@@ -67,7 +67,7 @@ define(
             bindComponent: function bindComponent(component, $element) {
             },
             /**
-             * Render the current component
+             * Render the component
              */
             render: function render() {
                 var data = this.getModelData(),
@@ -77,19 +77,21 @@ define(
 
                 this._checkIsValidElement();
 
-                if (Array.isArray(data) && !this.hasRendered) {
-                    this.$parent.empty();
-                    // remove/detach element from the dom
-                    this.$el.remove();
-                    for (var prop in data) {
-                        $domElm = this.$el.clone();
-                        item = this.makeItemObject(itemCount, data[prop], $domElm);
-                        this.bindItemObject(item, $domElm);
-                        this.$parent.append($domElm);
-                        itemCount++;
+                if (data) {
+                    if (Array.isArray(data) && !this.hasRendered) {
+                        this.$parent.empty();
+                        // remove/detach element from the dom
+                        this.$el.remove();
+                        for (var prop in data) {
+                            $domElm = this.$el.clone();
+                            item = this.makeItemObject(itemCount, data[prop], $domElm);
+                            this.bindItemObject(item, $domElm);
+                            this.$parent.append($domElm);
+                            itemCount++;
+                        }
+                    } else {
+                        throw 'Model should return an Array!';
                     }
-                } else {
-                    throw 'Model should return an Array!';
                 }
 
                 if (!this.isVisible()) {
