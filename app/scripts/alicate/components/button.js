@@ -18,10 +18,8 @@ define(
          * @version 1.0
          */
         return Label.extend({
-            defaults: function defaults() {
-                var props = Label.prototype.defaults.call(this);
-
-                $.extend(props, {
+            instanceData: function instanceData() {
+                return {
                     /**
                      * @property {String[]} allowedElements - Elements this
                      * component can attach to
@@ -30,9 +28,7 @@ define(
                         "button",
                         "input"
                     ]
-                });
-
-                return props;
+                };
             },
             /**
              * @property {Boolean} - Should the component be enabled/disabled

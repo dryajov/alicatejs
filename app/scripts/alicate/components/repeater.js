@@ -4,10 +4,11 @@
 define(
     [
         'alicate/components/container',
+        'alicate/components/component',
         'alicate/markupiter',
         'alicate/model'
     ],
-    function makeRepeater(Container, Markupiter, Model) {
+    function makeRepeater(Container, Component, Markupiter, Model) {
         'use strict';
 
         /**
@@ -18,7 +19,16 @@ define(
          * @extends Container
          * @version 1.0
          */
-        return Container.extend({
+        return Component.extend({
+            instanceData: function instanceData() {
+                return {
+                    /**
+                     * @property {Object} components - List of components
+                     * that have been attached to this view.
+                     */
+                    _children: []
+                };
+            },
             /**
              * @property {jQuery} $parent - The parent of this
              * repeated element
@@ -71,34 +81,42 @@ define(
              */
             render: function render() {
                 var data = this.getModelData(),
-                    $domElm,
                     itemCount = 0,
-                    item;
+                    $domElm = $('<div/>');
 
                 this._checkIsValidElement();
 
                 if (data) {
-                    if (Array.isArray(data) && !this.hasRendered) {
-                        this.$parent.empty();
-                        // remove/detach element from the dom
-                        this.$el.remove();
-                        for (var prop in data) {
-                            $domElm = this.$el.clone();
-                            item = this.makeItemObject(itemCount, data[prop], $domElm);
-                            this.bindItemObject(item, $domElm);
-                            this.$parent.append($domElm);
-                            itemCount++;
+                    if (Array.isArray(data)) {
+                        if (!this.hasRendered) {
+                            this.$parent.empty();
+                            // remove/detach element from the dom
+                            this.$el.remove();
+                            for (var prop in data) {
+                                $domElm.append(this.itemRender(itemCount, data[prop]));
+                                itemCount++;
+                            }
+                            this.$parent.append($domElm.children());
                         }
                     } else {
                         throw 'Model should return an Array!';
                     }
                 }
 
-                if (!this.isVisible()) {
-                    this.$el && this.$el.hide();
-                } else {
-                    this.$el && this.$el.show();
-                }
+                Container.prototype.render.call(this);
+            },
+            /**
+             *
+             * @param itemCount
+             * @param data
+             */
+            itemRender: function itemRender(itemCount, data) {
+                var $domElm, item;
+
+                $domElm = this.$el.clone();
+                item = this.makeItemObject(itemCount, data, $domElm);
+                this.bindItemObject(item, $domElm);
+                return $domElm;
             },
             /**
              * Make an item object.
@@ -118,7 +136,7 @@ define(
                     model: new Model({data: data}),
                     $el: $domElm,
                     parent: this,
-                    visible: this.visible
+                    visible: this.isVisible()
                 });
             },
             /**
@@ -132,7 +150,10 @@ define(
                 item.bind(Markupiter.createMarkupIter($domElm[0]));
                 item.bindModel();
                 item.render();
-                this.children[item.id] = item;
+                this._children.push(item);
+            },
+            addItem: function addItemObject(data) {
+                this.$parent.append(this.itemRender(this._children.length, data));
             },
             /**
              * Called when a repeated item is rendered, override this method

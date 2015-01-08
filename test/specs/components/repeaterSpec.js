@@ -46,10 +46,6 @@ define(
                     expect(container.defaultBehaviors).toBeDefined();
                 });
 
-                it('Repeater to have components defined', function () {
-                    expect(container.children).toBeDefined();
-                });
-
                 it('Repeater to have getMarkup defined', function () {
                     expect(typeof container.getMarkup).toBe('function');
                 });
@@ -86,22 +82,6 @@ define(
                     expect(typeof container.bindModel).toBe('function');
                 });
 
-                it('Repeater to have add defined', function () {
-                    expect(typeof container.add).toBe('function');
-                });
-
-                it('Repeater to have replace defined', function () {
-                    expect(typeof container.replace).toBe('function');
-                });
-
-                it('Repeater to have get defined', function () {
-                    expect(typeof container.get).toBe('function');
-                });
-
-                it('Repeater to have getChildrenCount defined', function () {
-                    expect(typeof container.getChildrenCount).toBe('function');
-                });
-
                 it('Repeater to have bind defined', function () {
                     expect(typeof container.bind).toBe('function');
                 });
@@ -127,7 +107,7 @@ define(
                         id: 'test-container',
                         $el: $('<div data-aid=test-container></div>'),
                         $parent: $('<div></div>'),
-                        model: [1],
+                        model: [1, 2, 3],
                         onItemRender: function (item) {
                             item.add(new Component({
                                 id: 'test',

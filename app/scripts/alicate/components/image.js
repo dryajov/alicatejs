@@ -21,10 +21,8 @@ define(
                     throw 'src is missing!';
                 }
             },
-            defaults: function defaults() {
-                var props = Component.prototype.defaults.call(this);
-
-                $.extend(props, {
+            instanceData: function instanceData() {
+                return {
                     /**
                      * A list of allowed html element selectors that this component
                      * can attach to
@@ -35,9 +33,7 @@ define(
                     allowedElements: [
                         "img"
                     ]
-                });
-
-                return props;
+                };
             },
             /**
              * The text to be rendered

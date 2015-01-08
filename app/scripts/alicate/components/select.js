@@ -31,11 +31,10 @@ define(
                     that.render();
                 });
             },
-            defaults: function defaults() {
-                var props = Container.prototype.defaults.call(this),
-                    that = this;
+            instanceData: function instanceData() {
+                var that = this;
 
-                return $.extend(props, {
+                return {
                     /**
                      * A list of allowed html element selectors that this component
                      * can attach to
@@ -50,15 +49,15 @@ define(
                      * @property {Object} components - List of components that
                      * have been attached to this view.
                      */
-                    children: {
-                        /**
-                         * The "option" tag should have a data-aid with id "option"
-                         * otherwise the element wont bind correctly
-                         */
-                        option: new Repeater({
+                    children: [
+                    /**
+                     * The "option" tag should have a data-aid with id "option"
+                     * otherwise the element wont bind correctly
+                     */
+                        new Repeater({
                             id: that.id + '-option',
                             model: that.model,
-                            defaults: function defaults() {
+                            instanceData: function instanceData() {
                                 return {
                                     allowedElements: [
                                         "option"
@@ -89,10 +88,8 @@ define(
                                 }
                             }
                         })
-                    }
-                });
-
-                return props;
+                    ]
+                };
             },
             /**
              * @property {String} - The currently selected value

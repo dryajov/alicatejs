@@ -16,12 +16,12 @@ define(
          * @constructor
          */
         var Base = function BaseConstructor(values) {
-                var defaults = {},
-                    classDefaults = typeof this.defaults === 'function'
-                        ? this.defaults.call(values) : this.defaults;
+                var instanceData = {},
+                    classDefaults = typeof this.instanceData === 'function'
+                        ? _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
 
-                $.extend(true, defaults, classDefaults, values);
-                this.defaults = defaults;
+                $.extend(true, instanceData, classDefaults, values);
+                this.instanceData = instanceData;
 
                 if (!this.initialize) {
                     /**
@@ -32,7 +32,7 @@ define(
                     };
                 }
 
-                $.extend(true, this, this.defaults);
+                $.extend(true, this, this.instanceData);
 
                 this.initialize.apply(this);
                 return this;
@@ -86,6 +86,18 @@ define(
 
                 return child;
 
+            },
+            _reverseProtoChain = function _reverseProtoChain(obj, method, args) {
+                var proto = Object.getPrototypeOf(obj),
+                    result = {};
+                if (proto) {
+                    result = _reverseProtoChain(proto, method, args);
+                    if (obj.hasOwnProperty(method)) {
+                        result = $.extend(true, result, obj[method].call(args));
+                    }
+                }
+
+                return result;
             };
 
         /**

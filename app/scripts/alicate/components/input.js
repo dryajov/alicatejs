@@ -16,10 +16,8 @@ define(
          * @version 1.0
          */
         return Component.extend({
-            defaults: function defaults() {
-                var props = Component.prototype.defaults.call(this);
-
-                $.extend(props, {
+            instanceData: function instanceData() {
+                return {
                     /**
                      * @property {String[]} allowedElements - Elements
                      * this component can attach to
@@ -28,9 +26,7 @@ define(
                         "input",
                         "textarea"
                     ]
-                });
-
-                return props;
+                };
             },
             /**
              * Get the value of this html element

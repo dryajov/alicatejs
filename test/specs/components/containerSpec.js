@@ -121,13 +121,13 @@ define(
                     var container;
 
                     beforeEach(function () {
-                        var components = {};
+                        var components = [];
 
                         for (var num in [1, 2, 3]) {
-                            components['test' + num] = new Component({
+                            components.push(new Component({
                                 id: 'test' + num,
                                 $el: $('<div data-aid="test"' + num + '>some text</div>')
-                            });
+                            }));
                         }
 
                         container = new Container({

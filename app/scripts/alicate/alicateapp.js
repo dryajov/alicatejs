@@ -20,7 +20,6 @@ define(
          * It allows mounting {@link View}'s on desired paths
          * and provides a way to bind the application to a particular element in the dom,
          * using a css selector.
-         *
          * <p>
          *
          * @example
@@ -84,8 +83,8 @@ define(
                     throw 'No template found for ' + view.templateName;
                 }
 
-                view.bind();
                 Router.mount(path, function (params) {
+                    view.bind();
                     that.$el.empty();
                     view.render();
                     that.$el.append(view.$el);

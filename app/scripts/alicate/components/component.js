@@ -27,7 +27,7 @@ define(
                     throw 'Missing id!'
                 }
             },
-            defaults: function defaults() {
+            instanceData: function instanceData() {
                 return {
                     /**
                      * @property {Behavior[]} defaultBehaviors - A list of default
@@ -40,11 +40,11 @@ define(
                      */
                     allowedElements: [],
                     /**
-                     * @property {Object} attributes - List of attributes of this component
+                     * @property {Object} attributes - Map of attributes of this component
                      */
                     attributes: {},
                     /**
-                     * @property {Object} property - List of properties of this component
+                     * @property {Object} property - Map of properties of this component
                      */
                     properties: {}
                 }
@@ -136,7 +136,7 @@ define(
              */
             hasRendered: false,
             /**
-             * Callback called when the model is changing. It's
+             * Callback called when the model has changed. It's
              * triggered right before the data is being set on the
              * model.
              *
@@ -208,7 +208,7 @@ define(
              */
             setVisible: function setVisible(visible) {
                 if (this.$el) {
-                    if (this.visible != visible) {
+                    if (this.isVisible() != visible) {
                         this.visible = visible;
                         this.render();
                     }
@@ -326,7 +326,7 @@ define(
                     event = 'change.' + this.id,
                     that = this;
 
-                if (!$el) {
+                if (!$el || !this.model) {
                     return;
                 }
 

@@ -26,18 +26,14 @@ define(
                     }
                 }
             },
-            defaults: function defaults() {
-                var props = Component.prototype.defaults.call(this);
-
-                $.extend(props, {
+            instanceData: function instanceData() {
+                return {
                     /**
                      * @property {Object} components - List of components
                      * that have been attached to this view.
                      */
-                    children: {}
-                });
-
-                return props;
+                    children: []
+                };
             },
             /**
              * Add a component to the view. Components that are not added explicitly
@@ -48,18 +44,24 @@ define(
              * @param {String} id - Id of the component to be added
              * @return this
              */
-            add: function add(cpm, id) {
-                this.children[cpm.id || id] = cpm;
+            add: function add(cpm) {
+                this.children.push(cpm);
                 return this;
             },
             /**
              * Replace a component with another component
              *
-             * @param {Component} cpm - The new component
+             * @param {Component} cmp - The new component
              * @param {String} id - The id of the component to be replaced
              */
-            replace: function replace(cpm, id) {
-                return this.add(cpm, id);
+            replace: function replace(newCmp, id) {
+                for (var cpm in this.children) {
+                    if (this.children[cpm].id === id) {
+                        var oldCmp = this.children[cpm];
+                        this.children[cpm] = newCmp;
+                        return oldCmp;
+                    }
+                }
             },
             /**
              * Removes a component from this container
@@ -67,11 +69,16 @@ define(
              * @param {String} id - Id of the component to be removed
              */
             remove: function remove(id) {
-                if (this.children[id].$el) {
-                    this.children[id].$el.remove();
-                }
+                for (var cpm in this.children) {
+                    if (this.children[cpm].id === id) {
 
-                delete this.children[id];
+                        if (this.isBound) {
+                            this.$el.remove(this.children[cpm]);
+                        }
+
+                        delete this.children[cpm];
+                    }
+                }
             },
             /**
              * Get a component by id
@@ -80,7 +87,30 @@ define(
              * @returns {Component}
              */
             get: function get(id) {
-                return this.children[id];
+                for (var cpm in this.children) {
+                    if (this.children[cpm].id === id) {
+                        return this.children[cpm];
+                    }
+                }
+                return null;
+            },
+            append: function append(cmp) {
+                if (this.isBound) {
+                    this.add(cmp);
+                    this.$el.append(cmp.$el);
+                    this.render();
+                } else {
+                    throw "Element not bound, can't append!";
+                }
+            },
+            preppend: function preppend(cmp) {
+                if (this.isBound) {
+                    this.add(cmp);
+                    this.$el.preppend(cmp.$el);
+                    this.render();
+                } else {
+                    throw "Element not bound, can't preppend!"
+                }
             },
             /**
              * Get the number of children components
@@ -114,7 +144,7 @@ define(
                 var id, cmp,
                     $element;
 
-                if(!markupIter.nextNode()) {
+                if (!markupIter.nextNode()) {
                     return;
                 }
 
@@ -154,9 +184,7 @@ define(
                 cmp.parent = this;
                 // bind the model associated with
                 // this component
-                if (cmp.model) {
-                    cmp.bindModel();
-                }
+                cmp.bindModel();
 
                 cmp.bindBehaviors();
             },
