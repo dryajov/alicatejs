@@ -3,7 +3,7 @@
  */
 define(
     [],
-    function () {
+    function markupIterFactory() {
         'use strict';
 
         /**

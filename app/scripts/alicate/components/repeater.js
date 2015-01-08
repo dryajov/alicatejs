@@ -57,6 +57,9 @@ define(
                     ? this.$el.parent()
                     : $('<div/>');
 
+                this.skipNodes(markupIter, markupIter.currentNode);
+            },
+            skipNodes: function skipNodes(markupIter, lastNode) {
                 // Get the next sibling or go up to the
                 // parent and get positioned on the next
                 // sibling
@@ -64,9 +67,11 @@ define(
                     markupIter.previousNode();
                 } else {
                     markupIter.lastChild();
+                    if (lastNode == markupIter.currentNode) {
+                        return;
+                    }
+                    this.skipNodes(markupIter, markupIter.currentNode);
                 }
-
-                return;
             },
             /**
              * Bind the component to the html element
