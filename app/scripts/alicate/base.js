@@ -11,6 +11,7 @@ define(
         /**
          * Prototype object
          *
+         * @module Base
          * @param values
          * @returns {makeBase.BaseConstructor}
          * @constructor

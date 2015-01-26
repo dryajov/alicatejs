@@ -32,6 +32,7 @@ define(
          *
          * @module AlicateApp
          * @extends Base
+         * @type {object}
          * @exports alicate/alicateapp
          * @version 1.0
          */
@@ -68,10 +69,10 @@ define(
              */
             templateStore: null,
             /**
-             * Associate a view with a path
+             * Associate a view with a route
              *
              * @param {String} path
-             * @param {view} view
+             * @param {View} view
              * @return {app} Returns this app
              */
             mount: function mount(path, view) {
@@ -83,6 +84,7 @@ define(
                     throw 'No template found for ' + view.templateName;
                 }
 
+                view.isMounted = true;
                 Router.mount(path, function (params) {
                     view.bind();
                     that.$el.empty();

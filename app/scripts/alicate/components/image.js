@@ -45,7 +45,7 @@ define(
             /**
              * Render the text into the attached html element
              *
-             * @return {Object}  this object
+             * @return {this}  this object
              */
             render: function render() {
                 this._checkIsValidElement();

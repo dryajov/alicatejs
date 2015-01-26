@@ -10,7 +10,7 @@ define(
         'use strict';
 
         /**
-         * A module representing a eventable
+         * A module representing a event behavior (hence eventable).
          *
          * @module Eventable
          * @exports alicate/behaviors/eventable

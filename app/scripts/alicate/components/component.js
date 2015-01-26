@@ -24,7 +24,7 @@ define(
                 }
 
                 if (!this.id || (this.id && this.id.length < 1)) {
-                    throw 'Missing id!'
+                    throw 'Missing id!';
                 }
             },
             instanceData: function instanceData() {
@@ -184,8 +184,8 @@ define(
                 if (this.$el) {
                     if (!this.$el.is(this.allowedElements.join(','))) {
                         throw 'Component ' + this.id +
-                            ' is not allowed to attach to ' +
-                            this.$el.prop("tagName") + ' tag';
+                        ' is not allowed to attach to ' +
+                        this.$el.prop("tagName") + ' tag';
                     }
                 } else {
                     if (this.isBound) {
@@ -210,6 +210,7 @@ define(
                 if (this.$el) {
                     if (this.isVisible() != visible) {
                         this.visible = visible;
+                        console.log("setting component id: " + this.id + " to visible: " + this.visible);
                         this.render();
                     }
                 }

@@ -16,7 +16,7 @@ define(
          * @extends Component
          * @version 1.0
          */
-        return Component.extend({
+        var Container = Component.extend({
             initialize: function initialize() {
                 Component.prototype.initialize.call(this);
 
@@ -127,10 +127,18 @@ define(
              */
             setVisible: function setVisible(visible) {
                 Component.prototype.setVisible.call(this, visible);
+
+                if (this.isBound) {
+                    this.render();
+                }
+            },
+            _updateVisiblity: function _updateVisiblity() {
                 for (var key in this.children) {
                     this.children[key].visible = this.visible;
+                    if (this.children[key] instanceof Container) {
+                        this.children[key]._updateVisiblity();
+                    }
                 }
-                this.render();
             },
             /**
              * Scan the template and attach components to html elements
@@ -182,16 +190,18 @@ define(
 
                 cmp.$el = $element;
                 cmp.parent = this;
-                // bind the model associated with
-                // this component
-                cmp.bindModel();
 
+                cmp.bindModel();
                 cmp.bindBehaviors();
             },
             /**
              * Render the component tree
              */
             render: function render() {
+                if(this._updateVisiblity) {
+                    this._updateVisiblity();
+                }
+
                 // run through the list of components
                 // and render them
                 for (var key in this.children) {
@@ -201,4 +211,6 @@ define(
                 Component.prototype.render.call(this);
             }
         });
+
+        return Container;
     });

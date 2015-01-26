@@ -17,7 +17,7 @@ define(
          */
         return Base.extend({
             /**
-             * @property {String} id - Any arbitrary identifier for this behavior
+             * @property {String} id -   Any arbitrary identifier for this behavior
              */
             id: '',
             /**

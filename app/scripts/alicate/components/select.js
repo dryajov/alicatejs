@@ -123,7 +123,7 @@ define(
              * @param {Integer} index - Current index to be selected
              */
             setSelectedByIndex: function setSelectedByIndex(index) {
-                this.$el.prop('selectedIndex', 1);
+                this.$el.prop('selectedIndex', index ? index : 1);
                 this.index = index;
                 this.selected = this.$el.val();
                 this.render();
@@ -161,7 +161,11 @@ define(
                 }
 
                 this.selected = this.$el.val();
-                this.index = this.$el.prop('selectedIndex');
+
+                // initially the index may get to -1,
+                // when the options are not completely rendered
+                this.index = this.$el.prop('selectedIndex') < 0 ? 0
+                    : this.$el.prop('selectedIndex');
             },
             /**
              * Triggered when the option item is being rendered
@@ -170,6 +174,8 @@ define(
              * the rendered option
              */
             onOptionRender: function onOptionRender(option) {
-            }
+            },
+            getOptionValue: null,
+            getOptionText: null
         });
     });

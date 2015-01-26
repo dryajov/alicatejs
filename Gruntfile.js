@@ -187,11 +187,13 @@ module.exports = function (grunt) {
                 }
             },
 
-            jsdoc: {
-                dist: {
+            jsdoc : {
+                dist : {
                     src: ['<%= yeoman.app %>/scripts/**/*.js', '<%= yeoman.test %>/specs/**/*.js'],
                     options: {
-                        destination: '<%= yeoman.dist %>/doc'
+                        destination: '<%= yeoman.dist %>/doc',
+                        template : "node_modules/grunt-jsdoc/node_modules/ink-docstrap/template",
+                        configure : "jsdoc.conf.json"
                     }
                 }
             },
