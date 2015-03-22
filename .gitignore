@@ -2,11 +2,5 @@ node_modules
 dist
 .tmp
 .sass-cache
-.idea
-.grunt
-*.iml
-_SpecRunner.html
-atlassian-ide-plugin.xml
 app/bower_components
-test/bower_components
-
+.DS_Store
