@@ -1,9 +1,9 @@
-var Base = require('alicate/base'),
-    Eventable = require('alicate/behaviors/eventable'),
-    Model = require('alicate/model'),
+var Base = require('../base'),
+    Eventable = require('../behaviors/eventable').eventable,
+    Model = require('../model').model,
     _ = require('underscore');
 
-exports.component = function () {
+module.exports = function component() {
     'use strict';
 
     /**

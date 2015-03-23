@@ -1,7 +1,7 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
-var Base = require('alicate/base');
+var Base = require('../../alicate/base');
 
 exports.behavior = function () {
     'use strict';

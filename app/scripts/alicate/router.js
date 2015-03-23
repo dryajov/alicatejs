@@ -6,7 +6,7 @@
  * @exports alicate/router
  */
 
-exports.router = function () {
+module.exports = function router() {
     'use strict';
 
     /**

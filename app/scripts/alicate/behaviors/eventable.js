@@ -1,9 +1,9 @@
 /**
  * Created by dmitriy.ryajov on 7/16/14.
  */
-var Behavior = require('alicate/behaviors/behavior');
+var Behavior = require('./behavior');
 
-exports.clickable = function () {
+exports.eventable = function () {
     'use strict';
 
     /**

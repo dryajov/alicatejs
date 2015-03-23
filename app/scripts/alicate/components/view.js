@@ -1,10 +1,10 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
-var Container = require('alicate/components/container'),
-    Markupiter = require('alicate/markupiter');
+var Container = require('./container'),
+    Markupiter = require('../markupiter');
 
-exports.View = function () {
+module.exports = function view() {
     'use strict';
 
     /**

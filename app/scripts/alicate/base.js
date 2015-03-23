@@ -2,17 +2,17 @@
  * Created by dmitriy.ryajov on 6/26/14.
  */
 
-exports.Base = Base;
+module.exports = Base;
 
 /**
  * Prototype object
  *
  * @module Base
  * @param values
- * @returns {makeBase.BaseConstructor}
+ * @returns {Base}
  * @constructor
  */
-var Base = function BaseConstructor(values) {
+var Base = function (values) {
         'use strict';
 
         var instanceData = {},

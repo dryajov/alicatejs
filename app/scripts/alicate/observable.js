@@ -2,7 +2,7 @@
  * Created by dmitriy.ryajov on 6/26/14.
  */
 
-var Base = require('alicate/base');
+var Base = require('./base');
 
 /**
  * A module representing an observable
@@ -12,7 +12,7 @@ var Base = require('alicate/base');
  * @extends Base
  * @version 1.0
  */
-exports.observable = function() {
+module.exports = function observable() {
     'use strict';
 
     return Base.extend({

@@ -2,12 +2,12 @@
  * Created by dmitriy.ryajov on 6/25/14.
  */
 
-var Container = require('alicate/components/container'),
-    Component = require('alicate/components/component'),
-    Markupiter = require('alicate/markupiter'),
-    Model = require('alicate/model');
+var Container = require('./container'),
+    Component = require('./component'),
+    Markupiter = require('../markupiter'),
+    Model = require('../model');
 
-exports.repeater = function () {
+module.exports = function repeater() {
     'use strict';
 
     /**

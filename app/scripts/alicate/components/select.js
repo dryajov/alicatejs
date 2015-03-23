@@ -1,13 +1,12 @@
 /**
  * Created by dmitriy.ryajov on 7/18/14.
  */
-var Label = require('alicate/components/label'),
-    Repeater = require('alicate/components/repeater'),
-    Container = require('alicate/components/container'),
-    Component = require('alicate/components/component'),
-    Model = require('alicate/model');
+var Repeater = require('./repeater'),
+    Container = require('./container'),
+    Component = require('./component'),
+    Model = require('../model');
 
-exports.select = function () {
+module.exports = function select() {
     'use strict';
 
     /**

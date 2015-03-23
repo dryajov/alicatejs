@@ -2,9 +2,9 @@
  * Created by dmitriy.ryajov on 7/2/14.
  */
 
-var observable = require('alicate/observable');
+var Observable = require('./observable');
 
-exports.model = function() {
+module.exports = function model() {
     'use strict';
 
     /**

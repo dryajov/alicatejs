@@ -2,10 +2,10 @@
  * Created by dmitriy.ryajov on 7/15/14.
  */
 
-var Label = require('alicate/components/label'),
-    Component = 'alicate/components/component';
+var Label = require('./label'),
+    Component = require('./component');
 
-exports.button = function () {
+module.exports = function button() {
     'use strict';
 
     /**

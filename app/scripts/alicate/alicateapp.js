@@ -1,12 +1,12 @@
 /**
  * Created by dmitriy.ryajov on 6/26/14.
  */
-var Router = require('alicate/router'),
-    Base = require('alicate/base'),
-    View = require('alicate/components/view');
+var Router = require('./router'),
+    Base = require('./base'),
+    View = require('./components/view');
 
 
-exports.AlicateApp = function () {
+module.exports = function AlicateApp() {
     'use strict';
 
     /**

@@ -1,9 +1,9 @@
 /**
  * Created by dmitriy.ryajov on 6/30/14.
  */
-var Component = require('alicate/components/component');
+var Component = require('./component');
 
-exports.container = function () {
+module.exports = function container() {
     'use strict';
 
     /**

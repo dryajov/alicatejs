@@ -1,9 +1,9 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
-var Component = require('alicate/components/component');
+var Component = require('./component');
 
-exports.label = function () {
+module.exports = function label() {
     'use strict';
 
     /**

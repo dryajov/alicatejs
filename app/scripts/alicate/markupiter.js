@@ -1,7 +1,7 @@
 /**
  * Created by dmitriy.ryajov on 7/15/14.
  */
-exports.markupIterFactory = function markupIterFactory() {
+module.exports = function markupIterFactory() {
     'use strict';
 
     /**
