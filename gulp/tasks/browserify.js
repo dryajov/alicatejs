@@ -34,6 +34,18 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest(config.dist + '/scripts/'));
 });
 
+
+// Browserify
+gulp.task('browserify', function() {
+    return browserify({debug: true})
+        .add(__dirname + '/../../test/specs/specs.js')
+        .transform(partialify) // Transform to allow requireing of templates
+        .bundle()
+        .pipe(source('specs.js'))
+        .pipe(gulp.dest(config.dist + '/test/'));
+});
+
+
 // Script Dist
 gulp.task('scripts:dist', function() {
   return gulp.src(['dist/scripts/*.js'], {base: 'dist'})

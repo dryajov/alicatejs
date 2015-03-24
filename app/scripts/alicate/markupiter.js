@@ -1,8 +1,10 @@
 /**
  * Created by dmitriy.ryajov on 7/15/14.
  */
+
+'use strict';
+
 module.exports = function markupIterFactory() {
-    'use strict';
 
     /**
      * A module representing an markup iterator

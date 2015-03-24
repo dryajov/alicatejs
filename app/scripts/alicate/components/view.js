@@ -1,21 +1,21 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
+
+'use strict';
+
 var Container = require('./container'),
     Markupiter = require('../markupiter');
 
-module.exports = function view() {
-    'use strict';
-
-    /**
-     * A module representing a view
-     *
-     * @module View
-     * @exports alicate/components/view
-     * @extends Container
-     * @version 1.0
-     */
-    return Container.extend({
+/**
+ * A module representing a view
+ *
+ * @module View
+ * @exports alicate/components/view
+ * @extends Container
+ * @version 1.0
+ */
+module.exports = Container.extend({
         initialize: function initialize() {
             // this is needed to override components require id constraint
         },
@@ -87,4 +87,3 @@ module.exports = function view() {
             return;
         }
     });
-};

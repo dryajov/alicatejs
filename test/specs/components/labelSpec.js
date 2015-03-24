@@ -4,7 +4,8 @@
 
 'use strict';
 
-var Label = require('../../../app/scripts/alicate/components/label');
+var Label = require('../../../app/scripts/alicate/components/label'),
+    $ = require('jquery');
 
 describe('Label suite', function () {
 

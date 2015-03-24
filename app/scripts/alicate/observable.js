@@ -1,6 +1,7 @@
 /**
  * Created by dmitriy.ryajov on 6/26/14.
  */
+'use strict';
 
 var Base = require('./base');
 
@@ -12,10 +13,7 @@ var Base = require('./base');
  * @extends Base
  * @version 1.0
  */
-module.exports = function observable() {
-    'use strict';
-
-    return Base.extend({
+module.exports = Base.extend({
         initialize: function initialize() {
             this._subscribers = [];
         },
@@ -65,4 +63,3 @@ module.exports = function observable() {
             }
         }
     });
-};

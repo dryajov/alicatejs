@@ -5,7 +5,8 @@
 'use strict';
 
 var Component = require('../../../app/scripts/alicate/components/component'),
-    Model = require('../../../app/scripts/alicate/model');
+    Model = require('../../../app/scripts/alicate/model'),
+    $ = require('jquery');
 
 describe('Component suite', function () {
     describe('Component correctness', function () {

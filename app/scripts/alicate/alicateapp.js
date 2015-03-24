@@ -1,40 +1,38 @@
 /**
  * Created by dmitriy.ryajov on 6/26/14.
  */
+'use strict';
+
 var Router = require('./router'),
     Base = require('./base'),
     View = require('./components/view');
 
-
-module.exports = function AlicateApp() {
-    'use strict';
-
-    /**
-     * A module representing an alicate application
-     *
-     * <p>
-     * This module provides an entry point to your alicate applications.
-     *
-     * It allows mounting {@link View}'s on desired paths
-     * and provides a way to bind the application to a particular element in the dom,
-     * using a css selector.
-     * <p>
-     *
-     * @example
-     * var app = new AlicateApp({
+/**
+ * A module representing an alicate application
+ *
+ * <p>
+ * This module provides an entry point to your alicate applications.
+ *
+ * It allows mounting {@link View}'s on desired paths
+ * and provides a way to bind the application to a particular element in the dom,
+ * using a css selector.
+ * <p>
+ *
+ * @example
+ * var app = new AlicateApp({
      *                  templateStore: templates,
      *                  $selector: '#selector'
      *              });
-     *
-     *  return app.mount('/link1', new MyView());
-     *
-     * @module AlicateApp
-     * @extends Base
-     * @type {object}
-     * @exports alicate/alicateapp
-     * @version 1.0
-     */
-    return Base.extend({
+ *
+ *  return app.mount('/link1', new MyView());
+ *
+ * @module AlicateApp
+ * @extends Base
+ * @type {object}
+ * @exports alicate/alicateapp
+ * @version 1.0
+ */
+module.exports = Base.extend({
         initialize: function initialize() {
             this.$el = $(this.$selector);
 
@@ -102,4 +100,3 @@ module.exports = function AlicateApp() {
             Router.go(route || this.index);
         }
     });
-};

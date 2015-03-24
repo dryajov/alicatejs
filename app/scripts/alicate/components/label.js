@@ -1,19 +1,20 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
+
+'use strict';
+
 var Component = require('./component');
 
-module.exports = function label() {
-    'use strict';
+/**
+ * A module representing a label
+ *
+ * @module Label
+ * @exports alicate/components/label
+ * @version 1.0
+ */
 
-    /**
-     * A module representing a label
-     *
-     * @module Label
-     * @exports alicate/components/label
-     * @version 1.0
-     */
-    return Component.extend({
+module.exports = Component.extend({
         instanceData: function instanceData() {
             return {
                 /**
@@ -76,4 +77,3 @@ module.exports = function label() {
             );
         }
     });
-};

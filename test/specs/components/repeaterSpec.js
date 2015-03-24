@@ -7,7 +7,8 @@
 var Repeater = require('../../../app/scripts/alicate/components/repeater'),
     Component = require('../../../app/scripts/alicate/components/component'),
     Label = require('../../../app/scripts/alicate/components/label'),
-    Model = require('../../../app/scripts/alicate/model');
+    Model = require('../../../app/scripts/alicate/model'),
+    $ = require('jquery');
 
 describe('Repeater suite', function () {
     describe('Repeater correctness', function () {

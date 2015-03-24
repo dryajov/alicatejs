@@ -1,10 +1,12 @@
 /**
  * Created by dmitriy.ryajov on 7/8/14.
  */
+
 'use strict';
 
 var Input = require('../../../app/scripts/alicate/components/input'),
-    Model = require('../../../app/scripts/alicate/model');
+    Model = require('../../../app/scripts/alicate/model'),
+    $ = require('jquery');
 
 describe('Input suite', function () {
 

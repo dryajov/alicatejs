@@ -5,7 +5,8 @@
 'use strict';
 
 var Container = require('../../../app/scripts/alicate/components/container'),
-    Component = require('../../../app/scripts/alicate/components/component');
+    Component = require('../../../app/scripts/alicate/components/component'),
+    $ = require('jquery');
 
 describe('Container suite', function () {
     describe('Container correctness', function () {

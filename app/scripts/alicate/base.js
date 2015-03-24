@@ -1,6 +1,7 @@
 /**
  * Created by dmitriy.ryajov on 6/26/14.
  */
+'use strict';
 
 var $ = require('jquery');
 
@@ -13,8 +14,6 @@ var $ = require('jquery');
  * @constructor
  */
 var Base = function (values) {
-        'use strict';
-
         var instanceData = {},
             classDefaults = typeof this.instanceData === 'function'
                 ? _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
