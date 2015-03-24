@@ -11,6 +11,8 @@
  * @version 1.0
  **/
 
+var page = require('page');
+
 module.exports = {
     mount: function mount(route, callback) {
         page(route, function (ctx) {
