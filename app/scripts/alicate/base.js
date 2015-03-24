@@ -2,7 +2,7 @@
  * Created by dmitriy.ryajov on 6/26/14.
  */
 
-module.exports = Base;
+var $ = require('jquery');
 
 /**
  * Prototype object
@@ -107,4 +107,4 @@ var Base = function (values) {
  * @returns {Function} Constructor for new sub-type.
  */
 Base.extend = extend;
-
+module.exports = Base;

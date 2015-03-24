@@ -1,7 +1,10 @@
 var gulp = require('gulp');
-var jasmine = require('gulp-jasmine');
+var jasmine = require('gulp-jasmine-phantom');
 
 gulp.task('test', function () {
   return gulp.src('test/specs/**/*.js')
-    .pipe(jasmine());
+    .pipe(jasmine({
+          integration: true,
+          keepRunner: true
+      }));
 });

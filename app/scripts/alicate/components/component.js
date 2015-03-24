@@ -1,7 +1,8 @@
 var Base = require('../base'),
     Eventable = require('../behaviors/eventable').eventable,
     Model = require('../model').model,
-    _ = require('underscore');
+    _ = require('underscore'),
+    $ = require('jquery');
 
 module.exports = function component() {
     'use strict';

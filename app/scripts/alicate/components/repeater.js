@@ -5,7 +5,8 @@
 var Container = require('./container'),
     Component = require('./component'),
     Markupiter = require('../markupiter'),
-    Model = require('../model');
+    Model = require('../model'),
+    $ = require('jquery');
 
 module.exports = function repeater() {
     'use strict';
