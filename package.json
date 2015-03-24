@@ -16,6 +16,10 @@
   },
   "devDependencies": {
     "gulp-jasmine-phantom": "^1.1.2",
+    "karma-bro": "^0.11.1",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-spec-reporter": "0.0.16",
     "phantomjs": "^1.9.16"
   }
 }

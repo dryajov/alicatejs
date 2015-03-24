@@ -4,9 +4,9 @@ var karma = require('karma').server;
 /**
  * Run test once and exit
  */
-gulp.task('karma', function (done) {
+gulp.task('test', function (done) {
     karma.start({
-        configFile: __dirname + '/../../test/karma.conf.js'
-        //singleRun: true
+        configFile: __dirname + '/../../test/karma.conf.js',
+        singleRun: true
     }, done);
 });

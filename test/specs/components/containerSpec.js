@@ -137,6 +137,7 @@ describe('Container suite', function () {
             });
 
             it('Component test visible', function () {
+                container.setVisible(false);
                 container.setVisible(true);
 
                 expect(container.isVisible()).toBe(true);
@@ -151,6 +152,7 @@ describe('Container suite', function () {
             });
 
             it('Container test components visible', function () {
+                container.setVisible(false);
                 container.setVisible(true);
 
                 for (var key in container.children) {

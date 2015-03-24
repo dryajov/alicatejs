@@ -4,7 +4,8 @@
 
 'use strict';
 
-var Component = require('./component');
+var Component = require('./component'),
+    $ = require('jquery');
 
 /**
  * A module representing a container
