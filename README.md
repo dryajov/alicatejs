@@ -84,6 +84,3 @@ An application that will attach itself to the `#myapp` selector, is constructed,
 ###Why jQuery?
 jQuery allows to interact with the DOM without worrying about browser specific quirks, and due to its popularity chances are that it's already deployed to the end user site.
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dryajov/alicatejs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
