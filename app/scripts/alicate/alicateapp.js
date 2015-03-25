@@ -33,70 +33,76 @@ var Router = require('./router'),
  * @version 1.0
  */
 module.exports = Base.extend({
-        initialize: function initialize() {
-            this.$el = $(this.$selector);
+    initialize: function initialize() {
+        this.$el = $(this.$selector);
 
-            if (!this.$el) {
-                throw 'Unable to attach to selector ' + this.$selector;
-            }
-
-            if (!this.templateStore) {
-                throw 'templateStore not provided!';
-            }
-        },
-        /**
-         * @property {String} index - The index view of this page
-         */
-        index: null,
-        /**
-         * @property {String} id - The selector to attach this app to
-         */
-        $selector: '',
-        /**
-         * @property {jQuery} $el - The element the app is attached to
-         */
-        $el: null,
-        /**
-         * @property {View[]} views - Collection of views
-         */
-        views: {},
-        /**
-         * @property {Object} templateStore - The templateStore of this application
-         */
-        templateStore: null,
-        /**
-         * Associate a view with a route
-         *
-         * @param {String} path
-         * @param {View} view
-         * @return {app} Returns this app
-         */
-        mount: function mount(path, view) {
-            var that = this;
-            this.views[path] = view;
-
-            view.template = this.templateStore[view.templateName];
-            if (!view.template) {
-                throw 'No template found for ' + view.templateName;
-            }
-
-            view.isMounted = true;
-            Router.mount(path, function (params) {
-                view.bind();
-                that.$el.empty();
-                view.render();
-                that.$el.append(view.$el);
-            });
-
-            return this;
-        },
-        /**
-         * Start application
-         *
-         * @param {String} route optional param
-         * representing the initial route to load
-         */
-        start: function start(route) {
-            Router.go(route || this.index);
+        if (!this.$el) {
+            throw 'Unable to attach to selector ' + this.$selector;
         }
-    });
+
+        if (!this.templateStore) {
+            throw 'templateStore not provided!';
+        }
+
+        this.router.init();
+    },
+    /**
+     * @property {String} index - The index view of this page
+     */
+    index: null,
+    /**
+     * @property {String} id - The selector to attach this app to
+     */
+    $selector: '',
+    /**
+     * @property {jQuery} $el - The element the app is attached to
+     */
+    $el: null,
+    /**
+     * @property {View[]} views - Collection of views
+     */
+    views: {},
+    /**
+     * @property {Object} templateStore - The templateStore of this application
+     */
+    templateStore: null,
+    /**
+     * @property {Router} router - The router used by this app
+     */
+    router: Router,
+    /**
+     * Associate a view with a route
+     *
+     * @param {String} path
+     * @param {View} view
+     * @return {app} Returns this app
+     */
+    mount: function mount(path, view) {
+        var that = this;
+        this.views[path] = view;
+
+        view.template = this.templateStore[view.templateName];
+        if (!view.template) {
+            throw 'No template found for ' + view.templateName;
+        }
+
+        view.isMounted = true;
+        this.router.mount(path, function (params) {
+            that.$el.empty();
+            view.bind();
+            view.render();
+            that.$el.append(view.$el);
+        });
+
+        return this;
+    },
+    /**
+     * Start application
+     *
+     * @param {String} route optional param
+     * representing the initial route to load
+     */
+    start: function start(route) {
+        this.router.go(route || this.index);
+    }
+});
