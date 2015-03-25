@@ -1,0 +1,17 @@
+exports.Router = require('./alicate/router');
+exports.Observable = require('./alicate/observable');
+exports.Model = require('./alicate/model');
+exports.Markupiter = require('./alicate/markupiter');
+exports.Base = require('./alicate/base');
+exports.AlicateApp = require('./alicate/alicateapp');
+exports.View = require('./alicate/components/view');
+exports.Select = require('./alicate/components/select');
+exports.Repeater = require('./alicate/components/repeater');
+exports.Label = require('./alicate/components/label');
+exports.Input = require('./alicate/components/input');
+exports.Image = require('./alicate/components/image');
+exports.Container = require('./alicate/components/container');
+exports.Component = require('./alicate/components/component');
+exports.Button = require('./alicate/components/button');
+exports.Behavior = require('./alicate/behaviors/behavior');
+exports.Eventable = require('./alicate/behaviors/eventable');
