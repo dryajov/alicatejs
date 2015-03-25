@@ -1,7 +1,7 @@
 {
   "name": "alicatejs",
   "main": "app/scripts/main.js",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
   "dependencies": {
     "body-parser": "~1.12.0",
