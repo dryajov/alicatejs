@@ -1,7 +1,7 @@
 #### NOTE: This is in early alpha stage, not production ready!!!
 
 ## What is alicatejs?
-![alicatejs](logo.jpg?raw)
+![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
 
 
 Alicatejs is a single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
