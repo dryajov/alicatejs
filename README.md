@@ -58,6 +58,12 @@ There is a grunt plugin (_grunt-template-store_) available that will aid with th
 
 ###Hello World in Alicatejs
 
+#####HelloWorld.html
+```
+    <div data-aid="hello">[THIS WILL BE REPLACED]</div>
+```
+
+#####HelloWorld.js
 ```
     var $ = require('jquery'),
         Alicate = require('alicatejs'),

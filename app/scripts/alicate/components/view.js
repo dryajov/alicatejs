@@ -5,7 +5,10 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter');
+    Markupiter = require('../markupiter'),
+    diff = require('virtual-dom/diff'),
+    patch = require('virtual-dom/patch'),
+    createElement = require('virtual-dom/create-element');
 
 /**
  * A module representing a view

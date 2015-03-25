@@ -14,7 +14,7 @@ gulp.task('vendor', function () {
     return browserify({debug: true})
         .require('jquery')
         .require('lodash', {expose: 'underscore'})
-        .require('backbone')
+        .require('page')
         .bundle()
         .pipe(source('vendor.js'))
         .pipe(gulp.dest(config.dist + '/scripts/'));
@@ -26,7 +26,6 @@ gulp.task('browserify', function () {
         .add('./app/scripts/main.js')
         .external('jquery')
         .external('lodash')
-        .external('backbone')
         .external('underscore')
         .external('page')
         .transform(partialify) // Transform to allow requireing of templates

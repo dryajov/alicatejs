@@ -3,5 +3,5 @@
 var gulp = require('gulp');
 
 // Default task
-gulp.task('default', ['clean', 'test'], function () {
+gulp.task('default', ['clean', 'build', 'test'], function () {
 });
