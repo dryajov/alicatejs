@@ -1,92 +1,93 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
-define(
-    [
-        'alicate/components/container',
-        'alicate/markupiter'
-    ],
-    function makeView(Container, Markupiter) {
-        'use strict';
 
-        /**
-         * A module representing a view
-         *
-         * @module View
-         * @exports alicate/components/view
-         * @extends Container
-         * @version 1.0
-         */
-        return Container.extend({
-            initialize: function initialize() {
-                // this is needed to override components require id constraint
-            },
-            id: null,
-            /**
-             * @property {String} template - The name of the template
-             * that this view renders
-             */
-            templateName: '',
-            /**
-             * @property {String} template - The string markup (unaltered)
-             */
-            template: '',
-            /**
-             * @property {jQuery} $template - An intermediary holder for
-             * the current template
-             */
-            $template: null,
-            /**
-             * @property {boolean} - Flag indicating if this view is mounted
-             */
-            isMounted: false,
-            /**
-             * Bind the component tree
-             */
-            bind: function bind() {
-                var markupIter;
+'use strict';
 
-                if (!this.templateName ||
-                    (this.templateName && this.templateName.length < 1)) {
-                    throw 'argument templateName missing!';
-                }
+var Container = require('./container'),
+    Markupiter = require('../markupiter');
 
-                if (!this.template ||
-                    (this.template && this.template.length < 1)) {
-                    throw 'argument template missing!';
-                }
+/**
+ * A module representing a view
+ *
+ * @module View
+ * @exports alicate/components/view
+ * @extends Container
+ * @version 1.0
+ */
+module.exports = Container.extend({
+    initialize: function initialize() {
+        // this is needed to override components require id constraint
+    },
+    id: null,
+    /**
+     * @property {String} template - The name of the template
+     * that this view renders
+     */
+    templateName: '',
+    /**
+     * @property {String} template - The string markup (unaltered)
+     */
+    template: '',
+    /**
+     * @property {jQuery} $template - An intermediary holder for
+     * the current template
+     */
+    $template: null,
+    /**
+     * @property {boolean} - Flag indicating if this view is mounted
+     */
+    isMounted: false,
+    /**
+     * Bind the component tree
+     */
+    bind: function bind() {
+        var markupIter;
 
-                this.$template = $('<div/>').append(this.template);
-                markupIter = Markupiter.createMarkupIter(this.$template[0]);
-                Container.prototype.bind.call(this, markupIter);
+        if (this.isBound) {
+            return;
+        }
 
-                if (markupIter.nextNode()) {
-                    var msg = "Not all elements where bound!\n" +
-                        "Missed elements are:\n";
-                    do {
-                        msg += $(markupIter.currentNode).data().aid + "\n" +
-                        "in template: " + this.templateName + "\n";
-                    } while(markupIter.nextNode());
+        if (!this.templateName ||
+            (this.templateName && this.templateName.length < 1)) {
+            throw 'argument templateName missing!';
+        }
 
-                    throw msg;
-                }
-            },
-            /**
-             * Render the component tree
-             */
-            render: function render() {
-                this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
-                this.$template = null;
+        if (!this.template ||
+            (this.template && this.template.length < 1)) {
+            throw 'argument template missing!';
+        }
 
-                Container.prototype.render.call(this);
-                return this.$el;
-            },
-            _updateVisiblity: function _updateVisiblity() {
-                if (!this.isMounted) {
-                    Container.prototype._updateVisiblity.call(this);
-                }
+        this.$template = $('<div/>').append(this.template);
+        markupIter = Markupiter.createMarkupIter(this.$template[0]);
+        Container.prototype.bind.call(this, markupIter);
 
-                return;
-            }
-        });
-    });
+        if (markupIter.nextNode()) {
+            var msg = "Not all elements where bound!\n" +
+                "Missed elements are:\n";
+            do {
+                msg += $(markupIter.currentNode).data().aid + "\n" +
+                "in template: " + this.templateName + "\n";
+            } while (markupIter.nextNode());
+
+            throw msg;
+        }
+    },
+    /**
+     * Render the component tree
+     */
+    render: function render() {
+        this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
+        this.$template = null;
+
+        Container.prototype.render.call(this);
+        return this.$el;
+    },
+    _updateVisiblity: function _updateVisiblity() {
+        if (!this.isMounted) {
+            Container.prototype._updateVisiblity.call(this);
+        }
+
+        return;
+    }
+});

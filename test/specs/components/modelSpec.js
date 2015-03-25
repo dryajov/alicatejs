@@ -2,33 +2,30 @@
  * Created by dmitriy.ryajov on 7/10/14.
  */
 
-define(
-    [
-        'alicate/model'
-    ],
-    function (Model) {
-        'use strict';
+'use strict';
 
-        describe('Model Suite', function () {
-            describe('Model get/set', function () {
-                var model;
+var Model = require('../../../app/scripts/alicate/model'),
+    $ = require('jquery');
 
-                beforeEach(function () {
-                    model = new Model({
-                        data: { key: 'val' }
-                    });
-                });
+describe('Model Suite', function () {
+    describe('Model get/set', function () {
+        var model;
 
-                it('Model get', function () {
-                    expect(model.get()).toEqual({key: 'val'});
-                });
-
-                it('Model set', function () {
-                    spyOn(model, 'update').and.callThrough();
-                    model.set({ key: 'new-val' });
-                    expect(model.get()).toEqual({ key: 'new-val' });
-                    expect(model.update).toHaveBeenCalled();
-                });
+        beforeEach(function () {
+            model = new Model({
+                data: {key: 'val'}
             });
         });
+
+        it('Model get', function () {
+            expect(model.get()).toEqual({key: 'val'});
+        });
+
+        it('Model set', function () {
+            spyOn(model, 'update').and.callThrough();
+            model.set({key: 'new-val'});
+            expect(model.get()).toEqual({key: 'new-val'});
+            expect(model.update).toHaveBeenCalled();
+        });
     });
+});
