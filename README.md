@@ -73,20 +73,28 @@ There is a grunt plugin (_grunt-template-store_) available that will aid with th
         Button = Alicate.Button,
         Select = Alicate.Select;
     
-    module.exports = View.extends({
-        templateName: 'helloworld.html',
-        children: [
-            new Label({
-                id: 'hello',
-                text: 'Hello World from Alicate!!'
-            })
-        ]
-    });
+        var app = new AlicateApp({
+            templateStore: templateStore,
+            selector: '#myapp',
+            index: '/helloworld'
+        });
+          
+        app.mount('/helloworld', new View({
+                templateName: 'helloworld.html',
+                children: {
+                    hello: new Label({
+                        id: 'hello',
+                        text: 'Hello World from Alicate!!'
+                        })
+                }
+            })).start();
 
 ```
 The snippet above demonstrates the core concepts of alicate in action.
 
-An application that will attach itself to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
+An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element. 
+
+For further examples take a look at the [alicatejs_samples](https://github.com/dryajov/alicatejs_samples) repo.
 
 ### Why jQuery?
 jQuery allows to interact with the DOM without worrying about browser specific quirks, and due to its popularity chances are that it's already deployed to the end user site.
