@@ -1,7 +1,7 @@
 {
     "name": "alicatejs",
     "main": "app/scripts/main.js",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "private": false,
     "repository": {
         "type": "git",
@@ -69,10 +69,10 @@
         "view",
         "controler",
         "components",
+        "component",
         "client",
         "single page",
         "spa",
-        "MVVM",
         "two-way model",
         "two-way bound model"
     ]
