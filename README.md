@@ -34,9 +34,13 @@ not to allow creating invalid markup.
 
 A `View` represents an alicate `Component` that has an unparsed html fragment (logicless template) associated. The `View` initiates the rendering of the components tree.
 
+##### Container
+
+A `Container` is basically a `Component` that is able to hold a colection of other components (including another container such as a `View`, `Container` or `Repeater`). It is possible to add components to it by directly adding them to the `children` array or to by using the `add` method on an existing instance.
+
 ##### Component
 
-A `Component` is the building block of the framework, it is the abstract class extended by the rest of the components in the framework. There are a range of components that will attach to a subset of similar html elements.
+A `Component` is the building block of the framework, it is a class extended by the rest of the components in the framework. There are a range of components that will attach to a subset of similar html elements.
 
 These components are:
 
