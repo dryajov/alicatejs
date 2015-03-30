@@ -16,7 +16,7 @@ module.exports = {
      * Create a markup iter
      *
      * @param {Dom} elment - The element to iterate on
-     * @param {Boolean=false} all - Return all elements regardless
+     * @param {Boolean} all - Return all elements regardless
      *      if they are marked with a `data-aid` attribute or not
      * @returns {TreeWalker}
      * @static

@@ -3,4 +3,5 @@ var ComponentSpec = require('./components/componentSpec'),
     InputSpec = require('./components/inputSpec'),
     LabelSpec = require('./components/labelSpec'),
     ModelSpec = require('./components/modelSpec'),
-    RepeaterSpec = require('./components/repeaterSpec');
+    RepeaterSpec = require('./components/repeaterSpec'),
+    ButtonSpec = require('./components/buttonSpec');

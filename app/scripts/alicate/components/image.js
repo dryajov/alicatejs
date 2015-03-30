@@ -31,25 +31,26 @@ module.exports = Component.extend({
              */
             allowedElements: [
                 "img"
-            ]
+            ],
+            /**
+             * The text to be rendered
+             *
+             * @property text
+             * @type {String}
+             */
+            src: ''
         };
     },
     /**
-     * The text to be rendered
-     *
-     * @property text
-     * @type {String}
-     */
-    src: '',
-    /**
      * Render the text into the attached html element
      *
-     * @return {this}  this object
+     * @return {Boolean}  this object
      */
     render: function render() {
-        this._checkIsValidElement();
+        if (!Component.prototype.render.call(this)) {
+            return false;
+        }
 
         this.$el.attr('src', this.src);
-        Component.prototype.render.call(this);
     }
 });

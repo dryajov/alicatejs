@@ -207,7 +207,7 @@ var Container = Component.extend({
             this.children[key].render();
         }
 
-        Component.prototype.render.call(this);
+        return Component.prototype.render.call(this);
     }
 });
 

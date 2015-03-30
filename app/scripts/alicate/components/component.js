@@ -33,10 +33,10 @@ module.exports = Base.extend({
              */
             defaultBehaviors: [],
             /**
-             * @property {Boolean[]} allowedElements - Elements this component
+             * @property {String[]} allowedElements - Elements this component
              * can attach to
              */
-            allowedElements: [],
+            allowedElements: null,
             /**
              * @property {Object} attributes - Map of attributes of this component
              */
@@ -166,7 +166,7 @@ module.exports = Base.extend({
     getValue: function getValue() {
         var value;
 
-        if (this.$el.is("input, textarea, select")) {
+        if (this.$el.is("input, textarea, select, button")) {
             value = this.$el.val();
         } else {
             value = this.$el.text();
@@ -180,13 +180,13 @@ module.exports = Base.extend({
      */
     _checkIsValidElement: function _checkIsValidElement() {
         if (this.$el) {
-            if (!this.$el.is(this.allowedElements.join(','))) {
+            if (this.allowedElements && !this.$el.is(this.allowedElements.join(','))) {
                 throw 'Component ' + this.id +
                 ' is not allowed to attach to ' +
                 this.$el.prop("tagName") + ' tag';
             }
         } else {
-            if (this.isBound) {
+            if (!this.isBound) {
                 throw 'Element ' + this.id + ' is not bound!';
             }
         }
@@ -284,6 +284,12 @@ module.exports = Base.extend({
      * Render the current element
      */
     render: function render() {
+        if (!this.isBound) {
+            return false;
+        }
+
+        this._checkIsValidElement();
+
         this.bindBehaviors();
 
         if (this.$el) {
@@ -305,6 +311,8 @@ module.exports = Base.extend({
             this.hasRendered = true;
             this.onPostRender();
         }
+
+        return true;
     },
     onComponentBound: function onComponentBound() {
     },
@@ -322,7 +330,7 @@ module.exports = Base.extend({
         var $el = this.$el,
             model = this.model,
             component = this,
-            event = 'change.' + this.id,
+            event = 'input.' + this.id,
             that = this;
 
         if (!$el || !this.model) {
@@ -331,7 +339,8 @@ module.exports = Base.extend({
 
         if (this.model instanceof Model) {
             $el.off(event);
-            $el.on(event, function () {
+            $el.on(event, function (e) {
+                e.stopPropagation();
                 model.set(that.getValue());
             });
 

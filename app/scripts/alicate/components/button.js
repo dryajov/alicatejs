@@ -10,11 +10,10 @@ var Label = require('./label'),
 /**
  * A module representing a button
  *
- * @module Button
+ * @module Toggle
  * @exports alicate/components/button
  * @version 1.0
  */
-
 module.exports = Label.extend({
     instanceData: function instanceData() {
         return {
@@ -25,45 +24,46 @@ module.exports = Label.extend({
             allowedElements: [
                 "button",
                 "input"
-            ]
+            ],
+            /**
+             * @property {String} - The selected state css class of the button
+             */
+            selectedClass: null,
+            /**
+             * @property {Boolean} - Toggle On/Off
+             */
+            checked: false
         };
     },
     /**
-     * @property {Boolean} - Should the component be enabled/disabled
      *
+     * @param checked
      */
-    enabled: true,
-    /**
-     * @param {Boolean} enabled - Enable/Disable this element
-     */
-    setEnabled: function setEnabled(enabled) {
-        if (this.enabled !== enabled) {
-            this.enabled = enabled;
-            this.render();
-        }
+    toggle: function toggle() {
+        this.checked = !this.checked;
+        this.render();
     },
     /**
      * Render the text into the attached html element
      *
-     * @return {Object} - this object
+     * @return {Boolean} - this object
      */
     render: function render() {
-        var data = this.getModelData(),
-            text = data ? this.interpolate(this.text, data) : this.text,
-            name = this.$el.prop('tagName').toLowerCase();
-
-        this._checkIsValidElement();
-
-        switch (name) {
-            case "button":
-                this.$el.text(text);
-                break;
-            case "input":
-                this.$el.attr('value', text);
+        if (!Label.prototype.render.call(this)) {
+            return false;
         }
 
-        this.$el.prop('disabled', !this.enabled);
-        Component.prototype.render.call(this);
+        if (this.$el.is(':checkbox')) {
+            this.$el.prop('checked', this.checked);
+        } else if (this.$el.is(':radio')) {
+            this.$el.prop('selected', this.checked);
+        }
+
+        if (this.selectedClass) {
+            this.$el.toggleClass(this.selectedClass, this.checked);
+        }
+
+        return true;
     }
 });
 

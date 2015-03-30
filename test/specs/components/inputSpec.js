@@ -102,6 +102,7 @@ describe('Input suite', function () {
                 $el: $('<input type="text" data-aid="input">')
             });
 
+            input.bind();
             input.bindModel();
             input.render();
         });

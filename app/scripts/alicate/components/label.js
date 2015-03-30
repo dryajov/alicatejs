@@ -28,35 +28,48 @@ module.exports = Component.extend({
                 "a",
                 "option",
                 "label"
-            ]
+            ],
+            /**
+             * The text supports simplistic value interpolation
+             * of the form of {myStringVal}, where the value in curly
+             * braces will be replaced by a matching property in the
+             * model.
+             *
+             * @property {String} text - The text to be rendered.
+             *
+             * @example
+             * 'The {value} in curly braces will be replaced with the
+             * value of a matching property returned by the model'
+             */
+            text: ''
         };
     },
-    /**
-     * The text supports simplistic value interpolation
-     * of the form of {myStringVal}, where the value in curly
-     * braces will be replaced by a matching property in the
-     * model.
-     *
-     * @property {String} text - The text to be rendered.
-     *
-     * @example
-     * 'The {value} in curly braces will be replaced with the
-     * value of a matching property returned by the model'
-     */
-    text: '',
     /**
      * Render the text into the attached html element
      *
      * @return {Object} this object
      */
     render: function render() {
-        var data = this.getModelData();
+        if(!Component.prototype.render.call(this)) {
+            return false;
+        }
 
-        this._checkIsValidElement();
+        var text = "", data = this.getModelData();
+        if ((null !== this.text && this.text.length > 0) && null !== data) {
+            text = this.interpolate(this.text, data);
+        } else if (null !== this.text && this.text.length > 0) {
+            text = this.text;
+        } else if (null !== data && typeof data === 'string') {
+            text = data;
+        }
 
-        this.$el.html(data ? this.interpolate(this.text, data) : this.text);
+        if (this.$el.is('input, textarea, select, button')) {
+            this.$el.val(text)
+        } else {
+            this.$el.html(text);
+        }
 
-        Component.prototype.render.call(this);
+        return true;
     },
     /**
      * TODO: This needs to be moved to utility class

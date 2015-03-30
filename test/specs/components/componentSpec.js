@@ -95,6 +95,10 @@ describe('Component suite', function () {
                 id: 'test'
             });
             component.$el = $('<div data-aid="test">I\'m visible</div>');
+
+            component.isBound = true;
+            component.bindModel();
+            component.render();
         });
 
         it('Component test visible', function () {
@@ -123,6 +127,10 @@ describe('Component suite', function () {
                 id: 'test',
                 model: {key: 'val'}
             });
+
+            component.isBound = true;
+            component.bindModel();
+            component.render();
         });
 
         it('Component get model', function () {
@@ -151,6 +159,10 @@ describe('Component suite', function () {
                 id: 'test',
                 model: model
             });
+
+            component.isBound = true;
+            component.bindModel();
+            component.render();
         });
 
         it('Component get model', function () {

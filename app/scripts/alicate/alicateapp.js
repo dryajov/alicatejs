@@ -20,13 +20,14 @@ var Router = require('./router'),
  *
  * @example
  * var app = new AlicateApp({
-     *                  templateStore: templates,
-     *                  $selector: '#selector'
-     *              });
+ *                  templateStore: templates,
+ *                  $selector: '#selector'
+ *              });
  *
- *  return app.mount('/link1', new MyView());
+ * return app.mount('/link1', new MyView());
  *
- * @module AlicateApp
+ * @class
+ * @name AlicateApp
  * @extends Base
  * @type {object}
  * @exports alicate/alicateapp
@@ -90,7 +91,7 @@ module.exports = Base.extend({
         this.router.mount(path, function (params) {
             that.$el.empty();
             view.bind();
-            view.render();
+            view.renderView();
             that.$el.append(view.$el);
         });
 

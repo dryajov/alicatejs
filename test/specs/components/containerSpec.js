@@ -123,10 +123,16 @@ describe('Container suite', function () {
                 var components = [];
 
                 for (var num in [1, 2, 3]) {
-                    components.push(new Component({
+                    var component =  new Component({
                         id: 'test' + num,
                         $el: $('<div data-aid="test"' + num + '>some text</div>')
-                    }));
+                    });
+
+                    component.isBound = true;
+                    component.bindModel();
+                    component.render();
+
+                    components.push(component);
                 }
 
                 container = new Container({
@@ -134,6 +140,10 @@ describe('Container suite', function () {
                     children: components,
                     $el: $('<div data-aid=test-container></div>')
                 });
+
+                container.isBound = true;
+                container.bindModel();
+                container.render();
             });
 
             it('Component test visible', function () {

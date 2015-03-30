@@ -99,7 +99,10 @@ describe('Label suite', function () {
                 $el: $('<div data-aid="label">[SOME TEXT]</div>')
             });
 
+            label.bind();
+            label.bindModel()
             label.render();
+
             expect(label.getValue()).toBe('Hello World!');
         });
 
@@ -111,7 +114,10 @@ describe('Label suite', function () {
                 $el: $('<div data-aid="label">[SOME TEXT]</div>')
             });
 
+            label.bind();
+            label.bindModel()
             label.render();
+
             expect(label.getValue()).toBe('Hello World from alicate!');
         });
     });

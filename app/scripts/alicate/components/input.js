@@ -39,14 +39,17 @@ module.exports = Component.extend({
      *
      */
     render: function render() {
-        var data;
+        if (!Component.prototype.render.call(this)) {
+            return false;
+        }
 
-        this._checkIsValidElement();
+        var data;
 
         if (this.model) {
             data = this.getModelData();
             this.$el.val(data);
         }
-        Component.prototype.render.call(this);
+
+        return true;
     }
 });

@@ -26,14 +26,14 @@ module.exports = Component.extend({
              * @property {Object} components - List of components
              * that have been attached to this view.
              */
-            _children: []
+            _children: [],
+            /**
+             * @property {jQuery} $parent - The parent of this
+             * repeated element
+             */
+            $parent: null
         };
     },
-    /**
-     * @property {jQuery} $parent - The parent of this
-     * repeated element
-     */
-    $parent: null,
     /**
      * @override
      */
@@ -108,7 +108,8 @@ module.exports = Component.extend({
             }
         }
 
-        Container.prototype.render.call(this);
+        this.isBound = true;
+        return Container.prototype.render.call(this);
     },
     /**
      *

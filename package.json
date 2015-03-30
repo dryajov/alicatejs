@@ -1,7 +1,7 @@
 {
     "name": "alicatejs",
     "main": "app/scripts/main.js",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "private": false,
     "repository": {
         "type": "git",
@@ -60,6 +60,7 @@
         "vinyl-source-stream": "^0.1.1"
     },
     "keywords": [
+	"alicatejs",
         "logicless templates",
         "templateless web framework",
         "templateless",

@@ -146,7 +146,9 @@ module.exports = Container.extend({
      * @override
      */
     render: function render() {
-        Container.prototype.render.call(this);
+        if(!Container.prototype.render.call(this)) {
+            return false;
+        }
 
         if (null !== this.selected &&
             this.selected.length > 0) {
@@ -161,6 +163,8 @@ module.exports = Container.extend({
         // when the options are not completely rendered
         this.index = this.$el.prop('selectedIndex') < 0 ? 0
             : this.$el.prop('selectedIndex');
+
+        return true;
     },
     /**
      * Triggered when the option item is being rendered
