@@ -77,6 +77,8 @@ There is a grunt plugin (_grunt-template-store_) available that will aid with th
         Button = Alicate.Button,
         Select = Alicate.Select;
     
+        var templateStore = {};
+        templateStore['helloworld.html'] = '<div data-aid="hello">[THIS WILL BE REPLACED]</div>';
         var app = new AlicateApp({
             templateStore: templateStore,
             selector: '#myapp',
