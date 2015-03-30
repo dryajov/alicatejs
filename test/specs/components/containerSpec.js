@@ -151,7 +151,7 @@ describe('Container suite', function () {
                 container.setVisible(true);
 
                 expect(container.isVisible()).toBe(true);
-                expect(container.$el.css('display')).toBe('block');
+                expect(container.$el.css('display')).toBe('');
             });
 
             it('Component test hidden', function () {
@@ -169,7 +169,7 @@ describe('Container suite', function () {
                     var component = container.children[key];
 
                     expect(component.isVisible()).toBe(true);
-                    expect(component.$el.css('display')).toBe('block');
+                    expect(component.$el.css('display')).toBe('');
                 }
             });
 

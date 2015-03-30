@@ -126,7 +126,7 @@ describe('Repeater suite', function () {
             repeater.setVisible(true);
 
             expect(repeater.isVisible()).toBe(true);
-            expect(repeater.$el.css('display')).toBe('block');
+            expect(repeater.$el.css('display')).toBe('');
         });
 
         it('Repeater test hidden', function () {
@@ -144,7 +144,7 @@ describe('Repeater suite', function () {
                 var component = repeater.children[key];
 
                 expect(component.isVisible()).toBe(true);
-                expect(component.$el.css('display')).toBe('block');
+                expect(component.$el.css('display')).toBe('');
             }
         });
 
@@ -173,9 +173,9 @@ describe('Repeater suite', function () {
             repeater.render();
 
             expect(repeater.getMarkup())
-                .toBe('<div data-aid="repeateme" style=\"display: block;">Hello!!</div>' +
-                '<div data-aid="repeateme" style=\"display: block;">Hello!!</div>' +
-                '<div data-aid="repeateme" style=\"display: block;">Hello!!</div>');
+                .toBe('<div data-aid="repeateme">Hello!!</div>' +
+                '<div data-aid="repeateme">Hello!!</div>' +
+                '<div data-aid="repeateme">Hello!!</div>');
         });
 
         it('test repeater with children', function () {
@@ -198,9 +198,9 @@ describe('Repeater suite', function () {
             repeater.render();
 
             expect(repeater.getMarkup())
-                .toBe('<div data-aid="repeateme" style="display: block;"><span data-aid="label" style="display: inline;">Hello!</span></div>' +
-                '<div data-aid="repeateme" style="display: block;"><span data-aid="label" style="display: inline;">Hello!</span></div>' +
-                '<div data-aid="repeateme" style="display: block;"><span data-aid="label" style="display: inline;">Hello!</span></div>');
+                .toBe('<div data-aid="repeateme"><span data-aid="label">Hello!</span></div>' +
+                '<div data-aid="repeateme"><span data-aid="label">Hello!</span></div>' +
+                '<div data-aid="repeateme"><span data-aid="label">Hello!</span></div>');
         });
 
         it('Repeater test nested repeater', function () {
@@ -234,9 +234,9 @@ describe('Repeater suite', function () {
             repeater.render();
 
             expect(repeater.getMarkup())
-                .toBe('<div data-aid="repeater1" style="display: block;">' +
-                '<div data-aid="repeater2" style="display: block;">' +
-                '<div data-aid="data2" style="display: block;">some more text</div>' +
+                .toBe('<div data-aid="repeater1">' +
+                '<div data-aid="repeater2">' +
+                '<div data-aid="data2">some more text</div>' +
                 '</div>' +
                 '</div>');
         });

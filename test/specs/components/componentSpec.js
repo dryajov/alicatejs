@@ -108,7 +108,7 @@ describe('Component suite', function () {
             component.setVisible(true);
 
             expect(component.isVisible()).toBe(true);
-            expect(component.$el.css('display')).toBe('block');
+            expect(component.$el.css('display')).toBe('');
         });
 
         it('Component test hidden', function () {

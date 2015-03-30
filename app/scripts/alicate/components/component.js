@@ -299,9 +299,9 @@ module.exports = Base.extend({
             }
 
             if (!this.isVisible()) {
-                this.$el.hide();
+                this.$el.css('display', 'none');
             } else {
-                this.$el.show();
+                this.$el.css('display', '');
             }
 
             if (this.$el.prop('disabled') !== !this.enabled) {
