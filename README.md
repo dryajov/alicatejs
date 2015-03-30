@@ -61,11 +61,6 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 
 ### Hello World in Alicatejs
 
-##### helloworld.html
-```
-    <div data-aid="hello">[THIS WILL BE REPLACED]</div>
-```
-
 ##### helloworld.js
 ```
     var $ = require('jquery'),
