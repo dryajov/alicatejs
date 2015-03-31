@@ -91,7 +91,7 @@ module.exports = Base.extend({
         this.router.mount(path, function (params) {
             that.$el.empty();
             view.bind();
-            view.renderView();
+            view.render();
             that.$el.append(view.$el);
         });
 

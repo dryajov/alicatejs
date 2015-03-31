@@ -79,7 +79,7 @@ module.exports = Container.extend({
     /**
      * Render the component tree
      */
-    renderView: function renderView() {
+    render: function render() {
         this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
         this.$template = null;
 

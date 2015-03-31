@@ -314,6 +314,9 @@ module.exports = Base.extend({
 
         return true;
     },
+    /**
+     * Called when the component has been bound but not yet rendered
+     */
     onComponentBound: function onComponentBound() {
     },
     /**
