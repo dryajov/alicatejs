@@ -1,4 +1,4 @@
-Alicatejs is a single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+Single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
 
 [![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
 
