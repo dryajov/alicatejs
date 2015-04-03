@@ -1,8 +1,6 @@
 Single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
 
 [![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
-[![Chat](http://img.shields.io/badge/gitter-dryajov / alicatejs-blue.svg)]( https://gitter.im/dryajov/alicatejs )
-
 [![Join the chat at https://gitter.im/dryajov/alicatejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dryajov/alicatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
