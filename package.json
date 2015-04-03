@@ -1,7 +1,7 @@
 {
   "name": "alicatejs",
   "main": "app/scripts/main.js",
-  "version": "0.0.17",
+  "version": "0.0.21",
   "private": false,
   "license": "MIT",
   "repository": {
