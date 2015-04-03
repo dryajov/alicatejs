@@ -1,4 +1,4 @@
-Single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+Single page, component oriented javascript framework that aims at eliminating logic in the templates.
 
 [![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
 [![Join the chat at https://gitter.im/dryajov/alicatejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dryajov/alicatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -66,7 +66,7 @@ An html fragment is any html element that is marked with the `data-aid` attribut
         Label = Alicate.Label,
         Button = Alicate.Button,
         Select = Alicate.Select;
-    
+
         var templateStore = {};
         templateStore['helloworld.html'] = '<div data-aid="hello">[THIS WILL BE REPLACED]</div>';
         var app = new AlicateApp({
@@ -74,7 +74,7 @@ An html fragment is any html element that is marked with the `data-aid` attribut
             selector: '#myapp',
             index: '/helloworld'
         });
-          
+
         app.mount('/helloworld', new View({
                 templateName: 'helloworld.html',
                 children: {
@@ -88,7 +88,6 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 ```
 The snippet above demonstrates the core concepts of alicate in action.
 
-An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element. 
+An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
 
 For further examples take a look at the [alicatejs_samples](https://github.com/dryajov/alicatejs_samples) repo.
-
