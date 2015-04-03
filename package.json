@@ -1,8 +1,9 @@
 {
   "name": "alicatejs",
   "main": "app/scripts/main.js",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "private": false,
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/dryajov/alicatejs.git"
