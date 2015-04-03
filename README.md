@@ -1,4 +1,5 @@
 Alicatejs is a single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+
 ![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
 
 [![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
