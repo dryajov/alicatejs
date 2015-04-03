@@ -5,6 +5,8 @@
 
 ## What is alicatejs?
 
+[![Join the chat at https://gitter.im/dryajov/alicatejs](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dryajov/alicatejs?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
 
 
