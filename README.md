@@ -1,14 +1,13 @@
-[![NPM](https://nodei.co/npm/alicatejs.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/alicatejs/)
-
-
-[![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
 
 ## What is alicatejs?
 
 ![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
 
-
 Alicatejs is a single page, MVC, component oriented javascript framework that aims at eliminating logic in the templates.
+
+[![NPM](https://nodei.co/npm/alicatejs.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/alicatejs/)
+[![Build Status](https://travis-ci.org/dryajov/alicatejs.svg?branch=master)](https://travis-ci.org/dryajov/alicatejs)
+
 
 ### Motivation
 With the advent of new and evermore complex javascript frameworks, we've seen an explosion of templating engines. I believe
