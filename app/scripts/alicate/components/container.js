@@ -96,6 +96,7 @@ var Container = Component.extend({
     append: function append(cmp) {
         if (this.isBound) {
             this.add(cmp);
+            cmp.bind();
             this.$el.append(cmp.$el);
             this.render();
         } else {
@@ -105,6 +106,7 @@ var Container = Component.extend({
     preppend: function preppend(cmp) {
         if (this.isBound) {
             this.add(cmp);
+            cmp.bind();
             this.$el.preppend(cmp.$el);
             this.render();
         } else {
