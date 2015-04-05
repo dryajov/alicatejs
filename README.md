@@ -60,7 +60,7 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 ### Hello World in Alicatejs
 
 ##### helloworld.js
-```
+```javascript
     var Alicate = require('alicatejs'),
         Container = Alicate.Container,
         Label = Alicate.Label,
