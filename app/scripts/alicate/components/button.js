@@ -32,7 +32,7 @@ module.exports = Label.extend({
             /**
              * @property {Boolean} - Toggle On/Off
              */
-            checked: false
+            selected: false
         };
     },
     /**
@@ -40,7 +40,7 @@ module.exports = Label.extend({
      * @param checked
      */
     toggle: function toggle() {
-        this.checked = !this.checked;
+        this.selected = !this.selected;
         this.render();
     },
     /**
@@ -54,13 +54,13 @@ module.exports = Label.extend({
         }
 
         if (this.$el.is(':checkbox')) {
-            this.$el.prop('checked', this.checked);
+            this.$el.prop('checked', this.selected);
         } else if (this.$el.is(':radio')) {
-            this.$el.prop('selected', this.checked);
+            this.$el.prop('selected', this.selected);
         }
 
         if (this.selectedClass) {
-            this.$el.toggleClass(this.selectedClass, this.checked);
+            this.$el.toggleClass(this.selectedClass, this.selected);
         }
 
         return true;
