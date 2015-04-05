@@ -28,22 +28,22 @@ module.exports = Component.extend({
                 "a",
                 "option",
                 "label"
-            ],
-            /**
-             * The text supports simplistic value interpolation
-             * of the form of {myStringVal}, where the value in curly
-             * braces will be replaced by a matching property in the
-             * model.
-             *
-             * @property {String} text - The text to be rendered.
-             *
-             * @example
-             * 'The {value} in curly braces will be replaced with the
-             * value of a matching property returned by the model'
-             */
-            text: ''
+            ]
         };
     },
+    /**
+     * The text supports simplistic value interpolation
+     * of the form of {myStringVal}, where the value in curly
+     * braces will be replaced by a matching property in the
+     * model.
+     *
+     * @property {String} text - The text to be rendered.
+     *
+     * @example
+     * 'The {value} in curly braces will be replaced with the
+     * value of a matching property returned by the model'
+     */
+    text: '',
     /**
      * Render the text into the attached html element
      *
@@ -55,11 +55,11 @@ module.exports = Component.extend({
         }
 
         var text = "", data = this.getModelData();
-        if ((null !== this.text && this.text.length > 0) && null !== data) {
+        if ((this.text.length > 0) && typeof data === 'object') {
             text = this.interpolate(this.text, data);
-        } else if (null !== this.text && this.text.length > 0) {
+        } else if (this.text.length > 0) {
             text = this.text;
-        } else if (null !== data && typeof data === 'string') {
+        } else if (typeof data === 'string' || typeof data === 'number') {
             text = data;
         }
 
