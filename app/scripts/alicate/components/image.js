@@ -33,7 +33,7 @@ module.exports = Component.extend({
                 "img"
             ],
             /**
-             * The text to be rendered
+             * The source of the image
              *
              * @property text
              * @type {String}
