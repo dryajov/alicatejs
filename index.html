@@ -114,31 +114,30 @@ not to allow creating invalid markup.</p>
 <h5>
 <a id="helloworldjs" class="anchor" href="#helloworldjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>helloworld.js</h5>
 
-<pre><code>    var Alicate = require('alicatejs'),
-        Container = Alicate.Container,
-        Label = Alicate.Label,
-        Button = Alicate.Button,
-        Select = Alicate.Select;
+<div class="highlight highlight-javascript"><pre>    <span class="pl-k">var</span> Alicate <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>alicatejs<span class="pl-pds">'</span></span>),
+        Container <span class="pl-k">=</span> Alicate.Container,
+        Label <span class="pl-k">=</span> Alicate.Label,
+        <span class="pl-c1">Button</span> <span class="pl-k">=</span> Alicate.<span class="pl-c1">Button</span>,
+        <span class="pl-c1">Select</span> <span class="pl-k">=</span> Alicate.<span class="pl-c1">Select</span>;
 
-        var templateStore = {};
-        templateStore['helloworld.html'] = '&lt;div data-aid="hello"&gt;[THIS WILL BE REPLACED]&lt;/div&gt;';
-        var app = new AlicateApp({
-            templateStore: templateStore,
-            selector: '#myapp',
-            index: '/helloworld'
+        <span class="pl-k">var</span> templateStore <span class="pl-k">=</span> {};
+        templateStore[<span class="pl-s"><span class="pl-pds">'</span>helloworld.html<span class="pl-pds">'</span></span>] <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;div data-aid="hello"&gt;[THIS WILL BE REPLACED]&lt;/div&gt;<span class="pl-pds">'</span></span>;
+        <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">AlicateApp</span>({
+            templateStore<span class="pl-k">:</span> templateStore,
+            selector<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>#myapp<span class="pl-pds">'</span></span>,
+            index<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>/helloworld<span class="pl-pds">'</span></span>
         });
 
-        app.mount('/helloworld', new View({
-                templateName: 'helloworld.html',
-                children: {
-                    hello: new Label({
-                        id: 'hello',
-                        text: 'Hello World from Alicate!!'
+        app.mount(<span class="pl-s"><span class="pl-pds">'</span>/helloworld<span class="pl-pds">'</span></span>, <span class="pl-k">new</span> <span class="pl-en">View</span>({
+                templateName<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>helloworld.html<span class="pl-pds">'</span></span>,
+                children<span class="pl-k">:</span> {
+                    hello<span class="pl-k">:</span> <span class="pl-k">new</span> <span class="pl-en">Label</span>({
+                        id<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>,
+                        text<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>Hello World from Alicate!!<span class="pl-pds">'</span></span>
                         })
                 }
-            })).start();
-
-</code></pre>
+            })).<span class="pl-c1">start</span>();
+</pre></div>
 
 <p>The snippet above demonstrates the core concepts of alicate in action.</p>
 
