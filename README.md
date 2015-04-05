@@ -5,6 +5,14 @@ Single page, component oriented javascript framework that aims at eliminating lo
 
 ![alicatejs](https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg)
 
+### Getting started
+To install alicatejs do `npm install --save alicatejs`.
+
+### Resources
+* [Wiki](https://github.com/dryajov/alicatejs/wiki)
+* [Examples repository](https://github.com/dryajov/alicatejs_samples)
+* [TodoMVC implemented in alicatejs](https://github.com/dryajov/todomvc-app-alicatejs)
+
 ### Motivation
 With the advent of new and evermore complex javascript frameworks, we've seen an explosion of templating engines. I believe
 that templates are a simplistic solution to a complex problem, and it introduces more problems that it solves.
@@ -89,5 +97,3 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 The snippet above demonstrates the core concepts of alicate in action.
 
 An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
-
-For further examples take a look at the [alicatejs_samples](https://github.com/dryajov/alicatejs_samples) repo.
