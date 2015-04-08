@@ -8,12 +8,11 @@ var Base = require('./base');
 /**
  * A module representing an observable
  *
- * @module Observable
- * @exports alicate/observable
+ * @class Observable
  * @extends Base
  * @version 1.0
  */
-module.exports = Base.extend({
+module.exports = Base.extend(/** @lends Observable.prototype */{
     initialize: function initialize() {
         this._subscribers = [];
     },

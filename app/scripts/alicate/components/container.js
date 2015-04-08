@@ -10,12 +10,11 @@ var Component = require('./component'),
 /**
  * A module representing a container
  *
- * @module Container
- * @exports alicate/components/container
+ * @class Container
  * @extends Component
  * @version 1.0
  */
-var Container = Component.extend({
+var Container = Component.extend(/** @lends Container.prototype */{
     initialize: function initialize() {
         Component.prototype.initialize.call(this);
 
@@ -100,7 +99,7 @@ var Container = Component.extend({
             this.$el.append(cmp.$el);
             this.render();
         } else {
-            throw "Element not bound, can't append!";
+            throw new Error("Element not bound, can't append!");
         }
     },
     preppend: function preppend(cmp) {
@@ -110,7 +109,7 @@ var Container = Component.extend({
             this.$el.preppend(cmp.$el);
             this.render();
         } else {
-            throw "Element not bound, can't preppend!"
+            throw new Error("Element not bound, can't preppend!");
         }
     },
     /**

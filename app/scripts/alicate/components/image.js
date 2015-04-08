@@ -10,14 +10,13 @@ var Component = require('./component');
 /**
  * A module representing a button
  *
- * @module Image
- * @exports alicate/components/image
+ * @class Image
  * @version 1.0
  */
-module.exports = Component.extend({
+module.exports = Component.extend(/** @lends Image.prototype */{
     initialize: function initialize() {
         if (!this.src.length) {
-            throw 'src is missing!';
+            throw new Error('src is missing!');
         }
     },
     instanceData: function instanceData() {

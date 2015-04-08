@@ -9,12 +9,11 @@ var Observable = require('./observable');
 /**
  * A module representing a model.
  *
- * @module Model
- * @exports alicate/model
+ * @class Model
  * @extends Observable
  * @version 1.0
  */
-module.exports = Observable.extend({
+module.exports = Observable.extend(/** @lends Model.prototype */{
     /**
      * @property {Any} - The data held by this model
      */

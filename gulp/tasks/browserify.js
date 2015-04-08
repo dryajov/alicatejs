@@ -22,7 +22,10 @@ gulp.task('vendor', function () {
 
 // Browserify
 gulp.task('browserify', function () {
-    return browserify({debug: true})
+    return browserify({
+            debug: true,
+            standalone: 'Alicatejs'
+        })
         .add('./app/scripts/main.js')
         .external('jquery')
         .external('lodash')

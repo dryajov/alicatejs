@@ -8,7 +8,7 @@ var $ = require('jquery');
 /**
  * Prototype object
  *
- * @module Base
+ * @class Base
  * @param values
  * @returns {Base}
  * @constructor

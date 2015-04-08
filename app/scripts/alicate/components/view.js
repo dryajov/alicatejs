@@ -5,20 +5,16 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter'),
-    diff = require('virtual-dom/diff'),
-    patch = require('virtual-dom/patch'),
-    createElement = require('virtual-dom/create-element');
+    Markupiter = require('../markupiter');
 
 /**
  * A module representing a view
  *
- * @module View
- * @exports alicate/components/view
+ * @class View
  * @extends Container
  * @version 1.0
  */
-module.exports = Container.extend({
+module.exports = Container.extend(/** @lends View.prototype */{
     initialize: function initialize() {
         // this is needed to override components require id constraint
     },
@@ -53,12 +49,12 @@ module.exports = Container.extend({
 
         if (!this.templateName ||
             (this.templateName && this.templateName.length < 1)) {
-            throw 'argument templateName missing!';
+            throw new Error('argument templateName missing!');
         }
 
         if (!this.template ||
             (this.template && this.template.length < 1)) {
-            throw 'argument template missing!';
+            throw new Error('argument template missing!');
         }
 
         this.$template = $('<div/>').append(this.template);
@@ -73,7 +69,7 @@ module.exports = Container.extend({
                 "in template: " + this.templateName + "\n";
             } while (markupIter.nextNode());
 
-            throw msg;
+            throw new Error(msg);
         }
     },
     /**

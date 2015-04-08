@@ -3,6 +3,19 @@ var jsdoc = require("gulp-jsdoc");
 var debug = require('gulp-debug');
 
 gulp.task('doc', function (cb) {
-    gulp.src("app/scripts/**/*.js")
-        .pipe(jsdoc('docs'))
+
+    var conf = {
+        path: 'ink-docstrap',
+        systemName: 'alicatejs',
+        copyright: "MIT",
+        navType: "vertical",
+        theme: "spacelab",
+        linenums: true,
+        collapseSymbols: false,
+        inverseNav: false
+    };
+
+    debug;
+    gulp.src(["app/scripts/**/*.js", "README.md"])
+        .pipe(jsdoc('docs', conf))
 });

@@ -254,7 +254,7 @@ describe('Repeater suite', function () {
             repeater.bind(MarkupIter.createMarkupIter($template[0]));
             expect(function () {
                 repeater.render()
-            }).not.toThrow('Model should return an Array or Object!');
+            }).not.toThrow(new Error('Model should return an Array!'));
         });
 
         it('test repeater invalid model', function () {
@@ -268,7 +268,7 @@ describe('Repeater suite', function () {
             repeater.bind(MarkupIter.createMarkupIter($template[0]));
             expect(function () {
                 repeater.render()
-            }).toThrow('Model should return an Array!');
+            }).toThrow(new Error('Model should return an Array!'));
         });
     });
 });

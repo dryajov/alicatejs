@@ -1,12 +1,3 @@
-/**
- * A module representing a component
- *
- * @module Component
- * @exports alicate/components/component
- * @extends Base
- * @version 1.0
- */
-
 'use strict';
 
 var Base = require('../base'),
@@ -15,14 +6,22 @@ var Base = require('../base'),
     _ = require('underscore'),
     $ = require('jquery');
 
-module.exports = Base.extend({
+
+/**
+ * A module representing a component
+ *
+ * @class Component
+ * @extends Base
+ * @version 1.0
+ */
+module.exports = Base.extend(/** @lends Component.prototype */{
     initialize: function initialize() {
         if (this.behaviors) {
             $.merge(this.defaultBehaviors, this.behaviors);
         }
 
         if (!this.id || (this.id && this.id.length < 1)) {
-            throw 'Missing id!';
+            throw new Error('Missing id!');
         }
     },
     instanceData: function instanceData() {
@@ -181,13 +180,13 @@ module.exports = Base.extend({
     _checkIsValidElement: function _checkIsValidElement() {
         if (this.$el) {
             if (this.allowedElements && !this.$el.is(this.allowedElements.join(','))) {
-                throw 'Component ' + this.id +
+                throw new Error('Component ' + this.id +
                 ' is not allowed to attach to ' +
-                this.$el.prop("tagName") + ' tag';
+                this.$el.prop("tagName") + ' tag');
             }
         } else {
             if (!this.isBound) {
-                throw 'Element ' + this.id + ' is not bound!';
+                throw new Error('Element ' + this.id + ' is not bound!');
             }
         }
     },

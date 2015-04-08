@@ -26,23 +26,20 @@ var Router = require('./router'),
  *
  * return app.mount('/link1', new MyView());
  *
- * @class
- * @name AlicateApp
+ * @class AlicateApp
  * @extends Base
- * @type {object}
- * @exports alicate/alicateapp
  * @version 1.0
  */
-module.exports = Base.extend({
+module.exports = Base.extend(/** @lends AlicateApp.prototype */{
     initialize: function initialize() {
         this.$el = $(this.$selector);
 
         if (!this.$el) {
-            throw 'Unable to attach to selector ' + this.$selector;
+            throw new Error('Unable to attach to selector ' + this.$selector);
         }
 
         if (!this.templateStore) {
-            throw 'templateStore not provided!';
+            throw new Error('templateStore not provided!');
         }
 
         this.router.init();
@@ -84,7 +81,7 @@ module.exports = Base.extend({
 
         view.template = this.templateStore[view.templateName];
         if (!view.template) {
-            throw 'No template found for ' + view.templateName;
+            throw new Error('No template found for ' + view.templateName);
         }
 
         view.isMounted = true;

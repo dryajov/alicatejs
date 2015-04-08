@@ -11,12 +11,11 @@ var Repeater = require('./repeater'),
 /**
  * A module representing a dropdown
  *
- * @module Select
- * @exports alicate/components/select
+ * @class Select
  * @extends Container
  * @version 1.0
  */
-module.exports = Container.extend({
+module.exports = Container.extend(/** @lends Select.prototype */{
     initialize: function initialize() {
         var that = this;
 

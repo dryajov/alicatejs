@@ -8,12 +8,11 @@ var Component = require('./component');
 /**
  * A module representing an input
  *
- * @module Input
- * @exports alicate/components/input
+ * @class Input
  * @version 1.0
  */
 
-module.exports = Component.extend({
+module.exports = Component.extend(/** @lends Input.prototype */{
     instanceData: function instanceData() {
         return {
             /**

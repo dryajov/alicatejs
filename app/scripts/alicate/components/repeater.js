@@ -13,13 +13,11 @@ var Container = require('./container'),
 /**
  * A module representing a repeater
  *
- * @module Repeater
- * @exports alicate/components/repeater
- * @extends Container
+ * @class Repeater
+ * @extends Component
  * @version 1.0
  */
-
-module.exports = Component.extend({
+module.exports = Component.extend(/** @lends Repeater.prototype */{
     instanceData: function instanceData() {
         return {
             /**

@@ -9,20 +9,18 @@ var Behavior = require('./behavior');
 /**
  * A module representing a event behavior (hence eventable).
  *
- * @module Eventable
- * @exports alicate/behaviors/eventable
+ * @class Eventable
  * @extends Behavior
  * @version 1.0
  */
-
-module.exports = Behavior.extend({
+module.exports = Behavior.extend(/** @lends Eventable.prototype */{
     initialize: function initialize() {
         if (!this.handler) {
-            throw 'handler is missing!';
+            throw new Error('handler is missing!');
         }
 
         if (!this.event) {
-            throw 'event is missing!';
+            throw new Error('event is missing!');
         }
     },
     /**

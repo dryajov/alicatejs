@@ -9,12 +9,11 @@ var Component = require('./component');
 /**
  * A module representing a label
  *
- * @module Label
- * @exports alicate/components/label
+ * @class Label
+ * @extends Component
  * @version 1.0
  */
-
-module.exports = Component.extend({
+module.exports = Component.extend(/** @lends Label.prototype */{
     instanceData: function instanceData() {
         return {
             /**

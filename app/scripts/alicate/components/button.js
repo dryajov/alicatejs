@@ -10,11 +10,11 @@ var Label = require('./label'),
 /**
  * A module representing a button
  *
- * @module Toggle
- * @exports alicate/components/button
+ * @class Button
+ * @extends Label
  * @version 1.0
  */
-module.exports = Label.extend({
+module.exports = Label.extend(/** @lends Button.prototype */ {
     instanceData: function instanceData() {
         return {
             /**
