@@ -102,7 +102,7 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
                     this.$parent.append($domElm.children());
                 }
             } else {
-                throw 'Model should return an Array!';
+                throw new Error('Model should return an Array!');
             }
         }
 
