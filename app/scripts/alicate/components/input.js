@@ -9,6 +9,7 @@ var Component = require('./component');
  * A module representing an input
  *
  * @class Input
+ * @extends Component
  * @version 1.0
  */
 

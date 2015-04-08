@@ -11,6 +11,7 @@ var Component = require('./component');
  * A module representing a button
  *
  * @class Image
+ * @extends Component
  * @version 1.0
  */
 module.exports = Component.extend(/** @lends Image.prototype */{

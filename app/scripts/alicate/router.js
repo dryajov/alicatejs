@@ -10,7 +10,7 @@
  * @exports alicate/router
  * @version 1.0
  *
- * NOTE: This is the default implementation,
+ * This is the default implementation,
  * however any other implementation that conforms
  * to the below interface can be used as well
  **/

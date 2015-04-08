@@ -15,7 +15,6 @@ gulp.task('doc', function (cb) {
         inverseNav: false
     };
 
-    debug;
-    gulp.src(["app/scripts/**/*.js", "README.md"])
-        .pipe(jsdoc('docs', conf))
+    gulp.src(["app/**/*.js", "README.md"])
+        .pipe(jsdoc('docs', conf));
 });
