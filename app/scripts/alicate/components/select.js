@@ -145,7 +145,7 @@ module.exports = Container.extend(/** @lends Select.prototype */{
      * @override
      */
     render: function render() {
-        if(!Container.prototype.render.call(this)) {
+        if (!Container.prototype.render.call(this)) {
             return false;
         }
 

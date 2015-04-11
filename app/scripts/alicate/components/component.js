@@ -3,6 +3,7 @@
 var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
+    RenderState = require('../enums/render'),
     _ = require('underscore'),
     $ = require('jquery');
 
@@ -81,13 +82,15 @@ module.exports = Base.extend(/** @lends Component.prototype */{
      */
     enabled: true,
     /**
+     * @property {Enum} - The current rendering state
+     */
+    _renderState: RenderState.UNRENDERED,
+    /**
      * @param {Boolean} enabled - Enable/Disable the element
      */
     setEnabled: function setEnabled(enabled) {
-        if (this.enabled !== enabled) {
-            this.enabled = enabled;
-            this.render();
-        }
+        this.enabled = this.enabled === enabled;
+        this.render();
     },
     /**
      * Get html attribute
@@ -204,12 +207,10 @@ module.exports = Base.extend(/** @lends Component.prototype */{
      * @param {Boolean} visible - Set visible/hidden
      */
     setVisible: function setVisible(visible) {
-        if (this.$el) {
-            if (this.isVisible() != visible) {
-                this.visible = visible;
-                console.log("setting component id: " + this.id + " to visible: " + this.visible);
-                this.render();
-            }
+        if (this.isVisible() != visible) {
+            this.visible = visible;
+            console.log("setting component id: " + this.id + " to visible: " + this.visible);
+            this.render();
         }
     },
     /**
@@ -232,6 +233,24 @@ module.exports = Base.extend(/** @lends Component.prototype */{
         for (var behavior in this.defaultBehaviors) {
             if (!this.defaultBehaviors[behavior].attached) {
                 this.defaultBehaviors[behavior].attach(this);
+            }
+        }
+    },
+    runBehaviors: function runBehaviors() {
+        if (!this.isBound) {
+            return;
+        }
+
+        for (var behavior in this.defaultBehaviors) {
+            if (!this.defaultBehaviors[behavior].attached) {
+                switch (this._renderState) {
+                    case RenderState.POST_RENDER:
+                        this.defaultBehaviors[behavior].postRender(this);
+                        break;
+                    case RenderState.PRE_RENDER:
+                        this.defaultBehaviors[behavior].preRender(this);
+                        break;
+                }
             }
         }
     },
@@ -275,12 +294,28 @@ module.exports = Base.extend(/** @lends Component.prototype */{
 
         return this.model;
     },
+    /**
+     * Hook called just before the component is rendered
+     *
+     * Override to perform any changes before the component is rendered
+     */
     onPreRender: function onPreRender() {
     },
+    /**
+     * Hook called after the component is rendered
+     *
+     * Override to perform any changes after the component is rendered
+     */
     onPostRender: function onPostRender() {
     },
     /**
      * Render the current element
+     *
+     * This method triggers the render of the component.
+     * Rendering manipulates the dom element this component is attached to.
+     * Usually, this would involve setting the visible and enabled states of the
+     * component, as well as adjusting any attached attributes.
+     *
      */
     render: function render() {
         if (!this.isBound) {
@@ -292,7 +327,12 @@ module.exports = Base.extend(/** @lends Component.prototype */{
         this.bindBehaviors();
 
         if (this.$el) {
+            this._renderState = RenderState.PRE_RENDER;
             this.onPreRender();
+
+            // run behaviors before rendering
+            this.runBehaviors();
+
             for (var attr in this.attributes) {
                 this.$el.attr(attr, this.attributes[attr]);
             }
@@ -308,7 +348,14 @@ module.exports = Base.extend(/** @lends Component.prototype */{
             }
 
             this.hasRendered = true;
+
+            this._renderState = RenderState.POST_RENDER;
             this.onPostRender();
+
+            // run behaviors after rendering
+            this.runBehaviors();
+
+            this._renderState = RenderState.RENDERED;
         }
 
         return true;
@@ -324,6 +371,8 @@ module.exports = Base.extend(/** @lends Component.prototype */{
     bind: function bind(markupIter) {
         this.isBound = true;
         this.onComponentBound();
+
+        this.bindBehaviors();
     },
     /**
      * Bind the current model

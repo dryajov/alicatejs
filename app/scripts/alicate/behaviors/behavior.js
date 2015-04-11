@@ -34,5 +34,16 @@ module.exports = Base.extend(/** @lends Behavior.prototype */{
     attach: function attach(component) {
         this.component = component;
         this.attached = true;
+    },
+    /**
+     * Fired when the component is about to be rendered.
+     *
+     */
+    preRender: function preRender(){
+    },
+    /**
+     * Fired when the component has been rendered.
+     */
+    postRender: function postRender(){
     }
 });
