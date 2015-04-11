@@ -101,6 +101,35 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
      * representing the initial route to load
      */
     start: function start(route) {
+        this.onStarting();
         this.router.go(route || this.index);
+
+        var that = this;
+        $(window).unload(function(){
+            that.stop();
+        });
+    },
+    /**
+     * Stop application
+     */
+    stop: function stop() {
+        this.onStopping();
+
+        // reset to null to avoid dangling references
+        this.$el = null;
+        this.views = null;
+    },
+    /**
+     * Called before application has started
+     */
+    onStarting: function onStarting() {
+    },
+    /**
+     * Called before the application has stopped.
+     *
+     * This is attach to the `window` unload event
+     * as well as when calling the stop method explicitly
+     */
+    onStopping: function onStopping() {
     }
 });
