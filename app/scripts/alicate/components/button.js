@@ -8,7 +8,7 @@ var Label = require('./label'),
     Component = require('./component');
 
 /**
- * A module representing a button
+ * A class representing a button
  *
  * @class Button
  * @extends Label

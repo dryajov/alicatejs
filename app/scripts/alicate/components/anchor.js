@@ -1,20 +1,22 @@
 /**
+ * Created by dmitriy.ryajov on 4/11/15.
+ */
+/**
  * Created by dmitriy.ryajov on 7/17/14.
  */
 
 'use strict';
 
-var Component = require('./component');
-
+var Container = require('./container');
 
 /**
  * A class representing a button
  *
- * @class Button
+ * @class Anchor
  * @extends Component
  * @version 1.0
  */
-module.exports = Component.extend(/** @lends Image.prototype */{
+module.exports = Container.extend(/** @lends Anchor.prototype */{
     instanceData: function instanceData() {
         return {
             /**
@@ -25,24 +27,24 @@ module.exports = Component.extend(/** @lends Image.prototype */{
              * @type {String[]}
              */
             allowedElements: [
-                "img"
+                "a"
             ]
         };
     },
     /**
-     * The source of the image
+     * The href of the anchor
      *
      * @property text
      * @type {String}
      */
-    src: '',
+    href: '',
     /**
-     * Set src attribute
+     * Set the href attribute
      *
-     * @param src
+     * @param href
      */
-    setSrc: function setSrc(src) {
-        this.src = src;
+    setHref: function setHref(href) {
+        this.href = href;
         this.render();
     },
     /**
@@ -51,10 +53,10 @@ module.exports = Component.extend(/** @lends Image.prototype */{
      * @return {Boolean}  this object
      */
     render: function render() {
-        if (!Component.prototype.render.call(this)) {
+        if (!Container.prototype.render.call(this)) {
             return false;
         }
 
-        this.$el.attr('src', this.src);
+        this.$el.attr('href', this.href);
     }
 });

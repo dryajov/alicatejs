@@ -7,7 +7,7 @@
 var Behavior = require('./behavior');
 
 /**
- * A module representing a event behavior (hence eventable).
+ * A class representing a event behavior (hence eventable).
  *
  * @class Eventable
  * @extends Behavior

@@ -9,7 +9,7 @@ var Base = require('../base'),
 
 
 /**
- * A module representing a component
+ * A class representing a component
  *
  * @class Component
  * @extends Base
@@ -85,6 +85,10 @@ module.exports = Base.extend(/** @lends Component.prototype */{
      * @property {Enum} - The current rendering state
      */
     _renderState: RenderState.UNRENDERED,
+    /**
+     * @property {AlicateApp} - The current alicatejs app
+     */
+    app: null,
     /**
      * @param {Boolean} enabled - Enable/Disable the element
      */

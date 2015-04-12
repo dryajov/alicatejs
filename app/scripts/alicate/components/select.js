@@ -9,7 +9,7 @@ var Repeater = require('./repeater'),
 'use strict';
 
 /**
- * A module representing a dropdown
+ * A class representing a dropdown
  *
  * @class Select
  * @extends Container

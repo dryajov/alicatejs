@@ -11,6 +11,7 @@ Alicatejs.Repeater = require('./alicate/components/repeater');
 Alicatejs.Label = require('./alicate/components/label');
 Alicatejs.Input = require('./alicate/components/input');
 Alicatejs.Image = require('./alicate/components/image');
+Alicatejs.Anchor = require('./alicate/components/anchor');
 Alicatejs.Container = require('./alicate/components/container');
 Alicatejs.Component = require('./alicate/components/component');
 Alicatejs.Button = require('./alicate/components/button');

@@ -5,7 +5,8 @@
 
 var Router = require('./router'),
     Base = require('./base'),
-    View = require('./components/view');
+    View = require('./components/view'),
+    $ = require('jquery');
 
 /**
  * A module representing an alicate application
@@ -87,6 +88,8 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
         view.isMounted = true;
         this.router.mount(path, function (params) {
             that.$el.empty();
+            view.params = params;
+            view.app = that;
             view.bind();
             view.render();
             that.$el.append(view.$el);
@@ -105,7 +108,7 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
         this.router.go(route || this.index);
 
         var that = this;
-        $(window).unload(function(){
+        $(window).unload(function () {
             that.stop();
         });
     },

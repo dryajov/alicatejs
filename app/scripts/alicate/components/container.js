@@ -8,7 +8,7 @@ var Component = require('./component'),
     $ = require('jquery');
 
 /**
- * A module representing a container
+ * A class representing a container
  *
  * @class Container
  * @extends Component
@@ -94,23 +94,30 @@ var Container = Component.extend(/** @lends Container.prototype */{
     },
     append: function append(cmp) {
         if (this.isBound) {
-            this.add(cmp);
-            cmp.bind();
+            this._add(cmp);
             this.$el.append(cmp.$el);
             this.render();
         } else {
             throw new Error("Element not bound, can't append!");
         }
     },
-    preppend: function preppend(cmp) {
+    prepend: function prepend(cmp) {
         if (this.isBound) {
-            this.add(cmp);
-            cmp.bind();
+            this._add(cmp);
             this.$el.preppend(cmp.$el);
             this.render();
         } else {
             throw new Error("Element not bound, can't preppend!");
         }
+    },
+    /**
+     * Helper used by append/prepend to add and bind a component
+     * @param cmp
+     * @private
+     */
+    _add: function _add(cmp){
+        this.add(cmp);
+        cmp.bind();
     },
     /**
      * Get the number of children components
@@ -190,6 +197,7 @@ var Container = Component.extend(/** @lends Container.prototype */{
 
         cmp.$el = $element;
         cmp.parent = this;
+        cmp.app = this.app;
 
         cmp.bindModel();
         cmp.bindBehaviors();

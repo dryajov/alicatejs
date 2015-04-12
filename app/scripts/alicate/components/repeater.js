@@ -11,7 +11,7 @@ var Container = require('./container'),
     $ = require('jquery');
 
 /**
- * A module representing a repeater
+ * A class representing a repeater
  *
  * @class Repeater
  * @extends Component
@@ -31,6 +31,28 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
              */
             $parent: null
         };
+    },
+    /**
+     * @property {Number} - Current items count
+     *
+     * This is reset every-time the repeater is re-rendered
+     */
+    itemCount: 0,
+    /**
+     * Append an item to the repeater
+     *
+     * @param data
+     */
+    append: function append(data) {
+        this.$parent.append(this.itemRender(this.itemCount++, data));
+    },
+    /**
+     * Prepend an item to the repeater
+     *
+     * @param data
+     */
+    prepend: function prepend(data) {
+        this.$parent.prepend(this.itemRender(this.itemCount++, data));
     },
     /**
      * @override
@@ -84,7 +106,6 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
      */
     render: function render() {
         var data = this.getModelData(),
-            itemCount = 0,
             $domElm = $('<div/>');
 
         this._checkIsValidElement();
@@ -95,9 +116,10 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
                     this.$parent.empty();
                     // remove/detach element from the dom
                     this.$el.remove();
+                    this.itemCount = 0;
                     for (var prop in data) {
-                        $domElm.append(this.itemRender(itemCount, data[prop]));
-                        itemCount++;
+                        $domElm.append(this.itemRender(this.itemCount, data[prop]));
+                        this.itemCount++;
                     }
                     this.$parent.append($domElm.children());
                 }

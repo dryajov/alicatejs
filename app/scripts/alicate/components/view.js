@@ -5,10 +5,11 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter');
+    Markupiter = require('../markupiter'),
+    $ = require('jquery');
 
 /**
- * A module representing a view
+ * A class representing a view
  *
  * @class View
  * @extends Container
@@ -37,6 +38,10 @@ module.exports = Container.extend(/** @lends View.prototype */{
      * @property {boolean} - Flag indicating if this view is mounted
      */
     isMounted: false,
+    /**
+     * @property {Object} - Key/Value object holding the current route params
+     */
+    params: null,
     /**
      * Bind the component tree
      */

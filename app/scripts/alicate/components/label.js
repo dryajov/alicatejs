@@ -7,7 +7,7 @@
 var Component = require('./component');
 
 /**
- * A module representing a label
+ * A class representing a label
  *
  * @class Label
  * @extends Component

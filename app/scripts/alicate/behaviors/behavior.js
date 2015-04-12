@@ -7,7 +7,7 @@
 var Base = require('../../alicate/base');
 
 /**
- * A module representing a behavior
+ * A class representing a behavior
  *
  * @class Behavior
  * @extends Base

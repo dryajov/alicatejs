@@ -6,7 +6,7 @@
 var Component = require('./component');
 
 /**
- * A module representing an input
+ * A class representing an input
  *
  * @class Input
  * @extends Component
