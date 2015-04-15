@@ -3,8 +3,6 @@
  */
 'use strict';
 
-var $ = require('jquery');
-
 /**
  * Prototype object
  *
