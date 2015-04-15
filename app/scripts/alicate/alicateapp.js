@@ -5,8 +5,7 @@
 
 var Router = require('./router'),
     Base = require('./base'),
-    View = require('./components/view'),
-    $ = require('jquery');
+    View = require('./components/view');
 
 /**
  * A module representing an alicate application
@@ -34,6 +33,7 @@ var Router = require('./router'),
 module.exports = Base.extend(/** @lends AlicateApp.prototype */{
     initialize: function initialize() {
         this.$el = $(this.$selector);
+        this.$el.empty();
 
         if (!this.$el) {
             throw new Error('Unable to attach to selector ' + this.$selector);
@@ -87,7 +87,9 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
 
         view.isMounted = true;
         this.router.mount(path, function (params) {
-            that.$el.empty();
+            // detach elements will keep event handles and other data around
+            // so that we don't have to rebind everything next time.
+            that.$el.contents().detach();
             view.params = params;
             view.app = that;
             view.bind();

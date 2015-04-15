@@ -50,8 +50,8 @@ module.exports = Component.extend(/** @lends Image.prototype */{
      *
      * @return {Boolean}  this object
      */
-    render: function render() {
-        if (!Component.prototype.render.call(this)) {
+    componentRender: function componentRender() {
+        if (!Component.prototype.componentRender.call(this)) {
             return false;
         }
 

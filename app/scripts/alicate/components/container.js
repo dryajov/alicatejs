@@ -4,8 +4,7 @@
 
 'use strict';
 
-var Component = require('./component'),
-    $ = require('jquery');
+var Component = require('./component');
 
 /**
  * A class representing a container
@@ -32,6 +31,18 @@ var Container = Component.extend(/** @lends Container.prototype */{
              */
             children: []
         };
+    },
+    /**
+     * Clean the rendered flag. Used when the container wants to
+     * force re-render its children.
+     */
+    cleanRendered: function cleanRendered() {
+        for (var i in this.children) {
+            if (this.children[i] instanceof Container) {
+                this.children[i].cleanRendered();
+            }
+            this.children[i].hasRendered = false;
+        }
     },
     /**
      * Add a component to the view. Components that are not added explicitly
@@ -115,7 +126,7 @@ var Container = Component.extend(/** @lends Container.prototype */{
      * @param cmp
      * @private
      */
-    _add: function _add(cmp){
+    _add: function _add(cmp) {
         this.add(cmp);
         cmp.bind();
     },
@@ -165,7 +176,7 @@ var Container = Component.extend(/** @lends Container.prototype */{
 
         do {
             $element = $(markupIter.currentNode);
-            id = $element.data().aid;
+            id = $element.data('aid');
             if (id && id.length > 0) {
                 cmp = this.get(id);
                 if (cmp) {
@@ -210,13 +221,15 @@ var Container = Component.extend(/** @lends Container.prototype */{
             this._updateVisiblity();
         }
 
+        var result = Component.prototype.render.call(this);
+
         // run through the list of components
         // and render them
         for (var key in this.children) {
             this.children[key].render();
         }
 
-        return Component.prototype.render.call(this);
+        return result;
     }
 });
 

@@ -48,8 +48,8 @@ module.exports = Component.extend(/** @lends Label.prototype */{
      *
      * @return {Object} this object
      */
-    render: function render() {
-        if(!Component.prototype.render.call(this)) {
+    componentRender: function componentRender() {
+        if(!Component.prototype.componentRender.call(this)) {
             return false;
         }
 
