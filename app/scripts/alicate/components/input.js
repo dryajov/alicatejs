@@ -38,8 +38,8 @@ module.exports = Component.extend(/** @lends Input.prototype */{
      * Render the input component
      *
      */
-    render: function render() {
-        if (!Component.prototype.render.call(this)) {
+    componentRender: function componentRender() {
+        if (!Component.prototype.componentRender.call(this)) {
             return false;
         }
 
