@@ -7,8 +7,7 @@
 var Container = require('./container'),
     Component = require('./component'),
     Markupiter = require('../markupiter'),
-    Model = require('../model'),
-    $ = require('jquery');
+    Model = require('../model');
 
 /**
  * A class representing a repeater

@@ -3,9 +3,7 @@
 var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
-    RenderState = require('../enums/render'),
-    _ = require('underscore'),
-    $ = require('jquery');
+    RenderState = require('../enums/render');
 
 
 /**
@@ -313,13 +311,22 @@ module.exports = Base.extend(/** @lends Component.prototype */{
     onPostRender: function onPostRender() {
     },
     /**
+     * Called by {@link render}. Should be overridden by components to
+     * provide they're render functionality.
+     *
+     * @protected
+     * @return {Boolean} - Used to indicate if rendering succeeded
+     */
+    componentRender: function componentRender() {
+        return true;
+    },
+    /**
      * Render the current element
      *
      * This method triggers the render of the component.
      * Rendering manipulates the dom element this component is attached to.
      * Usually, this would involve setting the visible and enabled states of the
      * component, as well as adjusting any attached attributes.
-     *
      */
     render: function render() {
         if (!this.isBound) {
@@ -336,6 +343,9 @@ module.exports = Base.extend(/** @lends Component.prototype */{
 
             // run behaviors before rendering
             this.runBehaviors();
+
+            // call components render
+            this.componentRender();
 
             for (var attr in this.attributes) {
                 this.$el.attr(attr, this.attributes[attr]);
@@ -395,7 +405,6 @@ module.exports = Base.extend(/** @lends Component.prototype */{
         if (this.model instanceof Model) {
             $el.off(event);
             $el.on(event, function (e) {
-                e.stopPropagation();
                 model.set(that.getValue());
             });
 

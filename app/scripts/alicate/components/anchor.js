@@ -52,8 +52,8 @@ module.exports = Container.extend(/** @lends Anchor.prototype */{
      *
      * @return {Boolean}  this object
      */
-    render: function render() {
-        if (!Container.prototype.render.call(this)) {
+    componentRender: function render() {
+        if (!Container.prototype.componentRender.call(this)) {
             return false;
         }
 

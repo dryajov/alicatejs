@@ -48,14 +48,14 @@ module.exports = Label.extend(/** @lends Button.prototype */ {
      *
      * @return {Boolean} - this object
      */
-    render: function render() {
-        if (!Label.prototype.render.call(this)) {
+    componentRender: function render() {
+        if (!Label.prototype.componentRender.call(this)) {
             return false;
         }
 
-        if (this.$el.is(':checkbox')) {
+        if (this.$el.is('[type=checkbox]')) {
             this.$el.prop('checked', this.selected);
-        } else if (this.$el.is(':radio')) {
+        } else if (this.$el.is('[type=radio]')) {
             this.$el.prop('selected', this.selected);
         }
 
