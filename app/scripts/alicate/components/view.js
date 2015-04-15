@@ -5,8 +5,7 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter'),
-    $ = require('jquery');
+    Markupiter = require('../markupiter');
 
 /**
  * A class representing a view
@@ -84,6 +83,7 @@ module.exports = Container.extend(/** @lends View.prototype */{
         this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
         this.$template = null;
 
+        this.cleanRendered();
         Container.prototype.render.call(this);
         return this.$el;
     },
