@@ -5,7 +5,8 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter');
+    Markupiter = require('../markupiter'),
+    $ = require('jquery');
 
 /**
  * A class representing a view

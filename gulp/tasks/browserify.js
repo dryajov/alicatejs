@@ -28,7 +28,6 @@ gulp.task('browserify', function () {
         })
         .add('./app/scripts/main.js')
         .external('jquery')
-        .external('lodash')
         .external('underscore')
         .external('page')
         .transform(partialify) // Transform to allow requireing of templates
@@ -39,8 +38,11 @@ gulp.task('browserify', function () {
 
 
 // Browserify
-gulp.task('browserify', function () {
+gulp.task('browserify-test', function () {
     return browserify({debug: true})
+        .require('jquery')
+        .require('underscore')
+        .require('page')
         .add(__dirname + '/../../test/specs/specs.js')
         .transform(partialify) // Transform to allow requireing of templates
         .bundle()

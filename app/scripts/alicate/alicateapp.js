@@ -5,7 +5,8 @@
 
 var Router = require('./router'),
     Base = require('./base'),
-    View = require('./components/view');
+    View = require('./components/view'),
+    $ = require('jquery');
 
 /**
  * A module representing an alicate application

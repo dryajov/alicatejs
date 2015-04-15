@@ -3,7 +3,9 @@
 var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
-    RenderState = require('../enums/render');
+    RenderState = require('../enums/render'),
+    $ = require('jquery'),
+    _ = require('underscore');
 
 
 /**
