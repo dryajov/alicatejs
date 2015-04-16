@@ -20,15 +20,15 @@ module.exports = Base.extend(/** @lends observable.Observable.prototype */{
     initialize: function initialize() {
         this._subscribers = [];
     },
-    constructor: function constructor() {
-        /**
-         * @property {Object[]} _subscribers - Stores the listeners
-         * @private
-         * @type {Array}
-         */
-        this._subscribers = [];
-
-        Base.call(this);
+    instanceData: function instanceData() {
+        return {
+            /**
+             * @property {Object[]} _subscribers - Stores the listeners
+             * @private
+             * @type {Array}
+             */
+            _subscribers: []
+        };
     },
     /**
      * Subscribe to the current observable
