@@ -1,6 +1,11 @@
 /**
  * Created by dmitriy.ryajov on 6/26/14.
  */
+
+/**
+ * @module base
+ */
+
 'use strict';
 
 var $ = require('jquery');
@@ -8,7 +13,7 @@ var $ = require('jquery');
 /**
  * Prototype object
  *
- * @class Base
+ * @class base.Base
  * @param values
  * @returns {Base}
  * @constructor
@@ -43,6 +48,9 @@ var Base = function (values) {
      * @param protoProps
      * @param staticProps
      * @returns {*}
+     *
+     * @memberof base.Base
+     * @static
      */
     extend = function extend(protoProps, staticProps) {
         'use strict';
@@ -86,6 +94,16 @@ var Base = function (values) {
         return child;
 
     },
+    /**
+     * Reverse prototype chain, so that we can merge objects in reverse order,
+     * starting with the parent and moving up in the inheritance chain
+     *
+     * @param obj
+     * @param method
+     * @param args
+     * @returns {{}}
+     * @private
+     */
     _reverseProtoChain = function _reverseProtoChain(obj, method, args) {
         var proto = Object.getPrototypeOf(obj),
             result = {};

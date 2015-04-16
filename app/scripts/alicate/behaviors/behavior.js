@@ -7,13 +7,17 @@
 var Base = require('../../alicate/base');
 
 /**
+ * @module behavior
+ */
+
+/**
  * A class representing a behavior
  *
- * @class Behavior
- * @extends Base
+ * @class behavior.Behavior
+ * @extends base.Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends Behavior.prototype */{
+module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
     /**
      * @property {String} id -   Any arbitrary identifier for this behavior
      */

@@ -9,13 +9,17 @@ var Repeater = require('./repeater'),
 'use strict';
 
 /**
+ * @module select
+ */
+
+/**
  * A class representing a dropdown
  *
- * @class Select
+ * @class select.Select
  * @extends Container
  * @version 1.0
  */
-module.exports = Container.extend(/** @lends Select.prototype */{
+module.exports = Container.extend(/** @lends select.Select.prototype */{
     initialize: function initialize() {
         var that = this;
 
@@ -35,6 +39,9 @@ module.exports = Container.extend(/** @lends Select.prototype */{
              *
              * @property allowedElements
              * @type {String[]}
+             *
+             * @memberof select.Select
+             * @instance
              */
             allowedElements: [
                 "select"
@@ -42,6 +49,9 @@ module.exports = Container.extend(/** @lends Select.prototype */{
             /**
              * @property {Object} components - List of components that
              * have been attached to this view.
+             *
+             * @memberof select.Select
+             * @instance
              */
             children: [
             /**

@@ -9,13 +9,17 @@ var Container = require('./container'),
     $ = require('jquery');
 
 /**
+ * @module view
+ */
+
+/**
  * A class representing a view
  *
- * @class View
- * @extends Container
+ * @class view.View
+ * @extends container.Container
  * @version 1.0
  */
-module.exports = Container.extend(/** @lends View.prototype */{
+module.exports = Container.extend(/** @lends view.View.prototype */{
     initialize: function initialize() {
         // this is needed to override components require id constraint
     },

@@ -1,22 +1,32 @@
 /**
  * Created by dmitriy.ryajov on 4/11/15.
  */
-/**
- * Created by dmitriy.ryajov on 7/17/14.
- */
 
 'use strict';
 
 var Container = require('./container');
 
 /**
- * A class representing a button
+ * @module anchor
+ */
+
+/**
+ * A class representing an anchor tag.
  *
- * @class Anchor
- * @extends Component
+ * @example
+ * var myAnchor = new Anchor({
+ *  id: 'my-anchor',
+ *  href: 'http://alicatejs.org'
+ * });
+ *
+ * // change the link to something else
+ * myAnchor.setHref('http://github.com/dryajov/alicatejs');
+ *
+ * @class anchor.Anchor
+ * @extends container.Container
  * @version 1.0
  */
-module.exports = Container.extend(/** @lends Anchor.prototype */{
+module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
     instanceData: function instanceData() {
         return {
             /**
@@ -25,6 +35,9 @@ module.exports = Container.extend(/** @lends Anchor.prototype */{
              *
              * @property allowedElements
              * @type {String[]}
+             *
+             * @memberof anchor.Anchor
+             * @instance
              */
             allowedElements: [
                 "a"
@@ -34,23 +47,23 @@ module.exports = Container.extend(/** @lends Anchor.prototype */{
     /**
      * The href of the anchor
      *
-     * @property text
+     * @property href
      * @type {String}
      */
     href: '',
     /**
      * Set the href attribute
      *
-     * @param href
+     * @param href {String}
      */
     setHref: function setHref(href) {
         this.href = href;
         this.render();
     },
     /**
-     * Render the text into the attached html element
+     * Render the href into the attached anchor tag
      *
-     * @return {Boolean}  this object
+     * @return {Boolean}
      */
     componentRender: function render() {
         if (!Container.prototype.componentRender.call(this)) {

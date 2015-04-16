@@ -6,19 +6,26 @@
 var Component = require('./component');
 
 /**
+ * @module input
+ */
+
+/**
  * A class representing an input
  *
- * @class Input
+ * @class input.Input
  * @extends Component
  * @version 1.0
  */
 
-module.exports = Component.extend(/** @lends Input.prototype */{
+module.exports = Component.extend(/** @lends input.Input.prototype */{
     instanceData: function instanceData() {
         return {
             /**
              * @property {String[]} allowedElements - Elements
              * this component can attach to
+             *
+             * @memberof input.Input
+             * @instance
              */
             allowedElements: [
                 "input",

@@ -7,13 +7,17 @@
 var Observable = require('./observable');
 
 /**
+ * @module model
+ */
+
+/**
  * A module representing a model.
  *
  * @class Model
  * @extends Observable
  * @version 1.0
  */
-module.exports = Observable.extend(/** @lends Model.prototype */{
+module.exports = Observable.extend(/** @lends model.Model.prototype */{
     /**
      * @property {Any} - The data held by this model
      */

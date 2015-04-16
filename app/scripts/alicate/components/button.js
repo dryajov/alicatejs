@@ -8,10 +8,14 @@ var Label = require('./label'),
     Component = require('./component');
 
 /**
+ * @module button
+ */
+
+/**
  * A class representing a button
  *
- * @class Button
- * @extends Label
+ * @class button.Button
+ * @extends label.Label
  * @version 1.0
  */
 module.exports = Label.extend(/** @lends Button.prototype */ {
@@ -20,6 +24,9 @@ module.exports = Label.extend(/** @lends Button.prototype */ {
             /**
              * @property {String[]} allowedElements - Elements this
              * component can attach to
+             *
+             * @memberof button.Button
+             * @instance
              */
             allowedElements: [
                 "button",
@@ -27,10 +34,17 @@ module.exports = Label.extend(/** @lends Button.prototype */ {
             ],
             /**
              * @property {String} - The selected state css class of the button
+             *
+             * @memberof button.Button
+             * @instance
+             *
              */
             selectedClass: null,
             /**
              * @property {Boolean} - Toggle On/Off
+             *
+             * @memberof button.Button
+             * @instance
              */
             selected: false
         };

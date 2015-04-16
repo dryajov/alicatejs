@@ -7,7 +7,7 @@
  * A module representing a router
  *
  * @module Router
- * @exports alicate/router
+ * @exports router
  * @version 1.0
  *
  * This is the default implementation,

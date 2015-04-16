@@ -9,15 +9,17 @@ var Router = require('./router'),
     $ = require('jquery');
 
 /**
- * A module representing an alicate application
- *
+ * @module alicateapp
+ */
+
+/**
  * <p>
- * This module provides an entry point to your alicate applications.
- *
- * It allows mounting {@link View}'s on desired paths
- * and provides a way to bind the application to a particular element in the dom,
- * using a css selector.
- * <p>
+ *     This class provides an entry point to your alicate applications.
+ *     It allows mounting {@link view.View|View}'s on desired paths
+ *     and provides a way to bind the application to a particular element in the dom,
+ *     using a css selector, as well as provides hooks into
+ *     initialization/de-initialization process of the app.
+ * </p>
  *
  * @example
  * var app = new AlicateApp({
@@ -27,11 +29,11 @@ var Router = require('./router'),
  *
  * return app.mount('/link1', new MyView());
  *
- * @class AlicateApp
- * @extends Base
+ * @class alicateapp.AlicateApp
+ * @extends base.Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends AlicateApp.prototype */{
+module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     initialize: function initialize() {
         this.$el = $(this.$selector);
         this.$el.empty();
@@ -47,39 +49,64 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
         this.router.init();
     },
     /**
-     * @property {String} index - The index view of this page
+     * The default route the application will load if none is provided
+     * to the {@link alicatapp.AlicatApp.start|start()} method.
+     *
+     * @property {String} index - default route
      */
     index: null,
     /**
-     * @property {String} id - The selector to attach this app to
+     * This is the css selector that the app will attach itself to.
+     *
+     * @property {String} id - css selector
      */
     $selector: '',
     /**
-     * @property {jQuery} $el - The element the app is attached to
+     * This is the jquery wrapped dom element that this app is attached to
+     *
+     * @property {jQuery} $el - jquery wrapped dom element
      */
     $el: null,
     /**
-     * @property {View[]} views - Collection of views
+     * The collection of mounted _views of this app. This is a key/value store,
+     * of the form of route => view, and it should not be manipulated directly
+     *
+     * @property {View[]} _views - Collection of _views
+     * @private
      */
-    views: {},
+    _views: {},
     /**
-     * @property {Object} templateStore - The templateStore of this application
+     * This is the key/value store of html fragments that the application uses
+     * to render its views. It takes the form of 'template name' => 'html fragment',
+     * where template name should correspond to the templateName property in one of
+     * the views.
+     *
+     * @property {Object} templateStore - key/value store of html fragments
      */
     templateStore: null,
     /**
-     * @property {Router} router - The router used by this app
+     * The router used by this app. Override on application declaration
+     * to provide a custom router
+     *
+     * @property {Router} router - a router
      */
     router: Router,
     /**
-     * Associate a view with a route
+     * This method, associates a view with a route. The route is any url
+     * fragment that the application wants to respond to. By default, alicatejs uses
+     * {@link https://visionmedia.github.io/page.js/|page.js}, so any and all considerations
+     * required while working with {@link https://visionmedia.github.io/page.js/|page.js}
+     * also apply here, that also means that in general,
+     * alicatejs supports all the features that {@link https://visionmedia.github.io/page.js/|page.js}
+     * provides. Parameters defined by the route will be passed to the {@link view.View.params|View.params} property.
      *
-     * @param {String} path
-     * @param {View} view
+     * @param {String} path The route to be monitored by alicatejs
+     * @param {View} view The view to render for this route
      * @return {app} Returns this app
      */
     mount: function mount(path, view) {
         var that = this;
-        this.views[path] = view;
+        this._views[path] = view;
 
         view.template = this.templateStore[view.templateName];
         if (!view.template) {
@@ -101,40 +128,43 @@ module.exports = Base.extend(/** @lends AlicateApp.prototype */{
         return this;
     },
     /**
-     * Start application
+     * This method will trigger the rendering of the app,
+     * by firing the location specified in the {@link index} member,
+     * during app declaration, or by using the route provided as
+     * a parameter to this method.
      *
-     * @param {String} route optional param
-     * representing the initial route to load
+     * @param {String} [route] the initial route to load
      */
     start: function start(route) {
         this.onStarting();
         this.router.go(route || this.index);
-
-        var that = this;
-        $(window).unload(function () {
-            that.stop();
-        });
     },
     /**
-     * Stop application
+     * Stop application. Triggers the onStopping() hook.
      */
     stop: function stop() {
         this.onStopping();
 
         // reset to null to avoid dangling references
         this.$el = null;
-        this.views = null;
+        this._views = null;
     },
     /**
-     * Called before application has started
+     * <p>Called before the application has started.</p>
+     *
+     * <p>Use this to perform any additional initialization
+     * that your application might require,
+     * such as authentication/authorization</p>
      */
     onStarting: function onStarting() {
     },
     /**
-     * Called before the application has stopped.
+     * <p>Called before the application has stopped.</p>
      *
-     * This is attach to the `window` unload event
-     * as well as when calling the stop method explicitly
+     * <p>
+     * Use it to perform any required cleanup or de-initialization,
+     * such as invalidating the session, etc...
+     * </p>
      */
     onStopping: function onStopping() {
     }

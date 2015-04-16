@@ -6,15 +6,18 @@
 
 var Component = require('./component');
 
+/**
+ * @module image
+ */
 
 /**
  * A class representing a button
  *
- * @class Button
- * @extends Component
+ * @class image.Image
+ * @extends component.Component
  * @version 1.0
  */
-module.exports = Component.extend(/** @lends Image.prototype */{
+module.exports = Component.extend(/** @lends image.Image.prototype */{
     instanceData: function instanceData() {
         return {
             /**
@@ -23,6 +26,10 @@ module.exports = Component.extend(/** @lends Image.prototype */{
              *
              * @property allowedElements
              * @type {String[]}
+             *
+             *
+             * @memberof image.Image
+             * @instance
              */
             allowedElements: [
                 "img"

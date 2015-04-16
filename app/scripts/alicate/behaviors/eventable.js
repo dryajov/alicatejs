@@ -7,13 +7,17 @@
 var Behavior = require('./behavior');
 
 /**
+ * @module eventable
+ */
+
+/**
  * A class representing a event behavior (hence eventable).
  *
- * @class Eventable
- * @extends Behavior
+ * @class eventable.Eventable
+ * @extends behavior.Behavior
  * @version 1.0
  */
-module.exports = Behavior.extend(/** @lends Eventable.prototype */{
+module.exports = Behavior.extend(/** @lends eventable.Eventable.prototype */{
     initialize: function initialize() {
         if (!this.handler) {
             throw new Error('handler is missing!');

@@ -8,13 +8,17 @@ var Component = require('./component'),
     $ = require('jquery');
 
 /**
+ * @module container
+ */
+
+/**
  * A class representing a container
  *
- * @class Container
- * @extends Component
+ * @class container.Container
+ * @extends component.Component
  * @version 1.0
  */
-var Container = Component.extend(/** @lends Container.prototype */{
+var Container = Component.extend(/** @lends container.Container.prototype */{
     initialize: function initialize() {
         Component.prototype.initialize.call(this);
 
@@ -29,6 +33,9 @@ var Container = Component.extend(/** @lends Container.prototype */{
             /**
              * @property {Object} components - List of components
              * that have been attached to this view.
+             *
+             * @memberof container.Container
+             * @instance
              */
             children: []
         };

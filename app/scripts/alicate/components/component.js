@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * @module component
+ */
+
 var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
@@ -7,15 +11,14 @@ var Base = require('../base'),
     $ = require('jquery'),
     _ = require('underscore');
 
-
 /**
  * A class representing a component
  *
- * @class Component
- * @extends Base
+ * @class component.Component
+ * @extends base.Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends Component.prototype */{
+module.exports = Base.extend(/** @lends component.Component.prototype */{
     initialize: function initialize() {
         if (this.behaviors) {
             $.merge(this.defaultBehaviors, this.behaviors);
@@ -30,19 +33,31 @@ module.exports = Base.extend(/** @lends Component.prototype */{
             /**
              * @property {Behavior[]} defaultBehaviors - A list of default
              * behaviors of the component
+             *
+             * @memberof component.Component
+             * @instance
              */
             defaultBehaviors: [],
             /**
              * @property {String[]} allowedElements - Elements this component
              * can attach to
+             *
+             * @memberof component.Component
+             * @instance
              */
             allowedElements: null,
             /**
              * @property {Object} attributes - Map of attributes of this component
+             *
+             * @memberof component.Component
+             * @instance
              */
             attributes: {},
             /**
              * @property {Object} property - Map of properties of this component
+             *
+             * @memberof component.Component
+             * @instance
              */
             properties: {}
         }
@@ -83,6 +98,7 @@ module.exports = Base.extend(/** @lends Component.prototype */{
     enabled: true,
     /**
      * @property {Enum} - The current rendering state
+     * @private
      */
     _renderState: RenderState.UNRENDERED,
     /**

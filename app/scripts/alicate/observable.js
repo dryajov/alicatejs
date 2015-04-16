@@ -6,22 +6,30 @@
 var Base = require('./base');
 
 /**
+ * @module observable
+ */
+
+/**
  * A module representing an observable
  *
- * @class Observable
+ * @class observable.Observable
  * @extends Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends Observable.prototype */{
+module.exports = Base.extend(/** @lends observable.Observable.prototype */{
     initialize: function initialize() {
         this._subscribers = [];
     },
-    /**
-     * @property {Object[]} _subscribers - Stores the listeners
-     * @private
-     * @type {Array}
-     */
-    _subscribers: [],
+    constructor: function constructor() {
+        /**
+         * @property {Object[]} _subscribers - Stores the listeners
+         * @private
+         * @type {Array}
+         */
+        this._subscribers = [];
+
+        Base.call(this);
+    },
     /**
      * Subscribe to the current observable
      *

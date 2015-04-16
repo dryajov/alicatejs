@@ -7,18 +7,25 @@
 var Component = require('./component');
 
 /**
+ * @module label
+ */
+
+/**
  * A class representing a label
  *
- * @class Label
- * @extends Component
+ * @class label.Label
+ * @extends component.Component
  * @version 1.0
  */
-module.exports = Component.extend(/** @lends Label.prototype */{
+module.exports = Component.extend(/** @lends label.Label.prototype */{
     instanceData: function instanceData() {
         return {
             /**
              * @property {String[]} allowedElements - Elements this
              * component can attach to
+             *
+             * @memberof label.Label
+             * @instance
              */
             allowedElements: [
                 "div",

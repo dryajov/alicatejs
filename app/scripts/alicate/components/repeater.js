@@ -11,23 +11,33 @@ var Container = require('./container'),
     $ = require('jquery');
 
 /**
+ * @module repeater
+ */
+
+/**
  * A class representing a repeater
  *
- * @class Repeater
- * @extends Component
+ * @class repeater.Repeater
+ * @extends component.Component
  * @version 1.0
  */
-module.exports = Component.extend(/** @lends Repeater.prototype */{
+module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
     instanceData: function instanceData() {
         return {
             /**
              * @property {Object} components - List of components
              * that have been attached to this view.
+             *
+             * @memberof repeater.Repeater
+             * @instance
              */
             _children: [],
             /**
              * @property {jQuery} $parent - The parent of this
              * repeated element
+             *
+             * @memberof repeater.Repeater
+             * @instance
              */
             $parent: null
         };
@@ -79,6 +89,13 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
 
         this.skipNodes(markupIter, markupIter.currentNode);
     },
+    /**
+     * Skip all child nodes
+     *
+     * @private
+     * @param markupIter
+     * @param lastNode
+     */
     skipNodes: function skipNodes(markupIter, lastNode) {
         // Get the next sibling or go up to the
         // parent and get positioned on the next
@@ -132,6 +149,7 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
         return Container.prototype.render.call(this);
     },
     /**
+     * Render the current item.
      *
      * @param itemCount
      * @param data
@@ -177,9 +195,6 @@ module.exports = Component.extend(/** @lends Repeater.prototype */{
         item.bindModel();
         item.render();
         this._children.push(item);
-    },
-    addItem: function addItemObject(data) {
-        this.$parent.append(this.itemRender(this._children.length, data));
     },
     /**
      * Called when a repeated item is rendered, override this method
