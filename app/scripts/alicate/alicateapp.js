@@ -52,26 +52,26 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * The default route the application will load if none is provided
      * to the {@link alicatapp.AlicatApp.start|start()} method.
      *
-     * @property {String} index - default route
+     * @property {String} - default route
      */
     index: null,
     /**
      * This is the css selector that the app will attach itself to.
      *
-     * @property {String} id - css selector
+     * @property {String} - css selector
      */
     $selector: '',
     /**
      * This is the jquery wrapped dom element that this app is attached to
      *
-     * @property {jQuery} $el - jquery wrapped dom element
+     * @property {jQuery} - jquery wrapped dom element
      */
     $el: null,
     /**
      * The collection of mounted _views of this app. This is a key/value store,
      * of the form of route => view, and it should not be manipulated directly
      *
-     * @property {View[]} _views - Collection of _views
+     * @property {View[]} - Collection of _views
      * @private
      */
     _views: {},
@@ -81,14 +81,14 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * where template name should correspond to the templateName property in one of
      * the views.
      *
-     * @property {Object} templateStore - key/value store of html fragments
+     * @property {Object} - key/value store of html fragments
      */
     templateStore: null,
     /**
      * The router used by this app. Override on application declaration
      * to provide a custom router
      *
-     * @property {Router} router - a router
+     * @property {Router} - a router
      */
     router: Router,
     /**

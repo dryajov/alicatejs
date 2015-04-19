@@ -25,16 +25,16 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
     },
     id: null,
     /**
-     * @property {String} template - The name of the template
+     * @property {String} - The name of the template
      * that this view renders
      */
     templateName: '',
     /**
-     * @property {String} template - The string markup (unaltered)
+     * @property {String} - The string markup (unaltered)
      */
     template: '',
     /**
-     * @property {jQuery} $template - An intermediary holder for
+     * @property {jQuery} - An intermediary holder for
      * the current template
      */
     $template: null,

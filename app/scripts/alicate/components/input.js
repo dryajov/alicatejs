@@ -10,7 +10,21 @@ var Component = require('./component');
  */
 
 /**
- * A class representing an input
+ * The input class allows capturing data from an html element.
+ *
+ * @example
+ *
+ * var someInput;
+ * var inputModel = new Model({data: someInput});
+ * var myInput = new Input({
+ *      id: 'my-input',
+ *      model: inputModel
+ * });
+ *
+ * var myLabel = new Label({
+ *      id: 'my-label',
+ *      model: inputModel
+ * });
  *
  * @class input.Input
  * @extends Component
@@ -21,7 +35,7 @@ module.exports = Component.extend(/** @lends input.Input.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {String[]} allowedElements - Elements
+             * @property {String[]} - Elements
              * this component can attach to
              *
              * @memberof input.Input

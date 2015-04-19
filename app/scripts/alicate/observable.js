@@ -23,7 +23,7 @@ module.exports = Base.extend(/** @lends observable.Observable.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {Object[]} _subscribers - Stores the listeners
+             * @property {Object[]} - Stores the listeners
              * @private
              * @type {Array}
              */

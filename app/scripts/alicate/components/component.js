@@ -12,7 +12,21 @@ var Base = require('../base'),
     _ = require('underscore');
 
 /**
- * A class representing a component
+ * A component is the base building block of alicatejs.
+ * By itself the component does not render anything, however
+ * it controls the <b>visible</b> and <b>enabled</b> states of the html
+ * element, as well as takes care of setting its <b>properties</b> and
+ * <b>attributes</b>.
+ *
+ * @example
+ * var myComponent = new Component({
+ *  id: 'my-component',
+ *  attributes: {
+ *      class: 'some-class'
+ *  }
+ * }).on('click', function() {
+ *      this.$el.text('I've been clicked!');
+ * });
  *
  * @class component.Component
  * @extends base.Base
@@ -31,7 +45,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {Behavior[]} defaultBehaviors - A list of default
+             * @property {Behavior[]} - A list of default
              * behaviors of the component
              *
              * @memberof component.Component
@@ -39,7 +53,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              */
             defaultBehaviors: [],
             /**
-             * @property {String[]} allowedElements - Elements this component
+             * @property {String[]} - Elements this component
              * can attach to
              *
              * @memberof component.Component
@@ -47,14 +61,14 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              */
             allowedElements: null,
             /**
-             * @property {Object} attributes - Map of attributes of this component
+             * @property {Object} - Map of attributes of this component
              *
              * @memberof component.Component
              * @instance
              */
             attributes: {},
             /**
-             * @property {Object} property - Map of properties of this component
+             * @property {Object} - Map of properties of this component
              *
              * @memberof component.Component
              * @instance
@@ -63,33 +77,33 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         }
     },
     /**
-     * @property {String} id - The id of the data element to attach to
+     * @property {String} - The id of the data element to attach to
      */
     id: '',
     /**
-     * @property {Object} $el - The html element reference that this
+     * @property {Object} - The html element reference that this
      * component is attached to
      **/
     $el: null,
     /**
-     * @property model - The model for this component
+     * @property {Model} - The model for this component
      */
     model: null,
     /**
-     * @property {Array} behaviors - A list of user attached behaviors
+     * @property {Array} - A list of user attached behaviors
      * associated with this component
      */
     behaviors: null,
     /**
-     * @property {Boolean} visible - Determines is the component is visible
+     * @property {Boolean} - Determines is the component is visible
      */
     visible: true,
     /**
-     * @property {container} parent - The parent of this component
+     * @property {container} - The parent of this component
      */
     parent: null,
     /**
-     * @property {Boolean} isBound - Is component bout
+     * @property {Boolean} - Is component bout
      */
     isBound: false,
     /**
@@ -151,7 +165,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.properties[prop];
     },
     /**
-     * @property {Boolean} hasRendered - flag signaling if the model has
+     * @property {Boolean} - flag signaling if the model has
      * changed since the last time the model got updated
      */
     hasRendered: false,
@@ -242,7 +256,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.visible;
     },
     /**
-     * Attache the behaviors
+     * Attach behaviors
      *
      */
     bindBehaviors: function bindBehaviors() {

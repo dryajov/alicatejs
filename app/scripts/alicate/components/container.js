@@ -12,7 +12,28 @@ var Component = require('./component'),
  */
 
 /**
- * A class representing a container
+ * A container allows creating component trees,
+ * by  adding other components and containers
+ * to its children array.
+ *
+ * @example
+ *
+ * var my myContainer = new Container({
+ *      id: 'my-container',
+ *      children: [
+ *          new Label({
+ *              id: 'my-label',
+ *              text: 'Some text'
+ *          }),
+ *          new Button({
+ *              id: 'my-button',
+ *              text: 'Some button'
+ *          })
+ *      ]
+ * }).add(new Image({
+ *      id: 'my-image',
+ *      src: 'https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg'
+ * }))
  *
  * @class container.Container
  * @extends component.Component
@@ -31,7 +52,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {Object} components - List of components
+             * @property {Object} - List of components
              * that have been attached to this view.
              *
              * @memberof container.Container

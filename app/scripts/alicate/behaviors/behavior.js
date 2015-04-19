@@ -19,15 +19,15 @@ var Base = require('../../alicate/base');
  */
 module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
     /**
-     * @property {String} id -   Any arbitrary identifier for this behavior
+     * @property {String} -   Any arbitrary identifier for this behavior
      */
     id: '',
     /**
-     * @property {Component} component - The component that the behavior is attached to
+     * @property {Component} - The component that the behavior is attached to
      */
     component: null,
     /**
-     * @property {Boolean} attached - Is this behavior attached
+     * @property {Boolean} - Is this behavior attached
      */
     attached: false,
     /**

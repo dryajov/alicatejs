@@ -11,7 +11,7 @@ var Container = require('./container');
  */
 
 /**
- * A class representing an anchor tag.
+ * An anchor class
  *
  * @example
  * var myAnchor = new Anchor({
@@ -33,7 +33,7 @@ module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
              * A list of allowed html element selectors that this component
              * can attach to
              *
-             * @property allowedElements
+             * @property
              * @type {String[]}
              *
              * @memberof anchor.Anchor
@@ -47,7 +47,7 @@ module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
     /**
      * The href of the anchor
      *
-     * @property href
+     * @property
      * @type {String}
      */
     href: '',

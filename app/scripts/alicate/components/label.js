@@ -21,7 +21,7 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {String[]} allowedElements - Elements this
+             * @property {String[]} - Elements this
              * component can attach to
              *
              * @memberof label.Label
@@ -43,7 +43,7 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
      * braces will be replaced by a matching property in the
      * model.
      *
-     * @property {String} text - The text to be rendered.
+     * @property {String} - The text to be rendered.
      *
      * @example
      * 'The {value} in curly braces will be replaced with the

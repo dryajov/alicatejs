@@ -37,7 +37,7 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
              * A list of allowed html element selectors that this component
              * can attach to
              *
-             * @property allowedElements
+             * @property
              * @type {String[]}
              *
              * @memberof select.Select
@@ -47,7 +47,7 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
                 "select"
             ],
             /**
-             * @property {Object} components - List of components that
+             * @property {Object} - List of components that
              * have been attached to this view.
              *
              * @memberof select.Select

@@ -12,7 +12,16 @@ var Label = require('./label'),
  */
 
 /**
- * A class representing a button
+ * A button class
+ *
+ * @example
+ *
+ * var myButton = new Button({
+ *  id: 'my-button',
+ *  text: 'this is my button',
+ *  selected: true,
+ *  selectedClass: 'selected-class'
+ * });
  *
  * @class button.Button
  * @extends label.Label
@@ -50,8 +59,7 @@ module.exports = Label.extend(/** @lends Button.prototype */ {
         };
     },
     /**
-     *
-     * @param checked
+     * Flag indicating the toggled state of the button
      */
     toggle: function toggle() {
         this.selected = !this.selected;

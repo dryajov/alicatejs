@@ -25,7 +25,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {Object} components - List of components
+             * @property {Object} - List of components
              * that have been attached to this view.
              *
              * @memberof repeater.Repeater
@@ -33,7 +33,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
              */
             _children: [],
             /**
-             * @property {jQuery} $parent - The parent of this
+             * @property {jQuery} - The parent of this
              * repeated element
              *
              * @memberof repeater.Repeater

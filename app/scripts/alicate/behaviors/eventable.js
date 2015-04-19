@@ -28,12 +28,12 @@ module.exports = Behavior.extend(/** @lends eventable.Eventable.prototype */{
         }
     },
     /**
-     * @property {Function} handler - Callback called on the click event
+     * @property {Function} - Callback called on the click event
      * @function
      */
     handler: null,
     /**
-     * @property {Event} event - The name of the event to listen for
+     * @property {Event} - The name of the event to listen for
      */
     event: null,
     /**

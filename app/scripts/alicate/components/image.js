@@ -11,7 +11,13 @@ var Component = require('./component');
  */
 
 /**
- * A class representing a button
+ * An image class
+ *
+ * @example
+ * var myImage = new Image({
+ *      id: 'my-image',
+ *      src: 'https://raw.githubusercontent.com/dryajov/alicatejs/master/logo.jpg'
+ * })
  *
  * @class image.Image
  * @extends component.Component
@@ -24,7 +30,7 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
              * A list of allowed html element selectors that this component
              * can attach to
              *
-             * @property allowedElements
+             * @property
              * @type {String[]}
              *
              *
@@ -39,7 +45,7 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
     /**
      * The source of the image
      *
-     * @property text
+     * @property
      * @type {String}
      */
     src: '',
