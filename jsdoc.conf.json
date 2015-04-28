@@ -28,7 +28,7 @@
         "hardwrap": true
     },
     "source": {
-        "include": ["app", "README.md"],
+        "include": ["app"],
         "excludePattern": "(^|\\/|\\\\)_"
     },
     "opts": {
