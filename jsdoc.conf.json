@@ -1,28 +1,40 @@
 {
-    "tags"      : {
-        "allowUnknownTags" : true
+    "tags": {
+        "allowUnknownTags": true
     },
-    "plugins"   : ["plugins/markdown"],
-
-    "templates" : {
-        "cleverLinks"           : false,
-        "monospaceLinks"        : false,
-        "dateFormat"            : "ddd MMM Do YYYY",
-        "outputSourceFiles"     : true,
-        "outputSourcePath"      : true,
-        "systemName"            : "alicatejs",
-        "footer"                : "",
-        "copyright"             : "DocStrap Copyright © 2012-2014 The contributors to the JSDoc3 and DocStrap projects.",
-        "navType"               : "vertical",
-        "theme"                 : "journal",
-        "linenums"              : true,
-        "collapseSymbols"       : false,
-        "inverseNav"            : true,
-        "highlightTutorialCode" : true,
-        "protocol": "fred://"
+    "plugins": [
+        "plugins/markdown"
+    ],
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "dateFormat": "ddd MMM Do YYYY",
+        "outputSourceFiles": true,
+        "outputSourcePath": true,
+        "systemName": "alicatejs",
+        "footer": "",
+        "copyright": "Dmitriy Ryajov - alicatejs - MIT",
+        "navType": "horizontal",
+        "theme": "readable",
+        "linenums": true,
+        "collapseSymbols": false,
+        "inverseNav": true,
+        "highlightTutorialCode": true,
+        "protocol": "fred://",
+        "syntaxTheme": "dark"
     },
-    "markdown"  : {
-        "parser"   : "gfm",
-        "hardwrap" : true
+    "markdown": {
+        "parser": "gfm",
+        "hardwrap": true
+    },
+    "source": {
+        "include": ["app", "README.md"],
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "opts": {
+        "template": "node_modules/ink-docstrap/template/",
+        "destination": "./docs/",
+        "recurse": true,
+        "tutorials": "../alicatejs.wiki"
     }
 }

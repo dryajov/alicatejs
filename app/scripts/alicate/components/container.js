@@ -12,9 +12,9 @@ var Component = require('./component'),
  */
 
 /**
- * A container allows creating component trees,
+ * A <tt>Container</tt> allows creating component trees,
  * by  adding other components and containers
- * to its children array.
+ * to its <em>children</em> array.
  *
  * @example
  *

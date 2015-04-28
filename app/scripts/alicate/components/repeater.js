@@ -2,6 +2,10 @@
  * Created by dmitriy.ryajov on 6/25/14.
  */
 
+/**
+ * @module repeater
+ */
+
 'use strict';
 
 var Container = require('./container'),
@@ -11,11 +15,25 @@ var Container = require('./container'),
     $ = require('jquery');
 
 /**
- * @module repeater
- */
-
-/**
- * A class representing a repeater
+ * A <tt>Repeater</tt> allows iterating over a list of elements
+ * set on its <em>model</em> property, the <em>onItemRender</em> method
+ * is then called for each element in the list, with a <em>Container</em>
+ * passed as its instance parameter, it is then possible to add elements
+ * to the container, hence generating new components at runtime. This component
+ * is used to render lists of elements, such as
+ * <code>&lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt;</code> elements.
+ *
+ * @example
+ * new Repeater({
+ *       id: 'my-rptr2',
+ *       model: new Model({data: [1, 2, 3]}),
+ *       onItemRender: function (item) {
+ *           item.add(new Label({
+ *               id: 'my-label2',
+ *               text: 'Hello World'
+ *           }));
+ *       }
+ *   })
  *
  * @class repeater.Repeater
  * @extends component.Component

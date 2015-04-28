@@ -12,11 +12,11 @@ var Base = require('../base'),
     _ = require('underscore');
 
 /**
- * A component is the base building block of alicatejs.
+ * <tt>Component</tt> is the base building block of alicatejs.
  * By itself the component does not render anything, however
- * it controls the <b>visible</b> and <b>enabled</b> states of the html
- * element, as well as takes care of setting its <b>properties</b> and
- * <b>attributes</b>.
+ * it controls the <em>visible</em> and <em>enabled</em> states of the html
+ * element, as well as takes care of setting its <em>properties</em> and
+ * <em>attributes</em>.
  *
  * @example
  * var myComponent = new Component({

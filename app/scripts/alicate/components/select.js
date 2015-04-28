@@ -13,7 +13,29 @@ var Repeater = require('./repeater'),
  */
 
 /**
- * A class representing a dropdown
+ * A <tt>Select</tt> represents a drop down. This
+ * component allows you to attach behaviors to dropdown
+ * like elements. As of now, this component will only attach
+ * to the <em>select</em> element. It is required that the
+ * <em>option</em> element be nested inside the <em>select</em>
+ * and that its <em>data-aid</em> name is a combination of the name of its
+ * wrapping <em>select</em> and its appended the <em>-option</em> string.
+ *
+ * @example
+ *
+ * var dropdown = new Select({
+ *      id: 'select',
+ *      model: ["one", "two", "three"],
+ *      selected: selectedDropDownModel.get().val
+ * }).on('change', function (event) {
+ *      selectedDropDownModel.set({val: event.target.value});
+ * });
+ *
+ * @example
+ *
+ * <select data-aid="select">
+ *      <option data-aid="select-option"></option>
+ * </select>
  *
  * @class select.Select
  * @extends Container
@@ -37,7 +59,6 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
              * A list of allowed html element selectors that this component
              * can attach to
              *
-             * @property
              * @type {String[]}
              *
              * @memberof select.Select
@@ -47,7 +68,8 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
                 "select"
             ],
             /**
-             * @property {Object} - List of components that
+             * List of components that
+             *
              * have been attached to this view.
              *
              * @memberof select.Select

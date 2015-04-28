@@ -12,15 +12,15 @@ var Label = require('./label'),
  */
 
 /**
- * A button class
+ * A <tt>Button</tt> class
  *
  * @example
  *
  * var myButton = new Button({
- *  id: 'my-button',
- *  text: 'this is my button',
- *  selected: true,
- *  selectedClass: 'selected-class'
+ *      id: 'my-button',
+ *      text: 'this is my button',
+ *      selected: true,
+ *      selectedClass: 'selected-class'
  * });
  *
  * @class button.Button

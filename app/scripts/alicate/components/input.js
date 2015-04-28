@@ -1,16 +1,17 @@
 /**
  * Created by dmitriy.ryajov on 7/1/14.
  */
-'use strict';
-
-var Component = require('./component');
 
 /**
  * @module input
  */
 
+'use strict';
+
+var Component = require('./component');
+
 /**
- * The input class allows capturing data from an html element.
+ * The <tt>Input</tt> class allows capturing data from an html element.
  *
  * @example
  *

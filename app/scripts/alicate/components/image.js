@@ -2,16 +2,16 @@
  * Created by dmitriy.ryajov on 7/17/14.
  */
 
+/**
+ * @module image
+ */
+
 'use strict';
 
 var Component = require('./component');
 
 /**
- * @module image
- */
-
-/**
- * An image class
+ * An <tt>Image</tt> class
  *
  * @example
  * var myImage = new Image({
@@ -30,7 +30,6 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
              * A list of allowed html element selectors that this component
              * can attach to
              *
-             * @property
              * @type {String[]}
              *
              *
@@ -45,7 +44,6 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
     /**
      * The source of the image
      *
-     * @property
      * @type {String}
      */
     src: '',
