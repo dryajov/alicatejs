@@ -13,13 +13,11 @@ var Router = require('./router'),
  */
 
 /**
- * <p>
- *     This class provides an entry point to your alicate applications.
- *     It allows mounting {@link view.View|View}'s on desired paths
- *     and provides a way to bind the application to a particular element in the dom,
- *     using a css selector, as well as provides hooks into
- *     initialization/de-initialization process of the app.
- * </p>
+ * This class provides an entry point to your alicate applications.
+ * It allows mounting {@link view.View|View}'s on desired paths,
+ * and using a css selector, it provides a way to bind the application
+ * to a particular element in the dom, as well as exposes hooks into
+ * the initialization/de-initialization process of the app.
  *
  * @example
  * var app = new AlicateApp({
@@ -62,7 +60,7 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      */
     $selector: '',
     /**
-     * This is the jquery wrapped dom element that this app is attached to
+     * This is the jQuery wrapped dom element that this app is attached to
      *
      * @property {jQuery} - jquery wrapped dom element
      */
@@ -92,13 +90,13 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      */
     router: Router,
     /**
-     * This method, associates a view with a route. The route is any url
+     * This method associates a view with a route. The route is any url
      * fragment that the application wants to respond to. By default, alicatejs uses
-     * {@link https://visionmedia.github.io/page.js/|page.js}, so any and all considerations
-     * required while working with {@link https://visionmedia.github.io/page.js/|page.js}
-     * also apply here, that also means that in general,
-     * alicatejs supports all the features that {@link https://visionmedia.github.io/page.js/|page.js}
-     * provides. Parameters defined by the route will be passed to the {@link view.View.params|View.params} property.
+     * {@link https://visionmedia.github.io/page.js/|page.js},
+     * however it is possible to override it with an alternative
+     * implementation provided that it implements the {@link router.Router} interface.
+     * Parameters defined by the route will be passed to the
+     * {@link view.View.params|View.params} property.
      *
      * @param {String} path The route to be monitored by alicatejs
      * @param {View} view The view to render for this route
@@ -128,10 +126,10 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         return this;
     },
     /**
-     * This method will trigger the rendering of the app,
-     * by firing the location specified in the {@link index} member,
-     * during app declaration, or by using the route provided as
-     * a parameter to this method.
+     * This method will trigger the rendering of the app
+     * by firing the location specified in the
+     * {@link alicateapp.AlicateApp.index|index} member during app declaration,
+     * or by using the route provided as a parameter to this method.
      *
      * @param {String} [route] the initial route to load
      */

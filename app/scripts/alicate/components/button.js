@@ -12,7 +12,7 @@ var Label = require('./label'),
  */
 
 /**
- * A <tt>Button</tt> class
+ * A Button class
  *
  * @example
  *

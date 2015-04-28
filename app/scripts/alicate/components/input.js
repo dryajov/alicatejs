@@ -11,7 +11,7 @@
 var Component = require('./component');
 
 /**
- * The <tt>Input</tt> class allows capturing data from an html element.
+ * The Input class allows capturing data from an html element.
  *
  * @example
  *

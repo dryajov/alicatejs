@@ -15,7 +15,7 @@
         "footer": "",
         "copyright": "Dmitriy Ryajov - alicatejs - MIT",
         "navType": "horizontal",
-        "theme": "readable",
+        "theme": "tommorow",
         "linenums": true,
         "collapseSymbols": false,
         "inverseNav": true,
@@ -32,9 +32,10 @@
         "excludePattern": "(^|\\/|\\\\)_"
     },
     "opts": {
-        "template": "node_modules/ink-docstrap/template/",
+        "template": "node_modules/minami",
         "destination": "./docs/",
-        "recurse": true,
-        "tutorials": "../alicatejs.wiki"
+        "recurse": true
     }
 }
+
+//"tutorials": "../alicatejs.wiki"

@@ -11,7 +11,7 @@
 var Component = require('./component');
 
 /**
- * An <tt>Image</tt> class
+ * An Image class
  *
  * @example
  * var myImage = new Image({

@@ -12,7 +12,7 @@ var Component = require('./component'),
  */
 
 /**
- * A <tt>Container</tt> allows creating component trees,
+ * A Container allows creating component trees,
  * by  adding other components and containers
  * to its <em>children</em> array.
  *
@@ -52,8 +52,10 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     instanceData: function instanceData() {
         return {
             /**
+             * List of components that have been attached
+             * to this view.
+             *
              * @property {Object} - List of components
-             * that have been attached to this view.
              *
              * @memberof container.Container
              * @instance
@@ -74,12 +76,9 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         }
     },
     /**
-     * Add a component to the view. Components that are not added explicitly
-     * are still going to be added by the alicate, and their model will be constructed
-     * from the view model if one is provided.
+     * Add a component to the container.
      *
      * @param {Component} cpm - Component to be added to this container
-     * @param {String} id - Id of the component to be added
      * @return this
      */
     add: function add(cpm) {
@@ -132,6 +131,14 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         }
         return null;
     },
+    /**
+     * Append a component to the container.
+     * This will put the component at the top
+     * of the markup stream that this container
+     * controls.
+     *
+     * @param cmp
+     */
     append: function append(cmp) {
         if (this.isBound) {
             this._add(cmp);
@@ -141,6 +148,14 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             throw new Error("Element not bound, can't append!");
         }
     },
+    /**
+     * Prepend a component to the container.
+     * This will put the component at the bottom
+     * of the markup stream that this container
+     * controls.
+     *
+     * @param cmp
+     */
     prepend: function prepend(cmp) {
         if (this.isBound) {
             this._add(cmp);
@@ -179,6 +194,12 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.render();
         }
     },
+    /**
+     * Internal method, called to update the visibility of its children.
+     * If a child is itself a container, its _updateVisiblity will be also called.
+     *
+     * @private
+     */
     _updateVisiblity: function _updateVisiblity() {
         for (var key in this.children) {
             this.children[key].visible = this.visible;
@@ -192,6 +213,8 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      *
      * @param {MarkupIter} markupIter - A markup iterator
      * @return {void}
+     *
+     * @protected
      */
     bind: function bind(markupIter) {
         Component.prototype.bind.call(this, markupIter);

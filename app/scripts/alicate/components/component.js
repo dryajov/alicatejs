@@ -11,8 +11,14 @@ var Base = require('../base'),
     $ = require('jquery'),
     _ = require('underscore');
 
+
 /**
- * <tt>Component</tt> is the base building block of alicatejs.
+ * @callback component.Component~eventCallback
+ * @param {Event} event
+ */
+
+/**
+ * Component is the base building block of alicatejs.
  * By itself the component does not render anything, however
  * it controls the <em>visible</em> and <em>enabled</em> states of the html
  * element, as well as takes care of setting its <em>properties</em> and
@@ -45,14 +51,24 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * @property {Behavior[]} - A list of default
-             * behaviors of the component
+             * A list of default behaviors that this controller contains.
+             * It makes sense to implement some core functionality as behaviors
+             * that can be shared across many components. For example {@link eventable.Eventable}
+             * is used to attach events to components, which is implemented as a behavior.
+             * Also, all behaviors passed in as part of the behavior property during component
+             * definition, will be merged with the behaviors defined here.
+             *
+             * @property {Behavior[]} - List of behaviors
              *
              * @memberof component.Component
              * @instance
+             * @protected
              */
             defaultBehaviors: [],
             /**
+             * A list of html elements that this component can attach to.
+             * By default its null, which allows attaching to any element.
+             *
              * @property {String[]} - Elements this component
              * can attach to
              *
@@ -61,6 +77,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              */
             allowedElements: null,
             /**
+             * A key/value pair of attributes for this component. This is
+             * passed directly to jQuerie's attr method.
+             *
              * @property {Object} - Map of attributes of this component
              *
              * @memberof component.Component
@@ -68,6 +87,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              */
             attributes: {},
             /**
+             * A key/value pair of properties for this component. This is passed directly
+             * to jQuerie's prop method.
+             *
              * @property {Object} - Map of properties of this component
              *
              * @memberof component.Component
@@ -81,33 +103,47 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     id: '',
     /**
+     * The jQuery wrapped dom element that this component controls
+     *
      * @property {Object} - The html element reference that this
      * component is attached to
      **/
     $el: null,
     /**
-     * @property {Model} - The model for this component
+     * The model for this component
+     *
+     * @property {Model}
      */
     model: null,
     /**
-     * @property {Array} - A list of user attached behaviors
-     * associated with this component
+     * A list of user attached behaviors
+     *
+     * @property {Array}
      */
     behaviors: null,
     /**
-     * @property {Boolean} - Determines is the component is visible
+     * Determines is the component is visible
+     *
+     * @property {Boolean}
      */
     visible: true,
     /**
-     * @property {container} - The parent of this component
+     * The parent of this component
+     *
+     * @property {container}
      */
     parent: null,
     /**
-     * @property {Boolean} - Is component bout
+     * Indicates if this component is bound to an html element
+     *
+     * @property {Boolean} - Is bound
      */
     isBound: false,
     /**
-     * @property {Boolean} - Should the component be enabled/disabled
+     * Enables/Disables the component. This sets the the <tt>disabled</tt>
+     * attribute on the underlying html element.
+     *
+     * @property {Boolean} - Enable/Disable the component
      */
     enabled: true,
     /**
@@ -116,10 +152,19 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     _renderState: RenderState.UNRENDERED,
     /**
+     * A reference to the current alicatejs application
+     *
      * @property {AlicateApp} - The current alicatejs app
      */
     app: null,
     /**
+     * @property {Boolean} - Indicates if component has rendered
+     * @private
+     */
+    hasRendered: false,
+    /**
+     * Controls the enabled/disabled state of the element
+     *
      * @param {Boolean} enabled - Enable/Disable the element
      */
     setEnabled: function setEnabled(enabled) {
@@ -127,7 +172,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.render();
     },
     /**
-     * Get html attribute
+     * Get an html attribute
      *
      * @param {String} attr - Attribute name
      * @param {String} val - Value
@@ -137,7 +182,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this;
     },
     /**
-     * Set html attribute
+     * Set an html attribute
      *
      * @param {String} attr - Attribute name
      * @returns {Any}
@@ -146,7 +191,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.attributes[attr];
     },
     /**
-     * Get html property
+     * Get an html property
      *
      * @param {String} prop - Property name
      * @returns {*}
@@ -155,7 +200,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.properties[prop];
     },
     /**
-     * Set html property
+     * Set an html property
      *
      * @param {String} prop - Property name
      * @param {Any} val - Value
@@ -165,14 +210,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.properties[prop];
     },
     /**
-     * @property {Boolean} - flag signaling if the model has
-     * changed since the last time the model got updated
-     */
-    hasRendered: false,
-    /**
      * Callback called when the model has changed. It's
-     * triggered right before the data is being set on the
-     * model.
+     * triggered right after the model has been updated with new data,
+     * and this component has been rendered.
      *
      * @param newVal - the new val set on the model
      * @param oldVal - the old value the model held
@@ -180,10 +220,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     onModelChanged: function onModelChanged(newVal, oldVal) {
     },
     /**
-     * Bind event handler to component for the specified event
+     * Bind an event handler to component for the specified event
      *
      * @param {Event} event - Event name
-     * @param callback - Callback
+     * @param {eventCallback} callback - The callback for this event
      * @returns {this}
      */
     on: function on(event, callback) {
@@ -211,8 +251,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return value;
     },
     /**
-     * Performs a check if this is an element we can attach to
+     * Check if this is an element we can attach to
      *
+     * @private
      */
     _checkIsValidElement: function _checkIsValidElement() {
         if (this.$el) {
@@ -270,6 +311,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             }
         }
     },
+    /**
+     * Run attached behaviors
+     * @private
+     */
     runBehaviors: function runBehaviors() {
         if (!this.isBound) {
             return;
@@ -289,9 +334,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         }
     },
     /**
-     * Add a behavior to the component
+     * Add a behavior to this component
      *
-     * @param {Behavior} behavior - The behavior to be added
+     * @param {Behavior} behavior - A behavior
      */
     addBehavior: function addBehavior(behavior) {
         this.defaultBehaviors.push(behavior);
@@ -300,7 +345,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this;
     },
     /**
-     * Set this component model
+     * Set the component model
      *
      * @param {Model} model - A model
      */
@@ -309,9 +354,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.bindModel();
     },
     /**
-     * Get the model
+     * Get this component's model
      *
-     * @returns {null}
+     * @returns {model.Model}
      */
     getModel: function getModel() {
         return this.model;
@@ -329,16 +374,19 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.model;
     },
     /**
-     * Hook called just before the component is rendered
+     * Hook called just before the component is rendered.
      *
-     * Override to perform any changes before the component is rendered
+     * Override this method to perform any action before the component is
+     * rendered. For example, initiate loading of data.
      */
     onPreRender: function onPreRender() {
     },
     /**
-     * Hook called after the component is rendered
+     * Hook called just after the component is rendered.
      *
-     * Override to perform any changes after the component is rendered
+     * Override this method to perform any action after the component has been
+     * rendered. For example, it is possible to trigger the update of other components
+     * after this component has been rendered.
      */
     onPostRender: function onPostRender() {
     },

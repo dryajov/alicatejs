@@ -11,7 +11,7 @@ var Component = require('./component');
  */
 
 /**
- * <tt>Label</tt> displays the contents of its text property or if that is not set
+ * Label displays the contents of its text property or if that is not set.
  *
  * @class label.Label
  * @extends component.Component

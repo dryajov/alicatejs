@@ -11,7 +11,7 @@ var Container = require('./container');
  */
 
 /**
- * An <tt>Anchor</tt> class
+ * An Anchor class
  *
  * @example
  * var myAnchor = new Anchor({

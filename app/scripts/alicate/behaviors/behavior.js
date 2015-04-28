@@ -11,7 +11,7 @@ var Base = require('../../alicate/base');
  */
 
 /**
- * A class representing a behavior
+ * A behavior is a piece of sharable functionality.
  *
  * @class behavior.Behavior
  * @extends base.Base
@@ -41,7 +41,6 @@ module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
     },
     /**
      * Fired when the component is about to be rendered.
-     *
      */
     preRender: function preRender(){
     },

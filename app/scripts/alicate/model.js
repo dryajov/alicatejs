@@ -11,7 +11,7 @@ var Observable = require('./observable');
  */
 
 /**
- * A module representing a model.
+ * A model class.
  *
  * @class Model
  * @extends Observable

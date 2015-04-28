@@ -11,7 +11,7 @@ var Behavior = require('./behavior');
  */
 
 /**
- * A class representing an event behavior (hence eventable).
+ * A class representing an event behavior.
  *
  * @class eventable.Eventable
  * @extends behavior.Behavior

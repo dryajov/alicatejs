@@ -15,7 +15,7 @@ var Container = require('./container'),
     $ = require('jquery');
 
 /**
- * A <tt>Repeater</tt> allows iterating over a list of elements
+ * A Repeater allows iterating over a list of elements
  * set on its <em>model</em> property, the <em>onItemRender</em> method
  * is then called for each element in the list, with a <em>Container</em>
  * passed as its instance parameter, it is then possible to add elements

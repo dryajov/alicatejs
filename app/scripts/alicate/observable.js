@@ -10,7 +10,7 @@ var Base = require('./base');
  */
 
 /**
- * A module representing an observable
+ * An observable class
  *
  * @class observable.Observable
  * @extends Base

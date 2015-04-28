@@ -4,15 +4,16 @@
 'use strict';
 
 /**
- * A module representing a router
- *
- * @module Router
- * @exports router
- * @version 1.0
+ * A router module.
  *
  * This is the default implementation,
  * however any other implementation that conforms
- * to the below interface can be used as well
+ * to the below interface can be used as well.
+ *
+ * @module router.Router
+ * @exports Router
+ * @version 1.0
+ *
  **/
 
 var page = require('page');
@@ -28,7 +29,7 @@ module.exports = {
         page.start(options);
     },
     /**
-     * Associate a <pre>View</pre> with a route
+     * Associate a {@link view.View|View} with a route
      *
      * @param route - The route to associate with
      * @param callback - A callback executed when

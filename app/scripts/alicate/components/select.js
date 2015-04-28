@@ -13,11 +13,10 @@ var Repeater = require('./repeater'),
  */
 
 /**
- * A <tt>Select</tt> represents a drop down. This
- * component allows you to attach behaviors to dropdown
+ * This component allows you to attach behaviors to dropdown
  * like elements. As of now, this component will only attach
  * to the <em>select</em> element. It is required that the
- * <em>option</em> element be nested inside the <em>select</em>
+ * <em>option</em> html element be nested inside the <em>select</em>
  * and that its <em>data-aid</em> name is a combination of the name of its
  * wrapping <em>select</em> and its appended the <em>-option</em> string.
  *
