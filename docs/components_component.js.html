@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>components/component.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="alicateapp.AlicateApp.html">AlicateApp</a><ul class='methods'><li data-type='method'><a href="alicateapp.AlicateApp.html#mount">mount</a></li><li data-type='method'><a href="alicateapp.AlicateApp.html#onStarting">onStarting</a></li><li data-type='method'><a href="alicateapp.AlicateApp.html#onStopping">onStopping</a></li><li data-type='method'><a href="alicateapp.AlicateApp.html#start">start</a></li><li data-type='method'><a href="alicateapp.AlicateApp.html#stop">stop</a></li></ul></li><li><a href="anchor.Anchor.html">Anchor</a><ul class='methods'><li data-type='method'><a href="anchor.Anchor.html#add">add</a></li><li data-type='method'><a href="anchor.Anchor.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="anchor.Anchor.html#append">append</a></li><li data-type='method'><a href="anchor.Anchor.html#bind">bind</a></li><li data-type='method'><a href="anchor.Anchor.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="anchor.Anchor.html#bindComponent">bindComponent</a></li><li data-type='method'><a href="anchor.Anchor.html#bindModel">bindModel</a></li><li data-type='method'><a href="anchor.Anchor.html#cleanRendered">cleanRendered</a></li><li data-type='method'><a href="anchor.Anchor.html#componentRender">componentRender</a></li><li data-type='method'><a href="anchor.Anchor.html#get">get</a></li><li data-type='method'><a href="anchor.Anchor.html#getAttr">getAttr</a></li><li data-type='method'><a href="anchor.Anchor.html#getChildrenCount">getChildrenCount</a></li><li data-type='method'><a href="anchor.Anchor.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="anchor.Anchor.html#getModel">getModel</a></li><li data-type='method'><a href="anchor.Anchor.html#getModelData">getModelData</a></li><li data-type='method'><a href="anchor.Anchor.html#getProp">getProp</a></li><li data-type='method'><a href="anchor.Anchor.html#getValue">getValue</a></li><li data-type='method'><a href="anchor.Anchor.html#isVisible">isVisible</a></li><li data-type='method'><a href="anchor.Anchor.html#on">on</a></li><li data-type='method'><a href="anchor.Anchor.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="anchor.Anchor.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="anchor.Anchor.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="anchor.Anchor.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="anchor.Anchor.html#prepend">prepend</a></li><li data-type='method'><a href="anchor.Anchor.html#remove">remove</a></li><li data-type='method'><a href="anchor.Anchor.html#render">render</a></li><li data-type='method'><a href="anchor.Anchor.html#replace">replace</a></li><li data-type='method'><a href="anchor.Anchor.html#setAttr">setAttr</a></li><li data-type='method'><a href="anchor.Anchor.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="anchor.Anchor.html#setHref">setHref</a></li><li data-type='method'><a href="anchor.Anchor.html#setModel">setModel</a></li><li data-type='method'><a href="anchor.Anchor.html#setProp">setProp</a></li><li data-type='method'><a href="anchor.Anchor.html#setVisible">setVisible</a></li></ul></li><li><a href="behavior.Behavior.html">Behavior</a><ul class='methods'><li data-type='method'><a href="behavior.Behavior.html#attach">attach</a></li><li data-type='method'><a href="behavior.Behavior.html#postRender">postRender</a></li><li data-type='method'><a href="behavior.Behavior.html#preRender">preRender</a></li></ul></li><li><a href="button.Button.html">Button</a><ul class='methods'><li data-type='method'><a href="button.Button.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="button.Button.html#bind">bind</a></li><li data-type='method'><a href="button.Button.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="button.Button.html#bindModel">bindModel</a></li><li data-type='method'><a href="button.Button.html#componentRender">componentRender</a></li><li data-type='method'><a href="button.Button.html#getAttr">getAttr</a></li><li data-type='method'><a href="button.Button.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="button.Button.html#getModel">getModel</a></li><li data-type='method'><a href="button.Button.html#getModelData">getModelData</a></li><li data-type='method'><a href="button.Button.html#getProp">getProp</a></li><li data-type='method'><a href="button.Button.html#getValue">getValue</a></li><li data-type='method'><a href="button.Button.html#interpolate">interpolate</a></li><li data-type='method'><a href="button.Button.html#isVisible">isVisible</a></li><li data-type='method'><a href="button.Button.html#on">on</a></li><li data-type='method'><a href="button.Button.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="button.Button.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="button.Button.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="button.Button.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="button.Button.html#render">render</a></li><li data-type='method'><a href="button.Button.html#setAttr">setAttr</a></li><li data-type='method'><a href="button.Button.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="button.Button.html#setModel">setModel</a></li><li data-type='method'><a href="button.Button.html#setProp">setProp</a></li><li data-type='method'><a href="button.Button.html#setVisible">setVisible</a></li></ul></li><li><a href="component.Component.html">Component</a><ul class='methods'><li data-type='method'><a href="component.Component.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="component.Component.html#bind">bind</a></li><li data-type='method'><a href="component.Component.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="component.Component.html#bindModel">bindModel</a></li><li data-type='method'><a href="component.Component.html#componentRender">componentRender</a></li><li data-type='method'><a href="component.Component.html#getAttr">getAttr</a></li><li data-type='method'><a href="component.Component.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="component.Component.html#getModel">getModel</a></li><li data-type='method'><a href="component.Component.html#getModelData">getModelData</a></li><li data-type='method'><a href="component.Component.html#getProp">getProp</a></li><li data-type='method'><a href="component.Component.html#getValue">getValue</a></li><li data-type='method'><a href="component.Component.html#isVisible">isVisible</a></li><li data-type='method'><a href="component.Component.html#on">on</a></li><li data-type='method'><a href="component.Component.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="component.Component.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="component.Component.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="component.Component.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="component.Component.html#render">render</a></li><li data-type='method'><a href="component.Component.html#setAttr">setAttr</a></li><li data-type='method'><a href="component.Component.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="component.Component.html#setModel">setModel</a></li><li data-type='method'><a href="component.Component.html#setProp">setProp</a></li><li data-type='method'><a href="component.Component.html#setVisible">setVisible</a></li></ul></li><li><a href="container.Container.html">Container</a><ul class='methods'><li data-type='method'><a href="container.Container.html#add">add</a></li><li data-type='method'><a href="container.Container.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="container.Container.html#append">append</a></li><li data-type='method'><a href="container.Container.html#bind">bind</a></li><li data-type='method'><a href="container.Container.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="container.Container.html#bindComponent">bindComponent</a></li><li data-type='method'><a href="container.Container.html#bindModel">bindModel</a></li><li data-type='method'><a href="container.Container.html#cleanRendered">cleanRendered</a></li><li data-type='method'><a href="container.Container.html#componentRender">componentRender</a></li><li data-type='method'><a href="container.Container.html#get">get</a></li><li data-type='method'><a href="container.Container.html#getAttr">getAttr</a></li><li data-type='method'><a href="container.Container.html#getChildrenCount">getChildrenCount</a></li><li data-type='method'><a href="container.Container.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="container.Container.html#getModel">getModel</a></li><li data-type='method'><a href="container.Container.html#getModelData">getModelData</a></li><li data-type='method'><a href="container.Container.html#getProp">getProp</a></li><li data-type='method'><a href="container.Container.html#getValue">getValue</a></li><li data-type='method'><a href="container.Container.html#isVisible">isVisible</a></li><li data-type='method'><a href="container.Container.html#on">on</a></li><li data-type='method'><a href="container.Container.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="container.Container.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="container.Container.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="container.Container.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="container.Container.html#prepend">prepend</a></li><li data-type='method'><a href="container.Container.html#remove">remove</a></li><li data-type='method'><a href="container.Container.html#render">render</a></li><li data-type='method'><a href="container.Container.html#replace">replace</a></li><li data-type='method'><a href="container.Container.html#setAttr">setAttr</a></li><li data-type='method'><a href="container.Container.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="container.Container.html#setModel">setModel</a></li><li data-type='method'><a href="container.Container.html#setProp">setProp</a></li><li data-type='method'><a href="container.Container.html#setVisible">setVisible</a></li></ul></li><li><a href="eventable.Eventable.html">Eventable</a><ul class='methods'><li data-type='method'><a href="eventable.Eventable.html#attach">attach</a></li><li data-type='method'><a href="eventable.Eventable.html#handler">handler</a></li><li data-type='method'><a href="eventable.Eventable.html#postRender">postRender</a></li><li data-type='method'><a href="eventable.Eventable.html#preRender">preRender</a></li></ul></li><li><a href="image.Image.html">Image</a><ul class='methods'><li data-type='method'><a href="image.Image.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="image.Image.html#bind">bind</a></li><li data-type='method'><a href="image.Image.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="image.Image.html#bindModel">bindModel</a></li><li data-type='method'><a href="image.Image.html#componentRender">componentRender</a></li><li data-type='method'><a href="image.Image.html#getAttr">getAttr</a></li><li data-type='method'><a href="image.Image.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="image.Image.html#getModel">getModel</a></li><li data-type='method'><a href="image.Image.html#getModelData">getModelData</a></li><li data-type='method'><a href="image.Image.html#getProp">getProp</a></li><li data-type='method'><a href="image.Image.html#getValue">getValue</a></li><li data-type='method'><a href="image.Image.html#isVisible">isVisible</a></li><li data-type='method'><a href="image.Image.html#on">on</a></li><li data-type='method'><a href="image.Image.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="image.Image.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="image.Image.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="image.Image.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="image.Image.html#render">render</a></li><li data-type='method'><a href="image.Image.html#setAttr">setAttr</a></li><li data-type='method'><a href="image.Image.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="image.Image.html#setModel">setModel</a></li><li data-type='method'><a href="image.Image.html#setProp">setProp</a></li><li data-type='method'><a href="image.Image.html#setSrc">setSrc</a></li><li data-type='method'><a href="image.Image.html#setVisible">setVisible</a></li></ul></li><li><a href="input.Input.html">Input</a><ul class='methods'><li data-type='method'><a href="input.Input.html#componentRender">componentRender</a></li><li data-type='method'><a href="input.Input.html#getValue">getValue</a></li></ul></li><li><a href="label.Label.html">Label</a><ul class='methods'><li data-type='method'><a href="label.Label.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="label.Label.html#bind">bind</a></li><li data-type='method'><a href="label.Label.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="label.Label.html#bindModel">bindModel</a></li><li data-type='method'><a href="label.Label.html#componentRender">componentRender</a></li><li data-type='method'><a href="label.Label.html#getAttr">getAttr</a></li><li data-type='method'><a href="label.Label.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="label.Label.html#getModel">getModel</a></li><li data-type='method'><a href="label.Label.html#getModelData">getModelData</a></li><li data-type='method'><a href="label.Label.html#getProp">getProp</a></li><li data-type='method'><a href="label.Label.html#getValue">getValue</a></li><li data-type='method'><a href="label.Label.html#interpolate">interpolate</a></li><li data-type='method'><a href="label.Label.html#isVisible">isVisible</a></li><li data-type='method'><a href="label.Label.html#on">on</a></li><li data-type='method'><a href="label.Label.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="label.Label.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="label.Label.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="label.Label.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="label.Label.html#render">render</a></li><li data-type='method'><a href="label.Label.html#setAttr">setAttr</a></li><li data-type='method'><a href="label.Label.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="label.Label.html#setModel">setModel</a></li><li data-type='method'><a href="label.Label.html#setProp">setProp</a></li><li data-type='method'><a href="label.Label.html#setVisible">setVisible</a></li></ul></li><li><a href="module-base-Base.html">Base</a><ul class='methods'><li data-type='method'><a href="module-base-Base.html#initialize">initialize</a></li></ul></li><li><a href="module-model-Model.html">Model</a></li><li><a href="observable.Observable.html">Observable</a><ul class='methods'><li data-type='method'><a href="observable.Observable.html#subscribe">subscribe</a></li><li data-type='method'><a href="observable.Observable.html#unsubscribe">unsubscribe</a></li><li data-type='method'><a href="observable.Observable.html#update">update</a></li></ul></li><li><a href="repeater.Repeater.html">Repeater</a><ul class='methods'><li data-type='method'><a href="repeater.Repeater.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="repeater.Repeater.html#append">append</a></li><li data-type='method'><a href="repeater.Repeater.html#bind">bind</a></li><li data-type='method'><a href="repeater.Repeater.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="repeater.Repeater.html#bindComponent">bindComponent</a></li><li data-type='method'><a href="repeater.Repeater.html#bindItemObject">bindItemObject</a></li><li data-type='method'><a href="repeater.Repeater.html#bindModel">bindModel</a></li><li data-type='method'><a href="repeater.Repeater.html#componentRender">componentRender</a></li><li data-type='method'><a href="repeater.Repeater.html#getAttr">getAttr</a></li><li data-type='method'><a href="repeater.Repeater.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="repeater.Repeater.html#getModel">getModel</a></li><li data-type='method'><a href="repeater.Repeater.html#getModelData">getModelData</a></li><li data-type='method'><a href="repeater.Repeater.html#getProp">getProp</a></li><li data-type='method'><a href="repeater.Repeater.html#getValue">getValue</a></li><li data-type='method'><a href="repeater.Repeater.html#isVisible">isVisible</a></li><li data-type='method'><a href="repeater.Repeater.html#itemRender">itemRender</a></li><li data-type='method'><a href="repeater.Repeater.html#makeItemObject">makeItemObject</a></li><li data-type='method'><a href="repeater.Repeater.html#on">on</a></li><li data-type='method'><a href="repeater.Repeater.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="repeater.Repeater.html#onItemRender">onItemRender</a></li><li data-type='method'><a href="repeater.Repeater.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="repeater.Repeater.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="repeater.Repeater.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="repeater.Repeater.html#prepend">prepend</a></li><li data-type='method'><a href="repeater.Repeater.html#render">render</a></li><li data-type='method'><a href="repeater.Repeater.html#setAttr">setAttr</a></li><li data-type='method'><a href="repeater.Repeater.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="repeater.Repeater.html#setModel">setModel</a></li><li data-type='method'><a href="repeater.Repeater.html#setProp">setProp</a></li><li data-type='method'><a href="repeater.Repeater.html#setVisible">setVisible</a></li></ul></li><li><a href="select.Select.html">Select</a><ul class='methods'><li data-type='method'><a href="select.Select.html#bindModel">bindModel</a></li><li data-type='method'><a href="select.Select.html#componentRender">componentRender</a></li><li data-type='method'><a href="select.Select.html#getSelected">getSelected</a></li><li data-type='method'><a href="select.Select.html#getValue">getValue</a></li><li data-type='method'><a href="select.Select.html#onOptionRender">onOptionRender</a></li><li data-type='method'><a href="select.Select.html#setSelected">setSelected</a></li><li data-type='method'><a href="select.Select.html#setSelectedByIndex">setSelectedByIndex</a></li></ul></li><li><a href="view.View.html">View</a><ul class='methods'><li data-type='method'><a href="view.View.html#add">add</a></li><li data-type='method'><a href="view.View.html#addBehavior">addBehavior</a></li><li data-type='method'><a href="view.View.html#append">append</a></li><li data-type='method'><a href="view.View.html#bind">bind</a></li><li data-type='method'><a href="view.View.html#bindBehaviors">bindBehaviors</a></li><li data-type='method'><a href="view.View.html#bindComponent">bindComponent</a></li><li data-type='method'><a href="view.View.html#bindModel">bindModel</a></li><li data-type='method'><a href="view.View.html#cleanRendered">cleanRendered</a></li><li data-type='method'><a href="view.View.html#componentRender">componentRender</a></li><li data-type='method'><a href="view.View.html#get">get</a></li><li data-type='method'><a href="view.View.html#getAttr">getAttr</a></li><li data-type='method'><a href="view.View.html#getChildrenCount">getChildrenCount</a></li><li data-type='method'><a href="view.View.html#getMarkup">getMarkup</a></li><li data-type='method'><a href="view.View.html#getModel">getModel</a></li><li data-type='method'><a href="view.View.html#getModelData">getModelData</a></li><li data-type='method'><a href="view.View.html#getProp">getProp</a></li><li data-type='method'><a href="view.View.html#getValue">getValue</a></li><li data-type='method'><a href="view.View.html#isVisible">isVisible</a></li><li data-type='method'><a href="view.View.html#on">on</a></li><li data-type='method'><a href="view.View.html#onComponentBound">onComponentBound</a></li><li data-type='method'><a href="view.View.html#onModelChanged">onModelChanged</a></li><li data-type='method'><a href="view.View.html#onPostRender">onPostRender</a></li><li data-type='method'><a href="view.View.html#onPreRender">onPreRender</a></li><li data-type='method'><a href="view.View.html#prepend">prepend</a></li><li data-type='method'><a href="view.View.html#remove">remove</a></li><li data-type='method'><a href="view.View.html#render">render</a></li><li data-type='method'><a href="view.View.html#replace">replace</a></li><li data-type='method'><a href="view.View.html#setAttr">setAttr</a></li><li data-type='method'><a href="view.View.html#setEnabled">setEnabled</a></li><li data-type='method'><a href="view.View.html#setModel">setModel</a></li><li data-type='method'><a href="view.View.html#setProp">setProp</a></li><li data-type='method'><a href="view.View.html#setVisible">setVisible</a></li></ul></li></ul><h3>Modules</h3><ul><li><a href="module-alicateapp.html">alicateapp</a></li><li><a href="module-anchor.html">anchor</a></li><li><a href="module-base.html">base</a><ul class='methods'><li data-type='method'><a href="module-base.html#~extend">extend</a></li></ul></li><li><a href="module-behavior.html">behavior</a></li><li><a href="module-button.html">button</a></li><li><a href="module-component.html">component</a></li><li><a href="module-container.html">container</a></li><li><a href="module-eventable.html">eventable</a></li><li><a href="module-image.html">image</a></li><li><a href="module-input.html">input</a></li><li><a href="module-label.html">label</a></li><li><a href="module-MarkupIter.html">MarkupIter</a><ul class='methods'><li data-type='method'><a href="module-MarkupIter.html#.createMarkupIter">createMarkupIter</a></li></ul></li><li><a href="module-model.html">model</a></li><li><a href="module-observable.html">observable</a></li><li><a href="module-repeater.html">repeater</a></li><li><a href="module-select.html">select</a><ul class='methods'><li data-type='method'><a href="module-select.html#~makeItemObject">makeItemObject</a></li></ul></li><li><a href="module-view.html">view</a></li><li><a href="router.module_Router.html">Router</a><ul class='methods'><li data-type='method'><a href="router.module_Router.html#.go">go</a></li><li data-type='method'><a href="router.module_Router.html#.init">init</a></li><li data-type='method'><a href="router.module_Router.html#.mount">mount</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#Repeater">Repeater</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">components/component.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+/**
+ * @module component
+ */
+
+var Base = require('../base'),
+    Eventable = require('../behaviors/eventable'),
+    Model = require('../model'),
+    RenderState = require('../enums/render'),
+    $ = require('jquery'),
+    _ = require('underscore');
+
+
+/**
+ * @callback component.Component~eventCallback
+ * @param {Event} event
+ */
+
+/**
+ * Component is the building block of alicatejs.
+ * By itself the component does not render anything, however
+ * it controls the &lt;em>visible&lt;/em> and &lt;em>enabled&lt;/em> states of the html
+ * element, as well as takes care of setting its &lt;em>properties&lt;/em> and
+ * &lt;em>attributes&lt;/em>.
+ *
+ * @example
+ * var myComponent = new Component({
+ *  id: 'my-component',
+ *  attributes: {
+ *      class: 'some-class'
+ *  }
+ * }).on('click', function() {
+ *      this.$el.text('I've been clicked!');
+ * });
+ *
+ * @class component.Component
+ * @extends base.Base
+ * @version 1.0
+ */
+module.exports = Base.extend(/** @lends component.Component.prototype */{
+    initialize: function initialize() {
+        if (this.behaviors) {
+            $.merge(this.defaultBehaviors, this.behaviors);
+        }
+
+        if (!this.id || (this.id &amp;&amp; this.id.length &lt; 1)) {
+            throw new Error('Missing id!');
+        }
+    },
+    instanceData: function instanceData() {
+        return {
+            /**
+             * A list of default behaviors that this controller contains.
+             * It makes sense to implement some core functionality as behaviors
+             * that can be shared across many components. For example {@link eventable.Eventable|Eventable}
+             * is used to attach events to components, which is implemented as a behavior.
+             * Also, all behaviors passed in as part of the behavior property during component
+             * definition, will be merged with the behaviors defined here.
+             *
+             * @property {Behavior[]} - List of behaviors
+             *
+             * @memberof component.Component
+             * @instance
+             * @protected
+             */
+            defaultBehaviors: [],
+            /**
+             * A list of html elements that this component can attach to.
+             * By default its null, which allows attaching to any element.
+             *
+             * @property {String[]} - Elements this component
+             * can attach to
+             *
+             * @memberof component.Component
+             * @instance
+             */
+            allowedElements: null,
+            /**
+             * A key/value pair of attributes for this component. This is
+             * passed directly to jQuery's attr method.
+             *
+             * @property {Object} - Map of attributes of this component
+             *
+             * @memberof component.Component
+             * @instance
+             */
+            attributes: {},
+            /**
+             * A key/value pair of properties for this component. This is passed directly
+             * to jQuery's prop method.
+             *
+             * @property {Object} - Map of properties of this component
+             *
+             * @memberof component.Component
+             * @instance
+             */
+            properties: {}
+        }
+    },
+    /**
+     * @property {String} - The id of the data element to attach to
+     */
+    id: '',
+    /**
+     * The jQuery wrapped dom element that this component controls
+     *
+     * @property {Object} - The html element reference that this
+     * component is attached to
+     **/
+    $el: null,
+    /**
+     * The model for this component
+     *
+     * @property {Model}
+     */
+    model: null,
+    /**
+     * A list of user attached behaviors
+     *
+     * @property {Array}
+     */
+    behaviors: null,
+    /**
+     * Determines if the component is visible
+     *
+     * @property {Boolean}
+     */
+    visible: true,
+    /**
+     * The parent of this component
+     *
+     * @property {container}
+     */
+    parent: null,
+    /**
+     * Indicates if this component is bound to an html element
+     *
+     * @property {Boolean} - Is bound
+     */
+    isBound: false,
+    /**
+     * Enables/Disables the component. This sets the the &lt;tt>disabled&lt;/tt>
+     * attribute on the underlying html element.
+     *
+     * @property {Boolean} - Enable/Disable the component
+     */
+    enabled: true,
+    /**
+     * @property {Enum} - The current rendering state
+     * @private
+     */
+    _renderState: RenderState.UNRENDERED,
+    /**
+     * A reference to the current alicatejs application
+     *
+     * @property {AlicateApp} - The current alicatejs app
+     */
+    app: null,
+    /**
+     * @property {Boolean} - Indicates if component has rendered
+     * @private
+     */
+    hasRendered: false,
+    /**
+     * Controls the enabled/disabled state of the element
+     *
+     * @param {Boolean} enabled - Enable/Disable the element
+     */
+    setEnabled: function setEnabled(enabled) {
+        this.enabled = this.enabled === enabled;
+        this.render();
+    },
+    /**
+     * Get an html attribute
+     *
+     * @param {String} attr - Attribute name
+     * @param {String} val - Value
+     */
+    setAttr: function setAttr(attr, val) {
+        this.attributes[attr] = val;
+        return this;
+    },
+    /**
+     * Set an html attribute
+     *
+     * @param {String} attr - Attribute name
+     * @returns {Any}
+     */
+    getAttr: function getAttr(attr) {
+        return this.attributes[attr];
+    },
+    /**
+     * Get an html property
+     *
+     * @param {String} prop - Property name
+     * @returns {*}
+     */
+    getProp: function getProp(prop) {
+        return this.properties[prop];
+    },
+    /**
+     * Set an html property
+     *
+     * @param {String} prop - Property name
+     * @param {Any} val - Value
+     * @returns {Any}
+     */
+    setProp: function setProp(prop, val) {
+        return this.properties[prop];
+    },
+    /**
+     * Callback called when the model has changed. It's
+     * triggered right after the model has been updated with new data,
+     * and this component has been rendered.
+     *
+     * @param newVal - the new val set on the model
+     * @param oldVal - the old value the model held
+     */
+    onModelChanged: function onModelChanged(newVal, oldVal) {
+    },
+    /**
+     * Bind an event handler to component for the specified event
+     *
+     * @param {Event} event - Event name
+     * @param {eventCallback} callback - The callback for this event
+     * @returns {this}
+     */
+    on: function on(event, callback) {
+        this.addBehavior(new Eventable({
+            event: event + '.' + this.id,
+            handler: callback
+        }));
+
+        return this;
+    },
+    /**
+     * Get the current rendered value of this component
+     *
+     * @return {String}
+     */
+    getValue: function getValue() {
+        var value;
+
+        if (this.$el.is("input, textarea, select, button")) {
+            value = this.$el.val();
+        } else {
+            value = this.$el.text();
+        }
+
+        return value;
+    },
+    /**
+     * Check if this is an element we can attach to
+     *
+     * @private
+     */
+    _checkIsValidElement: function _checkIsValidElement() {
+        if (this.$el) {
+            if (this.allowedElements &amp;&amp; !this.$el.is(this.allowedElements.join(','))) {
+                throw new Error('Component ' + this.id +
+                ' is not allowed to attach to ' +
+                this.$el.prop("tagName") + ' tag');
+            }
+        } else {
+            if (!this.isBound) {
+                throw new Error('Element ' + this.id + ' is not bound!');
+            }
+        }
+    },
+    /**
+     * Return the compiled markup for this component
+     *
+     * @returns {Any}
+     */
+    getMarkup: function getMarkup() {
+        return this.$el.html();
+    },
+    /**
+     * Set component visibility
+     *
+     * @param {Boolean} visible - Set visible/hidden
+     */
+    setVisible: function setVisible(visible) {
+        if (this.isVisible() != visible) {
+            this.visible = visible;
+            console.log("setting component id: " + this.id + " to visible: " + this.visible);
+            this.render();
+        }
+    },
+    /**
+     * Is component visible
+     *
+     * @return {Boolean}
+     */
+    isVisible: function isVisible() {
+        return this.visible;
+    },
+    /**
+     * Attach behaviors
+     *
+     */
+    bindBehaviors: function bindBehaviors() {
+        if (!this.isBound) {
+            return;
+        }
+
+        for (var behavior in this.defaultBehaviors) {
+            if (!this.defaultBehaviors[behavior].attached) {
+                this.defaultBehaviors[behavior].attach(this);
+            }
+        }
+    },
+    /**
+     * Run attached behaviors
+     * @private
+     */
+    runBehaviors: function runBehaviors() {
+        if (!this.isBound) {
+            return;
+        }
+
+        for (var behavior in this.defaultBehaviors) {
+            if (!this.defaultBehaviors[behavior].attached) {
+                switch (this._renderState) {
+                    case RenderState.POST_RENDER:
+                        this.defaultBehaviors[behavior].postRender(this);
+                        break;
+                    case RenderState.PRE_RENDER:
+                        this.defaultBehaviors[behavior].preRender(this);
+                        break;
+                }
+            }
+        }
+    },
+    /**
+     * Add a behavior to this component
+     *
+     * @param {Behavior} behavior - A behavior
+     */
+    addBehavior: function addBehavior(behavior) {
+        this.defaultBehaviors.push(behavior);
+        this.bindBehaviors();
+
+        return this;
+    },
+    /**
+     * Set this component's model
+     *
+     * @param {Model} model - A model
+     */
+    setModel: function setModel(model) {
+        this.model = model;
+        this.bindModel();
+    },
+    /**
+     * Get this component's model
+     *
+     * @returns {model.Model}
+     */
+    getModel: function getModel() {
+        return this.model;
+    },
+    /**
+     * Get this component model's data
+     *
+     * @returns {Any}
+     */
+    getModelData: function getModelData() {
+        if (this.model instanceof Model) {
+            return this.model.get();
+        }
+
+        return this.model;
+    },
+    /**
+     * Hook called just before the component is rendered.
+     *
+     * Override this method to perform any action before the component is
+     * rendered. For example, initiate loading of data.
+     */
+    onPreRender: function onPreRender() {
+    },
+    /**
+     * Hook called just after the component is rendered.
+     *
+     * Override this method to perform any action after the component has been
+     * rendered. For example, it is possible to trigger the update of other components
+     * after this component has been rendered.
+     */
+    onPostRender: function onPostRender() {
+    },
+    /**
+     * Called by {@link render}. Should be overridden by components to
+     * provide its render functionality.
+     *
+     * @protected
+     * @return {Boolean} - Used to indicate if rendering succeeded
+     */
+    componentRender: function componentRender() {
+        return true;
+    },
+    /**
+     * Render the current element
+     *
+     * This method triggers the render of the component.
+     * Rendering manipulates the dom element this component is attached to.
+     * Usually, this would involve setting the visible and enabled states of the
+     * component, as well as adjusting any attached attributes.
+     */
+    render: function render() {
+        if (!this.isBound) {
+            return false;
+        }
+
+        this._checkIsValidElement();
+
+        this.bindBehaviors();
+
+        if (this.$el) {
+            this._renderState = RenderState.PRE_RENDER;
+            this.onPreRender();
+
+            // run behaviors before rendering
+            this.runBehaviors();
+
+            // call components render
+            this.componentRender();
+
+            for (var attr in this.attributes) {
+                this.$el.attr(attr, this.attributes[attr]);
+            }
+
+            if (!this.isVisible()) {
+                this.$el.css('display', 'none');
+            } else {
+                this.$el.css('display', '');
+            }
+
+            if (this.$el.prop('disabled') !== !this.enabled) {
+                this.$el.prop('disabled', !this.enabled);
+            }
+
+            this.hasRendered = true;
+
+            this._renderState = RenderState.POST_RENDER;
+            this.onPostRender();
+
+            // run behaviors after rendering
+            this.runBehaviors();
+
+            this._renderState = RenderState.RENDERED;
+        }
+
+        return true;
+    },
+    /**
+     * Called when the component has been bound but not yet rendered.
+     * Usually a component is bound only once during its lifetime, with the exception
+     * of the {@link repeater.Repeater|Repeater} component, which re-binds its children
+     * every time its re-rerendered.
+     */
+    onComponentBound: function onComponentBound() {
+    },
+    /**
+     * Scan the template and attach components to html elements
+     */
+    bind: function bind(markupIter) {
+        this.isBound = true;
+        this.onComponentBound();
+
+        this.bindBehaviors();
+    },
+    /**
+     * Bind the current model
+     */
+    bindModel: function bindModel() {
+        var $el = this.$el,
+            model = this.model,
+            component = this,
+            event = 'input.' + this.id,
+            that = this;
+
+        if (!$el || !this.model) {
+            return;
+        }
+
+        if (this.model instanceof Model) {
+            $el.off(event);
+            $el.on(event, function (e) {
+                model.set(that.getValue());
+            });
+
+            model.subscribe(function (newVal, oldVal) {
+                if (!_.isEqual(newVal, oldVal)) {
+                    component.hasRendered = false;
+                    component.render();
+                    component.onModelChanged(newVal, oldVal);
+                }
+            });
+        }
+    }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta3</a> on Tue Apr 28 2015 14:12:22 GMT-0600 (MDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
