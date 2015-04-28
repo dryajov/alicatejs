@@ -13,6 +13,12 @@ var Component = require('./component');
 /**
  * Label displays the contents of its text property or if that is not set.
  *
+ * @example
+ *  new Label({
+ *      id: 'hello',
+ *      text: 'Hello World from Alicate!!'
+ * });
+ *
  * @class label.Label
  * @extends component.Component
  * @version 1.0

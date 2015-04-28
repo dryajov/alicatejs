@@ -18,7 +18,7 @@ var Base = require('../base'),
  */
 
 /**
- * Component is the base building block of alicatejs.
+ * Component is the building block of alicatejs.
  * By itself the component does not render anything, however
  * it controls the <em>visible</em> and <em>enabled</em> states of the html
  * element, as well as takes care of setting its <em>properties</em> and
@@ -53,7 +53,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             /**
              * A list of default behaviors that this controller contains.
              * It makes sense to implement some core functionality as behaviors
-             * that can be shared across many components. For example {@link eventable.Eventable}
+             * that can be shared across many components. For example {@link eventable.Eventable|Eventable}
              * is used to attach events to components, which is implemented as a behavior.
              * Also, all behaviors passed in as part of the behavior property during component
              * definition, will be merged with the behaviors defined here.
@@ -78,7 +78,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             allowedElements: null,
             /**
              * A key/value pair of attributes for this component. This is
-             * passed directly to jQuerie's attr method.
+             * passed directly to jQuery's attr method.
              *
              * @property {Object} - Map of attributes of this component
              *
@@ -88,7 +88,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             attributes: {},
             /**
              * A key/value pair of properties for this component. This is passed directly
-             * to jQuerie's prop method.
+             * to jQuery's prop method.
              *
              * @property {Object} - Map of properties of this component
              *
@@ -122,7 +122,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     behaviors: null,
     /**
-     * Determines is the component is visible
+     * Determines if the component is visible
      *
      * @property {Boolean}
      */
@@ -269,7 +269,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         }
     },
     /**
-     * Return the compiled markup of this component
+     * Return the compiled markup for this component
      *
      * @returns {Any}
      */
@@ -345,7 +345,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this;
     },
     /**
-     * Set the component model
+     * Set this component's model
      *
      * @param {Model} model - A model
      */
@@ -392,7 +392,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     },
     /**
      * Called by {@link render}. Should be overridden by components to
-     * provide they're render functionality.
+     * provide its render functionality.
      *
      * @protected
      * @return {Boolean} - Used to indicate if rendering succeeded
@@ -455,7 +455,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return true;
     },
     /**
-     * Called when the component has been bound but not yet rendered
+     * Called when the component has been bound but not yet rendered.
+     * Usually a component is bound only once during its lifetime, with the exception
+     * of the {@link repeater.Repeater|Repeater} component, which re-binds its children
+     * every time its re-rerendered.
      */
     onComponentBound: function onComponentBound() {
     },

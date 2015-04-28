@@ -13,7 +13,22 @@ var Container = require('./container'),
  */
 
 /**
- * A class representing a view
+ * A View is just like a {@link container.Container|Container}
+ * except that it knows how to initiate parsing of its associated
+ * markup element. Use the view as an entry point to a section of
+ * your application. Views are usually mounted on locations when the
+ * when the {@link alicateapp.AlicateApp|AlicateApp} is being defined.
+ *
+ * @example
+ * new View({
+ *      templateName: 'app/scripts/hello-world/hello-world.html',
+ *      children: [
+ *          new Label({
+ *              id: 'hello',
+ *              text: 'Hello World from Alicate!!'
+ *          })
+ *      ]
+ *  });
  *
  * @class view.View
  * @extends container.Container
