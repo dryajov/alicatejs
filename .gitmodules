@@ -1,0 +1,3 @@
+[submodule "demos/todomvc-app-alicatejs"]
+	path = demos/todomvc-app-alicatejs
+	url = https://github.com/dryajov/todomvc-app-alicatejs
