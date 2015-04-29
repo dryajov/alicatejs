@@ -28,7 +28,7 @@ var Component = require('./component');
  * });
  *
  * @class input.Input
- * @extends Component
+ * @extends component.Component
  * @version 1.0
  */
 
