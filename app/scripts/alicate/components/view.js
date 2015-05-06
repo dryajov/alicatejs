@@ -61,12 +61,15 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             throw new Error('argument templateName missing!');
         }
 
-        if (!this.template ||
-            (this.template && this.template.length < 1)) {
-            throw new Error('argument template missing!');
+        if (!this.template) {
+            if (this.app.templateStore[this.templateName]) {
+                this.template = this.app.templateStore[this.templateName];
+            } else {
+                throw new Error('argument template missing!');
+            }
         }
 
-        this.$template = $('<div/>').append(this.template);
+        this.$template = $(this.template);
         markupIter = Markupiter.createMarkupIter(this.$template[0]);
         Container.prototype.bind.call(this, markupIter);
 
