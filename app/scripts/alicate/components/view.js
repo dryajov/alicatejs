@@ -47,6 +47,12 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     params: null,
     /**
+     * The location this view has been called with
+     *
+     * @property {String}
+     */
+    path: null,
+    /**
      * Bind the component tree
      */
     bind: function bind() {
@@ -88,8 +94,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      * Render the component tree
      */
     render: function render() {
-        this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
-        this.$template = null;
+        if (this.$template) {
+            this.$el ? this.$el.append(this.$template.children())
+                : this.$el = this.$template.children();
+            this.$template = null;
+        }
 
         this.cleanRendered();
         Container.prototype.render.call(this);
