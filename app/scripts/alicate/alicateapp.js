@@ -46,7 +46,10 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
             throw new Error('templateStore not provided!');
         }
 
-        this.router.init();
+        if (!this.router) {
+            this.router = new Router();
+            this.router.init();
+        }
     },
     /**
      * The default route the application will load if none is provided
@@ -90,7 +93,7 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      *
      * @property {Router} router - a router
      */
-    router: Router,
+    router: null,
     /**
      * This method, associates a view with a route. The route is any url
      * fragment that the application wants to respond to. By default, alicatejs uses
@@ -118,6 +121,7 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
             // detach elements will keep event handles and other data around
             // so that we don't have to rebind everything next time.
             that.$el.contents().detach();
+            view.path = path;
             view.params = params;
             view.app = that;
             view.bind();
