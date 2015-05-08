@@ -69,10 +69,10 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
             text = data;
         }
 
-        if (this.$el.is('input, textarea, select, button')) {
+        if (this.$el.is('input, textarea, select')) {
             this.$el.val(text)
         } else {
-            this.$el.html(text);
+            this.$el.text(text);
         }
 
         return true;
