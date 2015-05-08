@@ -71,7 +71,10 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             if (this.app.templateStore[this.templateName]) {
                 this.template = this.app.templateStore[this.templateName];
             } else {
-                throw new Error('argument template missing!');
+                var msg = this.id ?
+                'argument template missing for view id: ' + this.id + '!' :
+                    'argument template missing!';
+                throw new Error();
             }
         }
 
