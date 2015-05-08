@@ -19,6 +19,10 @@ var $ = require('jquery');
  * @constructor
  */
 var Base = function (values) {
+        if (!this) {
+            throw new Error('Invalid object invocation, make sure to use new!');
+        }
+
         var instanceData = {},
             classDefaults = typeof this.instanceData === 'function'
                 ? _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
