@@ -69,7 +69,7 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             }
         }
 
-        this.$template = $(this.template);
+        this.$template = $('<div/>').append(this.template);
         markupIter = Markupiter.createMarkupIter(this.$template[0]);
         Container.prototype.bind.call(this, markupIter);
 
