@@ -17,5 +17,6 @@ Alicatejs.Component = require('./alicate/components/component');
 Alicatejs.Button = require('./alicate/components/button');
 Alicatejs.Behavior = require('./alicate/behaviors/behavior');
 Alicatejs.Eventable = require('./alicate/behaviors/eventable');
+Alicatejs.Base = require('./alicate/base');
 
 module.exports = Alicatejs;
