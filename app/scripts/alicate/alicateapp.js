@@ -33,7 +33,7 @@ var Router = require('./router'),
  * @extends base.Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
+var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     initialize: function initialize() {
         this.$el = $(this.$selector);
         this.$el.empty();
@@ -95,6 +95,12 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      */
     router: null,
     /**
+     * Current active view
+     *
+     * @property {View}
+     */
+    view: null,
+    /**
      * This method, associates a view with a route. The route is any url
      * fragment that the application wants to respond to. By default, alicatejs uses
      * {@link https://visionmedia.github.io/page.js/|page.js}, so any and all considerations
@@ -111,25 +117,38 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         var that = this;
         this._views[path] = view;
 
-        view.template = this.templateStore[view.templateName];
-        if (!view.template) {
-            throw new Error('No template found for ' + view.templateName);
-        }
-
         view.isMounted = true;
-        this.router.mount(path, function (params) {
-            // detach elements will keep event handles and other data around
-            // so that we don't have to rebind everything next time.
-            that.$el.contents().detach();
-            view.path = path;
-            view.params = params;
-            view.app = that;
-            view.bind();
-            view.render();
-            that.$el.append(view.$el);
-        });
+        this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this));
 
         return this;
+    },
+    /**
+     * Set the current active view based on the provided path and params.
+     *
+     * This method is used by mount to set the active view
+     *
+     * @param path
+     * @param params
+     */
+    setActiveView: function setActiveView (path, params) {
+        if (this.view) {
+            this.view.onUnload();
+        }
+
+        var view = this._views[path];
+
+        // detach elements will keep event handles and other data around
+        // so that we don't have to rebind everything next time.
+        this.$el.contents().detach();
+        view.path = path;
+        view.params = params;
+        view.app = this;
+        view.bind();
+        view.onLoad();
+        view.render();
+        this.$el.append(view.$el);
+
+        this.view = view;
     },
     /**
      * This method will trigger the rendering of the app,
@@ -173,3 +192,5 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     onStopping: function onStopping() {
     }
 });
+
+module.exports = AlicateApp;

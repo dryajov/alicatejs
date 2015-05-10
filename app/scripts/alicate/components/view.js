@@ -53,6 +53,16 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     path: null,
     /**
+     * Called once when the view is about to become the active view
+     */
+    onLoad: function onLoad() {
+    },
+    /**
+     * Called once when the view is about to become incative
+     */
+    onUnload: function onUnload() {
+    },
+    /**
      * Bind the component tree
      */
     bind: function bind() {
@@ -74,7 +84,7 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
                 var msg = this.id ?
                 'argument template missing for view id: ' + this.id + '!' :
                     'argument template missing!';
-                throw new Error();
+                throw new Error(msg);
             }
         }
 
@@ -86,8 +96,8 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             var msg = "Not all elements where bound!\n" +
                 "Missed elements are:\n";
             do {
-                msg += $(markupIter.currentNode).data().aid + "\n" +
-                "in template: " + this.templateName + "\n";
+                msg += '\'' + $(markupIter.currentNode).data().aid + '\'' +
+                " in template: " + this.templateName + "\n";
             } while (markupIter.nextNode());
 
             throw new Error(msg);
