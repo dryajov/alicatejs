@@ -158,6 +158,11 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.render();
         }
     },
+    /**
+     * Update children visibility
+     *
+     * @private
+     */
     _updateVisiblity: function _updateVisiblity() {
         for (var key in this.children) {
             this.children[key].visible = this.visible;
