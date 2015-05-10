@@ -106,6 +106,11 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     app: null,
     /**
+     * @property {Boolean} hasRendered - flag signaling if the model has
+     * changed since the last time the model got updated
+     */
+    hasRendered: false,
+    /**
      * @param {Boolean} enabled - Enable/Disable the element
      */
     setEnabled: function setEnabled(enabled) {
@@ -151,11 +156,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this.properties[prop];
     },
     /**
-     * @property {Boolean} hasRendered - flag signaling if the model has
-     * changed since the last time the model got updated
-     */
-    hasRendered: false,
-    /**
      * Callback called when the model has changed. It's
      * triggered right before the data is being set on the
      * model.
@@ -188,7 +188,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     getValue: function getValue() {
         var value;
 
-        if (this.$el.is("input, textarea, select, button")) {
+        if (this.$el.is("input, textarea, select")) {
             value = this.$el.val();
         } else {
             value = this.$el.text();
