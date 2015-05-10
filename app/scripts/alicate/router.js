@@ -39,7 +39,7 @@ module.exports = Base.extend({
      */
     mount: function mount(route, callback) {
         page(route, function (ctx) {
-            callback(ctx.params);
+            callback(ctx.pathname, ctx.params);
         });
     },
     /**
