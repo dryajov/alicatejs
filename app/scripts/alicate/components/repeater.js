@@ -130,6 +130,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
         if (data) {
             if (Array.isArray(data)) {
                 if (!this.hasRendered) {
+                    this._children = [];
                     this.$parent.empty();
                     // remove/detach element from the dom
                     this.$el.remove();

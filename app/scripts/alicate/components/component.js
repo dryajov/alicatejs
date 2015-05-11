@@ -330,7 +330,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     },
     /**
      * Called by {@link render}. Should be overridden by components to
-     * provide they're render functionality.
+     * provide their render functionality.
      *
      * @protected
      * @return {Boolean} - Used to indicate if rendering succeeded

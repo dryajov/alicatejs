@@ -165,7 +165,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      */
     _updateVisiblity: function _updateVisiblity() {
         for (var key in this.children) {
-            this.children[key].visible = this.visible;
+            this.children[key].visible = this.isVisible();
             if (this.children[key] instanceof Container) {
                 this.children[key]._updateVisiblity();
             }
