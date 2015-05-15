@@ -86,10 +86,6 @@ describe('Repeater suite', function () {
             expect(typeof container.bind).toBe('function');
         });
 
-        it('Repeater to have bindComponent defined', function () {
-            expect(typeof container.bindComponent).toBe('function');
-        });
-
         it('Repeater class to throw on missing id', function () {
             function createCmp() {
                 return new Repeater();
@@ -108,6 +104,7 @@ describe('Repeater suite', function () {
                 $el: $('<div data-aid=test-container></div>'),
                 $parent: $('<div></div>'),
                 model: [1, 2, 3],
+                isBound: true,
                 onItemRender: function (item) {
                     item.add(new Component({
                         id: 'test',
