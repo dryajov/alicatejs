@@ -24,8 +24,8 @@ var Base = function (values) {
         }
 
         var instanceData = {},
-            classDefaults = typeof this.instanceData === 'function'
-                ? _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
+            classDefaults = typeof this.instanceData === 'function' ?
+                _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
 
         $.extend(true, instanceData, classDefaults, values);
         this.instanceData = instanceData;
@@ -57,7 +57,6 @@ var Base = function (values) {
      * @static
      */
     extend = function extend(protoProps, staticProps) {
-        'use strict';
 
         var parent = this,
             child,
