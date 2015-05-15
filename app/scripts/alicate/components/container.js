@@ -243,6 +243,28 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         }
 
         return result;
+    },
+    /**
+     * Called once when the component is about to become active.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onEnter: function onEnter() {
+        for (var i in this.children) {
+            this.children[i].onEnter();
+        }
+    },
+    /**
+     * Called once when the component is about to become inactive.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onExit: function onExit() {
+        for (var i in this.children) {
+            this.children[i].onExit();
+        }
     }
 });
 

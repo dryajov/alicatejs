@@ -386,7 +386,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
             // run behaviors after rendering
             this.runBehaviors();
-
             this._renderState = RenderState.RENDERED;
         }
 
@@ -434,5 +433,21 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                 }
             });
         }
+    },
+    /**
+     * Called once when the component is about to become active.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onEnter: function onEnter() {
+    },
+    /**
+     * Called once when the component is about to become inactive.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onExit: function onExit() {
     }
 });
