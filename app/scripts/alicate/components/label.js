@@ -33,7 +33,8 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
                 "p",
                 "a",
                 "option",
-                "label"
+                "label",
+                "small"
             ]
         };
     },
