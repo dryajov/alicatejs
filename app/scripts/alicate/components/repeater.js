@@ -88,6 +88,8 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             : $('<div/>');
 
         this.skipNodes(markupIter, markupIter.currentNode);
+
+        this.isBound = true;
     },
     /**
      * Skip all child nodes
@@ -111,19 +113,15 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
         }
     },
     /**
-     * Bind the component to the html element
-     *
-     * @param {Component} component
-     * @param {jQuery} $element
-     */
-    bindComponent: function bindComponent(component, $element) {
-    },
-    /**
      * Render the component
      */
     render: function render() {
         var data = this.getModelData(),
             $domElm = $('<div/>');
+
+        if (!this.isBound) {
+            return;
+        }
 
         this._checkIsValidElement();
 
