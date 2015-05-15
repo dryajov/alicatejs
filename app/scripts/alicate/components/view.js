@@ -53,16 +53,6 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     path: null,
     /**
-     * Called once when the view is about to become the active view
-     */
-    onLoad: function onLoad() {
-    },
-    /**
-     * Called once when the view is about to become incative
-     */
-    onUnload: function onUnload() {
-    },
-    /**
      * Bind the component tree
      */
     bind: function bind() {
