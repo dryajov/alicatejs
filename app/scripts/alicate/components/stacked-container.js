@@ -3,8 +3,7 @@
  */
 'use strict';
 
-var Container = require('./container'),
-    $ = require('jquery');
+var Container = require('./container');
 
 /**
  * @module stacked-container
@@ -52,7 +51,7 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
         }
 
         if (this.active !== this.children[this.index]) {
-            if (this.active != null) {
+            if (this.active !== null) {
                 this.active.onExit();
                 this.active.setVisible(false);
             }

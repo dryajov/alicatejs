@@ -106,7 +106,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             markupIter.previousNode();
         } else {
             markupIter.lastChild();
-            if (lastNode == markupIter.currentNode) {
+            if (lastNode === markupIter.currentNode) {
                 return;
             }
             this.skipNodes(markupIter, markupIter.currentNode);
@@ -201,6 +201,6 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
      *
      * @param {Container} item - The item to ber rendered
      */
-    onItemRender: function onItemRender(item) {
+    onItemRender: function onItemRender() {
     }
 });

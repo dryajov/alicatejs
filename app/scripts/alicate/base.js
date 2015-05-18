@@ -11,6 +11,29 @@
 var $ = require('jquery');
 
 /**
+ * Reverse prototype chain, so that we can merge objects in reverse order,
+ * starting with the parent and moving up in the inheritance chain
+ *
+ * @param obj
+ * @param method
+ * @param args
+ * @returns {{}}
+ * @private
+ */
+function _reverseProtoChain(obj, method, args) {
+    var proto = Object.getPrototypeOf(obj),
+        result = {};
+    if (proto) {
+        result = _reverseProtoChain(proto, method, args);
+        if (obj.hasOwnProperty(method)) {
+            result = $.extend(true, result, obj[method].call(args));
+        }
+    }
+
+    return result;
+}
+
+/**
  * Prototype object
  *
  * @class base.Base
@@ -96,28 +119,6 @@ var Base = function (values) {
 
         return child;
 
-    },
-    /**
-     * Reverse prototype chain, so that we can merge objects in reverse order,
-     * starting with the parent and moving up in the inheritance chain
-     *
-     * @param obj
-     * @param method
-     * @param args
-     * @returns {{}}
-     * @private
-     */
-    _reverseProtoChain = function _reverseProtoChain(obj, method, args) {
-        var proto = Object.getPrototypeOf(obj),
-            result = {};
-        if (proto) {
-            result = _reverseProtoChain(proto, method, args);
-            if (obj.hasOwnProperty(method)) {
-                result = $.extend(true, result, obj[method].call(args));
-            }
-        }
-
-        return result;
     };
 
 /**

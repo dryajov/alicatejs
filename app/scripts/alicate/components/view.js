@@ -56,7 +56,8 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      * Bind the component tree
      */
     bind: function bind() {
-        var markupIter;
+        var markupIter,
+            msg;
 
         if (this.isBound) {
             return;
@@ -71,7 +72,7 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             if (this.app.templateStore[this.templateName]) {
                 this.template = this.app.templateStore[this.templateName];
             } else {
-                var msg = this.id ?
+                msg = this.id ?
                 'argument template missing for view id: ' + this.id + '!' :
                     'argument template missing!';
                 throw new Error(msg);
@@ -83,11 +84,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
         Container.prototype.bind.call(this, markupIter);
 
         if (markupIter.nextNode()) {
-            var msg = "Not all elements where bound!\n" +
-                "Missed elements are:\n";
+            msg = 'Not all elements where bound!\n' +
+            'Missed elements are:\n';
             do {
-                msg += '\'' + $(markupIter.currentNode).data().aid + '\'' +
-                " in template: " + this.templateName + "\n";
+                msg += '\'' + $(markupIter.currentNode).data().aid +
+                ' in template: ' + this.templateName + '\n';
             } while (markupIter.nextNode());
 
             throw new Error(msg);
@@ -98,8 +99,15 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     render: function render() {
         if (this.$template) {
-            this.$el ? this.$el.append(this.$template.children())
-                : this.$el = this.$template.children();
+            //this.$el ? this.$el.append(this.$template.children())
+            //    : this.$el = this.$template.children();
+
+            if (this.$el !== null) {
+                this.$el.append(this.$template.children());
+            } else {
+                this.$el = this.$template.children();
+            }
+
             this.$template = null;
         }
 

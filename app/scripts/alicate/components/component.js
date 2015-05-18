@@ -60,7 +60,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              * @instance
              */
             properties: {}
-        }
+        };
     },
     /**
      * @property {String} id - The id of the data element to attach to
@@ -153,7 +153,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @returns {Any}
      */
     setProp: function setProp(prop, val) {
-        return this.properties[prop];
+        this.properties[prop] = val;
+        return this;
     },
     /**
      * Callback called when the model has changed. It's
@@ -163,7 +164,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @param newVal - the new val set on the model
      * @param oldVal - the old value the model held
      */
-    onModelChanged: function onModelChanged(newVal, oldVal) {
+    onModelChanged: function onModelChanged() {
     },
     /**
      * Bind event handler to component for the specified event
@@ -188,7 +189,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     getValue: function getValue() {
         var value;
 
-        if (this.$el.is("input, textarea, select")) {
+        if (this.$el.is('input, textarea, select')) {
             value = this.$el.val();
         } else {
             value = this.$el.text();
@@ -205,7 +206,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             if (this.allowedElements && !this.$el.is(this.allowedElements.join(','))) {
                 throw new Error('Component ' + this.id +
                 ' is not allowed to attach to ' +
-                this.$el.prop("tagName") + ' tag');
+                this.$el.prop('tagName') + ' tag');
             }
         } else {
             if (!this.isBound) {
@@ -227,9 +228,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @param {Boolean} visible - Set visible/hidden
      */
     setVisible: function setVisible(visible) {
-        if (this.isVisible() != visible) {
+        if (this.isVisible() !== visible) {
             this.visible = visible;
-            console.log("setting component id: " + this.id + " to visible: " + this.visible);
+            console.log('setting component id: ' + this.id + ' to visible: ' + this.visible);
             this.render();
         }
     },
@@ -375,7 +376,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                 this.$el.css('display', '');
             }
 
-            if (this.$el.prop('disabled') !== !this.enabled) {
+            if (this.$el.prop('disabled') !== this.enabled) {
                 this.$el.prop('disabled', !this.enabled);
             }
 
@@ -398,11 +399,12 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     },
     /**
      * Scan the template and attach components to html elements
+     *
+     * @param markupIter {MarkupIter}
      */
-    bind: function bind(markupIter) {
+    bind: function bind() {
         this.isBound = true;
         this.onComponentBound();
-
         this.bindBehaviors();
     },
     /**
@@ -421,7 +423,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
         if (this.model instanceof Model) {
             $el.off(event);
-            $el.on(event, function (e) {
+            $el.on(event, function () {
                 model.set(that.getValue());
             });
 

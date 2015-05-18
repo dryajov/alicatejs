@@ -32,7 +32,7 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
              * @instance
              */
             allowedElements: [
-                "img"
+                'img'
             ]
         };
     },

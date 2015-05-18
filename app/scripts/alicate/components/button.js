@@ -4,8 +4,7 @@
 
 'use strict';
 
-var Label = require('./label'),
-    Component = require('./component');
+var Label = require('./label');
 
 /**
  * @module button
@@ -29,8 +28,8 @@ module.exports = Label.extend(/** @lends Button.prototype */ {
              * @instance
              */
             allowedElements: [
-                "button",
-                "input"
+                'button',
+                'input'
             ],
             /**
              * @property {String} - The selected state css class of the button

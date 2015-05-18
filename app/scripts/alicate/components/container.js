@@ -117,7 +117,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.$el.append(cmp.$el);
             this.render();
         } else {
-            throw new Error("Element not bound, can't append!");
+            throw new Error('Element not bound, can\'t append!');
         }
     },
     prepend: function prepend(cmp) {
@@ -126,7 +126,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.$el.preppend(cmp.$el);
             this.render();
         } else {
-            throw new Error("Element not bound, can't preppend!");
+            throw new Error('Element not bound, can\'t preppend!');
         }
     },
     /**
