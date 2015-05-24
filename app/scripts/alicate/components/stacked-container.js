@@ -20,7 +20,7 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
     initialize: function initialize() {
         // hide components by default
         for(var i in this.children) {
-            this.children[i].setVisible(false);
+            this.children[i].visible = false;
         }
     },
     /**
@@ -53,12 +53,12 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
         if (this.active !== this.children[this.index]) {
             if (this.active !== null) {
                 this.active.onExit();
-                this.active.setVisible(false);
+                this.active.visible = false;
             }
 
             this.active = this.children[this.index];
             this.active.onEnter();
-            this.active.setVisible(true);
+            this.active.visible = true;
         }
 
         Container.prototype.render.call(this);
