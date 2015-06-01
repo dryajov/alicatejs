@@ -229,20 +229,16 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     /**
      * Render the component tree
      */
-    render: function render() {
+    componentRender: function componentRender() {
         if (this._updateVisiblity) {
             this._updateVisiblity();
         }
-
-        var result = Component.prototype.render.call(this);
 
         // run through the list of components
         // and render them
         for (var key in this.children) {
             this.children[key].render();
         }
-
-        return result;
     },
     /**
      * Called once when the component is about to become active.
