@@ -430,8 +430,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             model.subscribe(function (newVal, oldVal) {
                 if (!_.isEqual(newVal, oldVal)) {
                     component.hasRendered = false;
-                    component.render();
                     component.onModelChanged(newVal, oldVal);
+                    component.render();
                 }
             });
         }
