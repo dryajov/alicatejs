@@ -9,7 +9,7 @@ var Base = require('../base'),
     Model = require('../model'),
     RenderState = require('../enums/render'),
     $ = require('jquery'),
-    _ = require('underscore');
+    _ = require('lodash');
 
 /**
  * A class representing a component
@@ -59,57 +59,57 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              * @memberof component.Component
              * @instance
              */
-            properties: {}
+            properties: {},
+            /**
+             * @property {String} id - The id of the data element to attach to
+             */
+            id: '',
+            /**
+             * @property {Object} $el - The html element reference that this
+             * component is attached to
+             **/
+            $el: null,
+            /**
+             * @property model - The model for this component
+             */
+            model: null,
+            /**
+             * @property {Array} behaviors - A list of user attached behaviors
+             * associated with this component
+             */
+            behaviors: null,
+            /**
+             * @property {Boolean} visible - Determines is the component is visible
+             */
+            visible: true,
+            /**
+             * @property {container} parent - The parent of this component
+             */
+            parent: null,
+            /**
+             * @property {Boolean} isBound - Is component bout
+             */
+            isBound: false,
+            /**
+             * @property {Boolean} - Should the component be enabled/disabled
+             */
+            enabled: true,
+            /**
+             * @property {Enum} - The current rendering state
+             * @private
+             */
+            _renderState: RenderState.UNRENDERED,
+            /**
+             * @property {AlicateApp} - The current alicatejs app
+             */
+            app: null,
+            /**
+             * @property {Boolean} hasRendered - flag signaling if the model has
+             * changed since the last time the model got updated
+             */
+            hasRendered: false,
         };
     },
-    /**
-     * @property {String} id - The id of the data element to attach to
-     */
-    id: '',
-    /**
-     * @property {Object} $el - The html element reference that this
-     * component is attached to
-     **/
-    $el: null,
-    /**
-     * @property model - The model for this component
-     */
-    model: null,
-    /**
-     * @property {Array} behaviors - A list of user attached behaviors
-     * associated with this component
-     */
-    behaviors: null,
-    /**
-     * @property {Boolean} visible - Determines is the component is visible
-     */
-    visible: true,
-    /**
-     * @property {container} parent - The parent of this component
-     */
-    parent: null,
-    /**
-     * @property {Boolean} isBound - Is component bout
-     */
-    isBound: false,
-    /**
-     * @property {Boolean} - Should the component be enabled/disabled
-     */
-    enabled: true,
-    /**
-     * @property {Enum} - The current rendering state
-     * @private
-     */
-    _renderState: RenderState.UNRENDERED,
-    /**
-     * @property {AlicateApp} - The current alicatejs app
-     */
-    app: null,
-    /**
-     * @property {Boolean} hasRendered - flag signaling if the model has
-     * changed since the last time the model got updated
-     */
-    hasRendered: false,
     /**
      * @param {Boolean} enabled - Enable/Disable the element
      */

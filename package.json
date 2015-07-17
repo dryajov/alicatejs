@@ -14,11 +14,11 @@
   },
   "dependencies": {
     "jquery": "^2.1.3",
-    "lodash": "^3.6.0",
-    "page": "^1.6.1",
-    "underscore": "^1.8.3"
+    "lodash": "^3.10.0",
+    "page": "^1.6.1"
   },
   "devDependencies": {
+    "babelify": "^6.1.3",
     "browserify": "^5.12.1",
     "browserify-shim": "^3.8.3",
     "connect": "^2.25.9",
@@ -41,21 +41,19 @@
     "gulp-rename": "^1.2.0",
     "gulp-rev": "^1.1.0",
     "gulp-rimraf": "^0.1.0",
-    "gulp-sass": "0.7.1",
     "gulp-size": "^1.1.0",
     "gulp-uglify": "^1.0.1",
     "gulp-util": "^3.0.1",
     "jasmine-core": "^2.2.0",
     "jshint-stylish": "^0.4.0",
+    "karma-babel-preprocessor": "^5.2.1",
     "karma-browserify": "^4.0.0",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.1.4",
-    "mocha": "^1.21.4",
     "opn": "^1.0.0",
     "partialify": "^3.1.1",
     "should": "^4.0.4",
-    "vdom-virtualize": "0.0.6",
     "vinyl-source-stream": "^0.1.1",
     "virtual-dom": "^2.0.1"
   },
