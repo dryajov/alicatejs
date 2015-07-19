@@ -98,6 +98,8 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      * Render the component tree
      */
     render: function render() {
+        this.app.injector.inject(this);
+
         if (this.$template) {
             //this.$el ? this.$el.append(this.$template.children())
             //    : this.$el = this.$template.children();

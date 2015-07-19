@@ -247,6 +247,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      * such as a View or a StackedContainer.
      */
     onEnter: function onEnter() {
+        Component.prototype.onEnter.call(this);
         for (var i in this.children) {
             this.children[i].onEnter();
         }

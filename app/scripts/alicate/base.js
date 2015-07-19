@@ -63,6 +63,7 @@ var Base = function (values) {
         }
 
         $.extend(true, this, this.instanceData);
+        delete this.instanceData;
 
         this.initialize.apply(this);
         return this;

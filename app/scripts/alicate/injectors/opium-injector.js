@@ -41,10 +41,11 @@ module.exports = Base.extend({
      *
      * @param dep
      */
-    inject: function(name, dep) {
-        var d = this.injector.getDep(nameHelper(name));
+    inject: function (dep) {
+        var d = this.injector.getDep(nameHelper(dep.id));
         if (d) {
             d.inject();
+            console.log('Injected dependency ' + d.name);
         }
     },
     /**
@@ -52,10 +53,14 @@ module.exports = Base.extend({
      *
      * @param dep
      */
-    register: function(name, dep) {
-        this.resolver.register(nameHelper(name), dep, consts.INSTANCE);
+    register: function (dep) {
+        var d = this.injector.getDep(nameHelper(dep.id));
+        if (!d) {
+            this.resolver.register(nameHelper(dep.id), dep, consts.INSTANCE);
+            console.log('Registered dependency ' + dep.id);
+        }
     },
-    wire: function(definition){
+    wire: function (definition) {
         definition.wire(this.injector);
     }
 });

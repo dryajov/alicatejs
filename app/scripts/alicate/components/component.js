@@ -107,7 +107,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              * @property {Boolean} hasRendered - flag signaling if the model has
              * changed since the last time the model got updated
              */
-            hasRendered: false,
+            hasRendered: false
         };
     },
     /**
@@ -404,6 +404,12 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     bind: function bind() {
         this.isBound = true;
+
+        if (this.app.injector) {
+            this.app.injector.register(this);
+            this.app.injector.inject(this);
+        }
+
         this.onComponentBound();
         this.bindBehaviors();
     },
@@ -441,8 +447,15 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      *
      * This action is typically initiated by a top level container,
      * such as a View or a StackedContainer.
+     *
+     * Make sure to call super in order to get the correct dependency
+     * injection behavior, since inject is called on this object
+     * on every enter.
      */
     onEnter: function onEnter() {
+        if (this.app.injector) {
+            this.app.injector.inject(this);
+        }
     },
     /**
      * Called once when the component is about to become inactive.

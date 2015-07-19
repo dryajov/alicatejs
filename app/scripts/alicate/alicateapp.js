@@ -132,7 +132,8 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
 
         view.isMounted = true;
         this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this));
-        this.injector.register(path, view);
+        view.id = path; // set id to path
+        this.injector.register(view);
 
         return this;
     },
@@ -145,7 +146,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * @param params
      */
     setActiveView: function setActiveView(path, params) {
-        if (this.view) {
+        if (this.view && this.view.isBound) {
             this.view.onExit();
         }
 
@@ -155,15 +156,13 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         // so that we don't have to rebind everything next time.
         this.$el.contents().detach();
 
-        if (this.injector && view) {
-            this.injector.inject(path, view);
-        }
-
         view.path = path;
         view.params = params;
         view.app = this;
         view.bind();
-        view.onEnter();
+        if (view.isBound) {
+            view.onEnter();
+        }
         view.render();
         this.$el.append(view.$el);
 

@@ -182,7 +182,8 @@ module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
             model: new Model({data: data}),
             $el: $domElm,
             parent: this,
-            visible: this.isVisible()
+            visible: this.isVisible(),
+            app: this.app
         });
     },
     /**
