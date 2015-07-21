@@ -90,6 +90,11 @@ module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
         this.skipNodes(markupIter, markupIter.currentNode);
 
         this.isBound = true;
+
+        if (this.app.injector) {
+            this.app.injector.register(this);
+            this.app.injector.inject(this);
+        }
     },
     /**
      * Skip all child nodes
