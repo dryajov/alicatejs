@@ -15,7 +15,7 @@ gulp.task('vendor', function () {
         .require('jquery')
         .require('lodash')
         .require('page')
-        .require('opium')
+        .require('opium-ioc')
         .bundle()
         .pipe(source('vendor.js'))
         .pipe(gulp.dest(config.dist + '/scripts/'));

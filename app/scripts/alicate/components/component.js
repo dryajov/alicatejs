@@ -405,7 +405,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     bind: function bind() {
         this.isBound = true;
 
-        if (this.app.injector) {
+        if (this.app && this.app.injector) {
             this.app.injector.register(this);
             this.app.injector.inject(this);
         }
@@ -453,7 +453,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * on every enter.
      */
     onEnter: function onEnter() {
-        if (this.app.injector) {
+        if (this.app && this.app.injector) {
             this.app.injector.inject(this);
         }
     },

@@ -4,10 +4,10 @@
 'use strict';
 
 var Base = require('./../base');
-var Opium = require('opium');
-var Resolver = require('opium/app/scripts/resolvers/property-resolver');
+var Opium = require('opium-ioc');
+var Resolver = require('opium-ioc/app/scripts/resolvers/property-resolver');
 
-var consts = require('opium/app/scripts/consts');
+var consts = require('opium-ioc/app/scripts/consts');
 
 function nameHelper(name) {
     if (name === '/') {

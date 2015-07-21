@@ -91,7 +91,7 @@ module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
 
         this.isBound = true;
 
-        if (this.app.injector) {
+        if (this.app && this.app.injector) {
             this.app.injector.register(this);
             this.app.injector.inject(this);
         }
