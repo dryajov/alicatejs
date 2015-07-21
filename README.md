@@ -26,7 +26,7 @@ Some problems with templates are:
       your view logic ends up spilled all over the place, making it difficult to
       follow and maintain
 - It's inherently insecure.
-	- All templating engines allow some level of arbitrary expression execution, which could rely on something like `eval`, or have a built in parser for such evaluations. Each approach presents varying levels of security risks, however they all require some level of manual sanitation of the expressions, which is error prone and requires the dev team to stay on top of reported security vulnerabilities with frequent upgrades and patches.
+	- All templating engines allow some level of arbitrary expression execution, which could rely on something like `eval`, or have a built in parser for such evaluations. Each approach presents varying levels of security risks, however they all require some level of manual sanitation of the expressions, which is error prone and requires the dev team to stay on top of reported security vulnerabilities with frequent updates and patches.
 
 ### How does alicatejs solve this problems?
 
