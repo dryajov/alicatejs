@@ -58,7 +58,7 @@ module.exports = Base.extend({
     register: function (dep) {
         var d = this._injector.getDep(nameHelper(dep.id));
         if (!d) {
-            this.resolver.register(nameHelper(dep.id), dep, consts.INSTANCE);
+            this.resolver.register(nameHelper(dep.id), dep, {type: consts.INSTANCE});
             console.log('Registered dependency ' + dep.id);
         }
     },
