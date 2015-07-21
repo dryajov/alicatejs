@@ -97,3 +97,34 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 The snippet above demonstrates the core concepts of alicate in action.
 
 An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
+
+### DI integration
+
+Currently alicatejs provides DI through [opium-ioc](https://github.com/dryajov/opium) - please refer to opium-oic documentation for an overview of its features. In order to inject dependencies into your alicatejs components and views, a special array property is used - `$inject`. Any string listed in the `$inject` array will be interpreted as a dependency name, will be looked up in `opiums-ioc` registry and subsequently assigned to an existing property in your component. `opium-ioc` expects the property to be defined, otherwise no injection will be performed.
+
+```javascript
+    var view;
+    module.exports = Alicate.View.extend({
+        templateName: 'app/scripts/ui/import-view/import-view.html',
+        $inject: ['connectors'],
+        connectors: null,
+        children: [
+            providersList
+        ],
+        initialize: function initialize() {
+            view = this;
+        },
+        onEnter: function () {
+            Alicate.View.prototype.onEnter.call(this);
+
+            this.connectors.init().done(function (connectors) {
+                providerListModel.set([]);
+                providerListModel.set(connectors);
+            });
+        }
+    });
+```
+
+In the above snippet, `connectors` will be injected into the view.
+
+Injection happens in two places, the first time a component is `bound` and on each subsequent `onEnter` invocations. 

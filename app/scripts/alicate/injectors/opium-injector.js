@@ -30,11 +30,13 @@ function nameHelper(name) {
  * @version 1.0
  */
 module.exports = Base.extend({
-    injector: null,
+    _injector: null,
     resolver: null,
     initialize: function initialize() {
-        this.injector = new Opium('alicatejs');
-        this.resolver = new Resolver(this.injector);
+        this._injector = new Opium('alicatejs');
+        if (!this.resolver) {
+            this.resolver = new Resolver(this.injector);
+        }
     },
     /**
      * Dependency to be injected
@@ -42,7 +44,7 @@ module.exports = Base.extend({
      * @param dep
      */
     inject: function (dep) {
-        var d = this.injector.getDep(nameHelper(dep.id));
+        var d = this._injector.getDep(nameHelper(dep.id));
         if (d) {
             d.inject();
             console.log('Injected dependency ' + d.name);
@@ -54,13 +56,13 @@ module.exports = Base.extend({
      * @param dep
      */
     register: function (dep) {
-        var d = this.injector.getDep(nameHelper(dep.id));
+        var d = this._injector.getDep(nameHelper(dep.id));
         if (!d) {
             this.resolver.register(nameHelper(dep.id), dep, consts.INSTANCE);
             console.log('Registered dependency ' + dep.id);
         }
     },
     wire: function (definition) {
-        definition.wire(this.injector);
+        definition.wire(this._injector);
     }
 });
