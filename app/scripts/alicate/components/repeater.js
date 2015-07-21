@@ -9,7 +9,6 @@
 'use strict';
 
 var Container = require('./container'),
-    Component = require('./component'),
     Markupiter = require('../markupiter'),
     Model = require('../model'),
     $ = require('jquery');
@@ -36,10 +35,10 @@ var Container = require('./container'),
  *   })
  *
  * @class repeater.Repeater
- * @extends component.Component
+ * @extends component.Container
  * @version 1.0
  */
-module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
+module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
     instanceData: function instanceData() {
         return {
             /**
@@ -60,6 +59,15 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             $parent: null
         };
     },
+    /**
+     * Should we render the components list
+     *
+     * This flag control if the list should be
+     * regenerated on the next render or left alone
+     *
+     * @property {Boolean}
+     */
+    doRender: true,
     /**
      * @property {Number} - Current items count
      *
@@ -106,6 +114,13 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             : $('<div/>');
 
         this.skipNodes(markupIter, markupIter.currentNode);
+
+        this.isBound = true;
+
+        if (this.app && this.app.injector) {
+            this.app.injector.register(this);
+            this.app.injector.inject(this);
+        }
     },
     /**
      * Skip all child nodes
@@ -122,32 +137,31 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             markupIter.previousNode();
         } else {
             markupIter.lastChild();
-            if (lastNode == markupIter.currentNode) {
+            if (lastNode === markupIter.currentNode) {
                 return;
             }
             this.skipNodes(markupIter, markupIter.currentNode);
         }
     },
     /**
-     * Bind the component to the html element
-     *
-     * @param {Component} component
-     * @param {jQuery} $element
-     */
-    bindComponent: function bindComponent(component, $element) {
-    },
-    /**
      * Render the component
      */
     render: function render() {
-        var data = this.getModelData(),
-            $domElm = $('<div/>');
+        var data, $domElm;
+
+        if (!this.isBound) {
+            return;
+        }
+
+        data = this.getModelData();
+        $domElm = $('<div/>');
 
         this._checkIsValidElement();
 
         if (data) {
             if (Array.isArray(data)) {
-                if (!this.hasRendered) {
+                if (!this.hasRendered && this.visible && this.doRender) {
+                    this.children = [];
                     this.$parent.empty();
                     // remove/detach element from the dom
                     this.$el.remove();
@@ -157,6 +171,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
                         this.itemCount++;
                     }
                     this.$parent.append($domElm.children());
+                    this.doRender = false; // only rerender if model changed or rendering for the first time
                 }
             } else {
                 throw new Error('Model should return an Array!');
@@ -198,7 +213,8 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
             model: new Model({data: data}),
             $el: $domElm,
             parent: this,
-            visible: this.isVisible()
+            visible: this.isVisible(),
+            app: this.app
         });
     },
     /**
@@ -212,7 +228,7 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
         item.bind(Markupiter.createMarkupIter($domElm[0]));
         item.bindModel();
         item.render();
-        this._children.push(item);
+        this.children.push(item);
     },
     /**
      * Called when a repeated item is rendered, override this method
@@ -220,6 +236,12 @@ module.exports = Component.extend(/** @lends repeater.Repeater.prototype */{
      *
      * @param {Container} item - The item to ber rendered
      */
-    onItemRender: function onItemRender(item) {
+    onItemRender: function onItemRender() {
+    },
+    /**
+     * @inheritDoc
+     */
+    onModelChanged: function onModelChanged() {
+        this.doRender = true;
     }
 });

@@ -62,10 +62,17 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     params: null,
     /**
+     * The location this view has been called with
+     *
+     * @property {String}
+     */
+    path: null,
+    /**
      * Bind the component tree
      */
     bind: function bind() {
-        var markupIter;
+        var markupIter,
+            msg;
 
         if (this.isBound) {
             return;
@@ -76,9 +83,15 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             throw new Error('argument templateName missing!');
         }
 
-        if (!this.template ||
-            (this.template && this.template.length < 1)) {
-            throw new Error('argument template missing!');
+        if (!this.template) {
+            if (this.app.templateStore[this.templateName]) {
+                this.template = this.app.templateStore[this.templateName];
+            } else {
+                msg = this.id ?
+                'argument template missing for view id: ' + this.id + '!' :
+                    'argument template missing!';
+                throw new Error(msg);
+            }
         }
 
         this.$template = $('<div/>').append(this.template);
@@ -86,11 +99,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
         Container.prototype.bind.call(this, markupIter);
 
         if (markupIter.nextNode()) {
-            var msg = "Not all elements where bound!\n" +
-                "Missed elements are:\n";
+            msg = 'Not all elements where bound!\n' +
+            'Missed elements are:\n';
             do {
-                msg += $(markupIter.currentNode).data().aid + "\n" +
-                "in template: " + this.templateName + "\n";
+                msg += '\'' + $(markupIter.currentNode).data().aid +
+                ' in template: ' + this.templateName + '\n';
             } while (markupIter.nextNode());
 
             throw new Error(msg);
@@ -100,8 +113,20 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      * Render the component tree
      */
     render: function render() {
-        this.$el ? this.$el.append(this.$template) : this.$el = this.$template;
-        this.$template = null;
+        this.app.injector.inject(this);
+
+        if (this.$template) {
+            //this.$el ? this.$el.append(this.$template.children())
+            //    : this.$el = this.$template.children();
+
+            if (this.$el !== null) {
+                this.$el.append(this.$template.children());
+            } else {
+                this.$el = this.$template.children();
+            }
+
+            this.$template = null;
+        }
 
         this.cleanRendered();
         Container.prototype.render.call(this);

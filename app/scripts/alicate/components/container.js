@@ -145,7 +145,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.$el.append(cmp.$el);
             this.render();
         } else {
-            throw new Error("Element not bound, can't append!");
+            throw new Error('Element not bound, can\'t append!');
         }
     },
     /**
@@ -162,7 +162,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
             this.$el.preppend(cmp.$el);
             this.render();
         } else {
-            throw new Error("Element not bound, can't preppend!");
+            throw new Error('Element not bound, can\'t preppend!');
         }
     },
     /**
@@ -202,7 +202,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      */
     _updateVisiblity: function _updateVisiblity() {
         for (var key in this.children) {
-            this.children[key].visible = this.visible;
+            this.children[key].visible = this.isVisible();
             if (this.children[key] instanceof Container) {
                 this.children[key]._updateVisiblity();
             }
@@ -268,20 +268,39 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     /**
      * Render the component tree
      */
-    render: function render() {
+    componentRender: function componentRender() {
         if (this._updateVisiblity) {
             this._updateVisiblity();
         }
-
-        var result = Component.prototype.render.call(this);
 
         // run through the list of components
         // and render them
         for (var key in this.children) {
             this.children[key].render();
         }
-
-        return result;
+    },
+    /**
+     * Called once when the component is about to become active.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onEnter: function onEnter() {
+        Component.prototype.onEnter.call(this);
+        for (var i in this.children) {
+            this.children[i].onEnter();
+        }
+    },
+    /**
+     * Called once when the component is about to become inactive.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onExit: function onExit() {
+        for (var i in this.children) {
+            this.children[i].onExit();
+        }
     }
 });
 

@@ -11,6 +11,29 @@
 var $ = require('jquery');
 
 /**
+ * Reverse prototype chain, so that we can merge objects in reverse order,
+ * starting with the parent and moving up in the inheritance chain
+ *
+ * @param obj
+ * @param method
+ * @param args
+ * @returns {{}}
+ * @private
+ */
+function _reverseProtoChain(obj, method, args) {
+    var proto = Object.getPrototypeOf(obj),
+        result = {};
+    if (proto) {
+        result = _reverseProtoChain(proto, method, args);
+        if (obj.hasOwnProperty(method)) {
+            result = $.extend(true, result, obj[method].call(args));
+        }
+    }
+
+    return result;
+}
+
+/**
  * Prototype object
  *
  * @class base.Base
@@ -19,9 +42,13 @@ var $ = require('jquery');
  * @constructor
  */
 var Base = function (values) {
+        if (!this) {
+            throw new Error('Invalid object invocation, make sure to use new!');
+        }
+
         var instanceData = {},
-            classDefaults = typeof this.instanceData === 'function'
-                ? _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
+            classDefaults = typeof this.instanceData === 'function' ?
+                _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
 
         $.extend(true, instanceData, classDefaults, values);
         this.instanceData = instanceData;
@@ -36,6 +63,7 @@ var Base = function (values) {
         }
 
         $.extend(true, this, this.instanceData);
+        delete this.instanceData;
 
         this.initialize.apply(this);
         return this;
@@ -53,7 +81,6 @@ var Base = function (values) {
      * @static
      */
     extend = function extend(protoProps, staticProps) {
-        'use strict';
 
         var parent = this,
             child,
@@ -93,28 +120,6 @@ var Base = function (values) {
 
         return child;
 
-    },
-    /**
-     * Reverse prototype chain, so that we can merge objects in reverse order,
-     * starting with the parent and moving up in the inheritance chain
-     *
-     * @param obj
-     * @param method
-     * @param args
-     * @returns {{}}
-     * @private
-     */
-    _reverseProtoChain = function _reverseProtoChain(obj, method, args) {
-        var proto = Object.getPrototypeOf(obj),
-            result = {};
-        if (proto) {
-            result = _reverseProtoChain(proto, method, args);
-            if (obj.hasOwnProperty(method)) {
-                result = $.extend(true, result, obj[method].call(args));
-            }
-        }
-
-        return result;
     };
 
 /**

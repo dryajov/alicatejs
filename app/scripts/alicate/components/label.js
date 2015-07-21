@@ -34,12 +34,13 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
              * @instance
              */
             allowedElements: [
-                "div",
-                "span",
-                "p",
-                "a",
-                "option",
-                "label"
+                'div',
+                'span',
+                'p',
+                'a',
+                'option',
+                'label',
+                'small'
             ]
         };
     },
@@ -66,7 +67,7 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
             return false;
         }
 
-        var text = "", data = this.getModelData();
+        var text = '', data = this.getModelData();
         if ((this.text.length > 0) && typeof data === 'object') {
             text = this.interpolate(this.text, data);
         } else if (this.text.length > 0) {
@@ -75,10 +76,10 @@ module.exports = Component.extend(/** @lends label.Label.prototype */{
             text = data;
         }
 
-        if (this.$el.is('input, textarea, select, button')) {
-            this.$el.val(text)
+        if (this.$el.is('input, textarea, select')) {
+            this.$el.val(text);
         } else {
-            this.$el.html(text);
+            this.$el.text(text);
         }
 
         return true;

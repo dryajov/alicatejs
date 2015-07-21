@@ -16,9 +16,10 @@
  *
  **/
 
+    var Base = require('./base');
 var page = require('page');
 
-module.exports = {
+module.exports = Base.extend({
     /**
      * Initialize the router
      *
@@ -39,7 +40,7 @@ module.exports = {
      */
     mount: function mount(route, callback) {
         page(route, function (ctx) {
-            callback(ctx.params);
+            callback(ctx.pathname, ctx.params);
         });
     },
     /**
@@ -50,4 +51,4 @@ module.exports = {
     go: function go(route) {
         page(route);
     }
-}
+});

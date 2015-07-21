@@ -25,6 +25,8 @@ Some problems with templates are:
     - With some templates featuring a complete set of branching statements,
       your view logic ends up spilled all over the place, making it difficult to
       follow and maintain
+- It's inherently insecure.
+	- All templating engines allow some level of arbitrary expression execution, which could rely on something like `eval`, or have a built in parser for such evaluations. Each approach presents varying levels of security risks, however they all require some level of manual sanitation of the expressions, which is error prone and requires the dev team to stay on top of reported security vulnerabilities with frequent updates and patches.
 
 ### How does alicatejs solve this problems?
 
@@ -97,3 +99,34 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 The snippet above demonstrates the core concepts of alicate in action.
 
 An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
+
+### DI integration
+
+Currently alicatejs provides DI through [opium-ioc](https://github.com/dryajov/opium) - please refer to opium-oic documentation for an overview of its features. In order to inject dependencies into your alicatejs components and views, a special array property is used - `$inject`. Any string listed in the `$inject` array will be interpreted as a dependency name, will be looked up in `opiums-ioc` registry and subsequently assigned to an existing property in your component. `opium-ioc` expects the property to be defined, otherwise no injection will be performed.
+
+```javascript
+    var view;
+    module.exports = Alicate.View.extend({
+        templateName: 'app/scripts/ui/import-view/import-view.html',
+        $inject: ['connectors'],
+        connectors: null,
+        children: [
+            providersList
+        ],
+        initialize: function initialize() {
+            view = this;
+        },
+        onEnter: function () {
+            Alicate.View.prototype.onEnter.call(this);
+
+            this.connectors.init().done(function (connectors) {
+                providerListModel.set([]);
+                providerListModel.set(connectors);
+            });
+        }
+    });
+```
+
+In the above snippet, `connectors` will be injected into the view.
+
+Injection happens in two places, the first time a component is `bound` and on each subsequent `onEnter` invocations. 

@@ -43,8 +43,8 @@ module.exports = Component.extend(/** @lends input.Input.prototype */{
              * @instance
              */
             allowedElements: [
-                "input",
-                "textarea"
+                'input',
+                'textarea'
             ]
         };
     },

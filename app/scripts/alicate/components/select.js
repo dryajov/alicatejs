@@ -1,12 +1,14 @@
 /**
  * Created by dmitriy.ryajov on 7/18/14.
  */
+
+'use strict';
+
 var Repeater = require('./repeater'),
     Container = require('./container'),
     Component = require('./component'),
     Model = require('../model');
 
-'use strict';
 
 /**
  * @module select
@@ -64,7 +66,7 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
              * @instance
              */
             allowedElements: [
-                "select"
+                'select'
             ],
             /**
              * List of components that
@@ -85,9 +87,9 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
                     instanceData: function instanceData() {
                         return {
                             allowedElements: [
-                                "option"
+                                'option'
                             ]
-                        }
+                        };
                     },
                     /**
                      * @override
@@ -199,10 +201,10 @@ module.exports = Container.extend(/** @lends select.Select.prototype */{
     /**
      * Triggered when the option item is being rendered
      *
-     * @param option - The component associated with
+     * @param option {repeater.Repeater} - The component associated with
      * the rendered option
      */
-    onOptionRender: function onOptionRender(option) {
+    onOptionRender: function onOptionRender() {
     },
     getOptionValue: null,
     getOptionText: null

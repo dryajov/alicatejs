@@ -5,7 +5,7 @@
 
 var Router = require('./router'),
     Base = require('./base'),
-    View = require('./components/view'),
+    Injector = require('./injectors/opium-injector'),
     $ = require('jquery');
 
 /**
@@ -31,7 +31,7 @@ var Router = require('./router'),
  * @extends base.Base
  * @version 1.0
  */
-module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
+var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     initialize: function initialize() {
         this.$el = $(this.$selector);
         this.$el.empty();
@@ -44,53 +44,76 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
             throw new Error('templateStore not provided!');
         }
 
-        this.router.init();
+        if (!this.router) {
+            this.router = new Router();
+            this.router.init();
+        }
+
+        if (!this.injector) {
+            this.injector = new Injector();
+        }
+    },
+    instanceData: function instanceData() {
+        return {
+            /**
+             * The default route the application will load if none is provided
+             * to the {@link alicatapp.AlicatApp.start|start()} method.
+             *
+             * @property {String} index - default route
+             */
+            index: null,
+            /**
+             * This is the css selector that the app will attach itself to.
+             *
+             * @property {String} id - css selector
+             */
+            $selector: '',
+            /**
+             * This is the jquery wrapped dom element that this app is attached to
+             *
+             * @property {jQuery} $el - jquery wrapped dom element
+             */
+            $el: null,
+            /**
+             * The collection of mounted _views of this app. This is a key/value store,
+             * of the form of route => view, and it should not be manipulated directly
+             *
+             * @property {View[]} _views - Collection of _views
+             * @private
+             */
+            _views: {},
+            /**
+             * This is the key/value store of html fragments that the application uses
+             * to render its views. It takes the form of 'template name' => 'html fragment',
+             * where template name should correspond to the templateName property in one of
+             * the views.
+             *
+             * @property {Object} templateStore - key/value store of html fragments
+             */
+            templateStore: null,
+            /**
+             * The router used by this app. Override on application declaration
+             * to provide a custom router
+             *
+             * @property {Router} router - a router
+             */
+            router: null,
+            /**
+             * Current active view
+             *
+             * @property {View}
+             */
+            view: null,
+            /**
+             * Injector called during view activation
+             *
+             * @property {Injector}
+             */
+            injector: null
+        };
     },
     /**
-     * The default route the application will load if none is provided
-     * to the {@link alicatapp.AlicatApp.start|start()} method.
-     *
-     * @property {String} - default route
-     */
-    index: null,
-    /**
-     * This is the css selector that the app will attach itself to.
-     *
-     * @property {String} - css selector
-     */
-    $selector: '',
-    /**
-     * This is the jQuery wrapped dom element that this app is attached to
-     *
-     * @property {jQuery} - jquery wrapped dom element
-     */
-    $el: null,
-    /**
-     * The collection of mounted _views of this app. This is a key/value store,
-     * of the form of route => view, and it should not be manipulated directly
-     *
-     * @property {View[]} - Collection of _views
-     * @private
-     */
-    _views: {},
-    /**
-     * This is the key/value store of html fragments that the application uses
-     * to render its views. It takes the form of 'template name' => 'html fragment',
-     * where template name should correspond to the templateName property in one of
-     * the views.
-     *
-     * @property {Object} - key/value store of html fragments
-     */
-    templateStore: null,
-    /**
-     * The router used by this app. Override on application declaration
-     * to provide a custom router
-     *
-     * @property {Router} - a router
-     */
-    router: Router,
-    /**
-     * This method associates a view with a route. The route is any url
+     * This method, associates a view with a route. The route is any url
      * fragment that the application wants to respond to. By default, alicatejs uses
      * {@link https://visionmedia.github.io/page.js/|page.js},
      * however it is possible to override it with an alternative
@@ -103,33 +126,51 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * @return {app} Returns this app
      */
     mount: function mount(path, view) {
-        var that = this;
         this._views[path] = view;
 
-        view.template = this.templateStore[view.templateName];
-        if (!view.template) {
-            throw new Error('No template found for ' + view.templateName);
-        }
-
         view.isMounted = true;
-        this.router.mount(path, function (params) {
-            // detach elements will keep event handles and other data around
-            // so that we don't have to rebind everything next time.
-            that.$el.contents().detach();
-            view.params = params;
-            view.app = that;
-            view.bind();
-            view.render();
-            that.$el.append(view.$el);
-        });
+        this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this));
+        view.id = path; // set id to path
+        this.injector.register(view);
 
         return this;
     },
     /**
-     * This method will trigger the rendering of the app
-     * by firing the location specified in the
-     * {@link alicateapp.AlicateApp.index|index} member during app declaration,
-     * or by using the route provided as a parameter to this method.
+     * Set the current active view based on the provided path and params.
+     *
+     * This method is used by mount to set the active view
+     *
+     * @param path
+     * @param params
+     */
+    setActiveView: function setActiveView(path, params) {
+        if (this.view && this.view.isBound) {
+            this.view.onExit();
+        }
+
+        var view = this._views[path];
+
+        // detach elements will keep event handles and other data around
+        // so that we don't have to rebind everything next time.
+        this.$el.contents().detach();
+
+        view.path = path;
+        view.params = params;
+        view.app = this;
+        view.bind();
+        if (view.isBound) {
+            view.onEnter();
+        }
+        view.render();
+        this.$el.append(view.$el);
+
+        this.view = view;
+    },
+    /**
+     * This method will trigger the rendering of the app,
+     * by firing the location specified in the {@link index} member,
+     * during app declaration, or by using the route provided as
+     * a parameter to this method.
      *
      * @param {String} [route] the initial route to load
      */
@@ -167,3 +208,5 @@ module.exports = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     onStopping: function onStopping() {
     }
 });
+
+module.exports = AlicateApp;

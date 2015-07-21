@@ -9,7 +9,7 @@ var Base = require('../base'),
     Model = require('../model'),
     RenderState = require('../enums/render'),
     $ = require('jquery'),
-    _ = require('underscore');
+    _ = require('lodash');
 
 
 /**
@@ -95,55 +95,89 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              * @memberof component.Component
              * @instance
              */
-            properties: {}
-        }
+            properties: {},
+            /**
+             * @property {String} id - The id of the data element to attach to
+             */
+            id: '',
+            /**
+             * @property {Object} $el - The html element reference that this
+             * component is attached to
+             **/
+            $el: null,
+            /**
+             * @property model - The model for this component
+             */
+            model: null,
+            /**
+             * @property {Array} behaviors - A list of user attached behaviors
+             * associated with this component
+             */
+            behaviors: null,
+            /**
+             * @property {Boolean} visible - Determines is the component is visible
+             */
+            visible: true,
+            /**
+             * @property {container} parent - The parent of this component
+             */
+            parent: null,
+            /**
+             * @property {Boolean} isBound - Is component bout
+             */
+            isBound: false,
+            /**
+             * @property {Boolean} - Should the component be enabled/disabled
+             */
+            enabled: true,
+            /**
+             * @property {Enum} - The current rendering state
+             * @private
+             */
+            _renderState: RenderState.UNRENDERED,
+            /**
+             * @property {AlicateApp} - The current alicatejs app
+             */
+            app: null,
+            /**
+             * @property {Boolean} hasRendered - flag signaling if the model has
+             * changed since the last time the model got updated
+             */
+            hasRendered: false
+        };
     },
     /**
-     * @property {String} - The id of the data element to attach to
+     * @property {String} id - The id of the data element to attach to
      */
     id: '',
     /**
-     * The jQuery wrapped dom element that this component controls
-     *
-     * @property {Object} - The html element reference that this
+     * @property {Object} $el - The html element reference that this
      * component is attached to
      **/
     $el: null,
     /**
-     * The model for this component
-     *
-     * @property {Model}
+     * @property model - The model for this component
      */
     model: null,
     /**
-     * A list of user attached behaviors
-     *
-     * @property {Array}
+     * @property {Array} behaviors - A list of user attached behaviors
+     * associated with this component
      */
     behaviors: null,
     /**
-     * Determines if the component is visible
-     *
-     * @property {Boolean}
+     * @property {Boolean} visible - Determines is the component is visible
      */
     visible: true,
     /**
-     * The parent of this component
-     *
-     * @property {container}
+     * @property {container} parent - The parent of this component
      */
     parent: null,
     /**
-     * Indicates if this component is bound to an html element
-     *
-     * @property {Boolean} - Is bound
+     * @property {Boolean} isBound - Is component bout
      */
     isBound: false,
     /**
-     * Enables/Disables the component. This sets the the <tt>disabled</tt>
-     * attribute on the underlying html element.
-     *
-     * @property {Boolean} - Enable/Disable the component
+     * @property {Boolean} - Should the component be enabled/disabled
      */
     enabled: true,
     /**
@@ -152,19 +186,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     _renderState: RenderState.UNRENDERED,
     /**
-     * A reference to the current alicatejs application
-     *
      * @property {AlicateApp} - The current alicatejs app
      */
     app: null,
     /**
-     * @property {Boolean} - Indicates if component has rendered
-     * @private
-     */
-    hasRendered: false,
-    /**
-     * Controls the enabled/disabled state of the element
-     *
      * @param {Boolean} enabled - Enable/Disable the element
      */
     setEnabled: function setEnabled(enabled) {
@@ -207,7 +232,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @returns {Any}
      */
     setProp: function setProp(prop, val) {
-        return this.properties[prop];
+        this.properties[prop] = val;
+        return this;
     },
     /**
      * Callback called when the model has changed. It's
@@ -217,7 +243,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @param newVal - the new val set on the model
      * @param oldVal - the old value the model held
      */
-    onModelChanged: function onModelChanged(newVal, oldVal) {
+    onModelChanged: function onModelChanged() {
     },
     /**
      * Bind an event handler to component for the specified event
@@ -242,7 +268,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     getValue: function getValue() {
         var value;
 
-        if (this.$el.is("input, textarea, select, button")) {
+        if (this.$el.is('input, textarea, select')) {
             value = this.$el.val();
         } else {
             value = this.$el.text();
@@ -260,7 +286,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             if (this.allowedElements && !this.$el.is(this.allowedElements.join(','))) {
                 throw new Error('Component ' + this.id +
                 ' is not allowed to attach to ' +
-                this.$el.prop("tagName") + ' tag');
+                this.$el.prop('tagName') + ' tag');
             }
         } else {
             if (!this.isBound) {
@@ -282,9 +308,9 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @param {Boolean} visible - Set visible/hidden
      */
     setVisible: function setVisible(visible) {
-        if (this.isVisible() != visible) {
+        if (this.isVisible() !== visible) {
             this.visible = visible;
-            console.log("setting component id: " + this.id + " to visible: " + this.visible);
+            console.log('setting component id: ' + this.id + ' to visible: ' + this.visible);
             this.render();
         }
     },
@@ -437,7 +463,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                 this.$el.css('display', '');
             }
 
-            if (this.$el.prop('disabled') !== !this.enabled) {
+            if (this.$el.prop('disabled') !== this.enabled) {
                 this.$el.prop('disabled', !this.enabled);
             }
 
@@ -448,7 +474,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
             // run behaviors after rendering
             this.runBehaviors();
-
             this._renderState = RenderState.RENDERED;
         }
 
@@ -464,11 +489,18 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     },
     /**
      * Scan the template and attach components to html elements
+     *
+     * @param markupIter {MarkupIter}
      */
-    bind: function bind(markupIter) {
+    bind: function bind() {
         this.isBound = true;
-        this.onComponentBound();
 
+        if (this.app && this.app.injector) {
+            this.app.injector.register(this);
+            this.app.injector.inject(this);
+        }
+
+        this.onComponentBound();
         this.bindBehaviors();
     },
     /**
@@ -487,17 +519,40 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
         if (this.model instanceof Model) {
             $el.off(event);
-            $el.on(event, function (e) {
+            $el.on(event, function () {
                 model.set(that.getValue());
             });
 
             model.subscribe(function (newVal, oldVal) {
                 if (!_.isEqual(newVal, oldVal)) {
                     component.hasRendered = false;
-                    component.render();
                     component.onModelChanged(newVal, oldVal);
+                    component.render();
                 }
             });
         }
+    },
+    /**
+     * Called once when the component is about to become active.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     *
+     * Make sure to call super in order to get the correct dependency
+     * injection behavior, since inject is called on this object
+     * on every enter.
+     */
+    onEnter: function onEnter() {
+        if (this.app && this.app.injector) {
+            this.app.injector.inject(this);
+        }
+    },
+    /**
+     * Called once when the component is about to become inactive.
+     *
+     * This action is typically initiated by a top level container,
+     * such as a View or a StackedContainer.
+     */
+    onExit: function onExit() {
     }
 });

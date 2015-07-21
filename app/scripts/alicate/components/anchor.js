@@ -39,7 +39,7 @@ module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
              * @instance
              */
             allowedElements: [
-                "a"
+                'a'
             ]
         };
     },
