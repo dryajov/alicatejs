@@ -275,9 +275,12 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
 
         // run through the list of components
         // and render them
+        var render = false;
         for (var key in this.children) {
-            this.children[key].render();
+            render = this.children[key].render();
         }
+
+        return render;
     },
     /**
      * Called once when the component is about to become active.
