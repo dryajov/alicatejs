@@ -35,7 +35,7 @@ module.exports = Base.extend({
     initialize: function initialize() {
         this._injector = new Opium('alicatejs');
         if (!this.resolver) {
-            this.resolver = new Resolver(this.injector);
+            this.resolver = new Resolver(this._injector);
         }
     },
     /**
