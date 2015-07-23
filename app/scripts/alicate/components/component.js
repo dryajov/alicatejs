@@ -543,9 +543,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * on every enter.
      */
     onEnter: function onEnter() {
-        if (this.app && this.app.injector) {
-            this.app.injector.inject(this);
-        }
     },
     /**
      * Called once when the component is about to become inactive.
@@ -554,5 +551,25 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * such as a View or a StackedContainer.
      */
     onExit: function onExit() {
+    },
+    /**
+     * Called by the framework to indicate that component is being entered
+     *
+     * @private
+     */
+    enter: function enter() {
+        if (this.app && this.app.injector) {
+            this.app.injector.inject(this);
+        }
+
+        this.onEnter();
+    },
+    /**
+     * Called by the framework to indicate that component is being exited
+     *
+     * @private
+     */
+    exit: function exit() {
+        this.onExit();
     }
 });
