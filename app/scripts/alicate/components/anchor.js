@@ -68,6 +68,6 @@ module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
             return false;
         }
 
-        this.$el.attr('href', this.href);
+        this.$el[0].setAttribute('href', this.href);
     }
 });
