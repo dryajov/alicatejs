@@ -129,7 +129,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         this._views[path] = view;
 
         view.isMounted = true;
-        this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this));
+        this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this, view));
         view.id = path; // set id to path
         this.injector.register(view);
 
@@ -143,12 +143,10 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * @param path
      * @param params
      */
-    setActiveView: function setActiveView(path, params) {
+    setActiveView: function setActiveView(view, path, params) {
         if (this.view && this.view.isBound) {
-            this.view.onExit();
+            this.view.exit();
         }
-
-        var view = this._views[path];
 
         // detach elements will keep event handles and other data around
         // so that we don't have to rebind everything next time.
@@ -159,7 +157,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         view.app = this;
         view.bind();
         if (view.isBound) {
-            view.onEnter();
+            view.enter();
         }
         view.render();
         this.$el.append(view.$el);
