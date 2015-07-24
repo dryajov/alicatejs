@@ -10,8 +10,10 @@ To install alicatejs do `npm install --save alicatejs`.
 
 ### Resources
 * [Wiki](https://github.com/dryajov/alicatejs/wiki)
+* [Reference](http://alicatejs.org/docs/index.html)
 * [Examples repository](https://github.com/dryajov/alicatejs_samples)
 * [TodoMVC implemented in alicatejs](https://github.com/dryajov/todomvc-app-alicatejs)
+* [Check out TodoMVC in the browser](https://dryajov.github.io/todomvc-app-alicatejs/index.html)
 
 ### Motivation
 With the advent of new and evermore complex javascript frameworks, we've seen an explosion of templating engines. I believe
