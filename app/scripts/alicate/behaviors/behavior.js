@@ -41,12 +41,30 @@ module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
     },
     /**
      * Fired when the component is about to be rendered.
+     *
+     * @param component - the component to be pre-rendered
      */
-    preRender: function preRender(){
+    preRender: function preRender(component) {
     },
     /**
      * Fired when the component has been rendered.
+     *
+     * @param component - the component to be post-rendered
      */
-    postRender: function postRender(){
+    postRender: function postRender(component) {
+    },
+    /**
+     * Fired when a component is entered (activated)
+     *
+     * @param component - the component to be entered
+     */
+    onEnter: function onEnter(component) {
+    },
+    /**
+     * Fired when a component is exited (deactivated)
+     *
+     * @param component - the component to be exit
+     */
+    onExit: function onExit(component) {
     }
 });

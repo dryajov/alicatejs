@@ -9,10 +9,10 @@ module.exports = function(karma) {
       '../.tmp/test/specs.js'
     ],
 
-    reporters: [ 'dots' ],
+    reporters: [ 'dots', 'coverage' ],
 
     preprocessors: {
-      'test/**/*Spec.js': [ 'browserify' ]
+      'test/**/*Spec.js': [ 'browserify', 'coverage' ]
     },
 
     browsers: [ 'PhantomJS' ],

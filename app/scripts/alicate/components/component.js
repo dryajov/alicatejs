@@ -181,6 +181,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     enabled: true,
     /**
+     *
+     * FIXME: This should be renamed to just state, since it reflects the current
+     * state the component is in, not only render states
+     *
      * @property {Enum} - The current rendering state
      * @private
      */
@@ -354,6 +358,12 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                         break;
                     case RenderState.PRE_RENDER:
                         this.defaultBehaviors[behavior].preRender(this);
+                        break;
+                    case RenderStat.ENTER:
+                        this.defaultBehaviors[behavior].onEnter(this);
+                        break;
+                    case RenderStat.EXIT:
+                        this.defaultBehaviors[behavior].onExit(this);
                         break;
                 }
             }
@@ -562,6 +572,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             this.app.injector.inject(this);
         }
 
+        this._renderState = RenderState.ENTER;
+        this.runBehaviors();
         this.onEnter();
     },
     /**
@@ -570,6 +582,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      * @private
      */
     exit: function exit() {
+        this._renderState = RenderState.EXIT;
+        this.runBehaviors();
         this.onExit();
     }
 });

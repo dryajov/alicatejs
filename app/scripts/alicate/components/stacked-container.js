@@ -18,6 +18,8 @@ var Container = require('./container');
  */
 module.exports = Container.extend(/** @lends stacked-container.StackedContainer.prototype */{
     initialize: function initialize() {
+        Container.prototype.initialize.call(this);
+
         // hide components by default
         for(var i in this.children) {
             this.children[i].visible = false;
@@ -41,6 +43,9 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
     setActive: function setActive(index) {
         this.index = index;
         this.render();
+    },
+    getActive: function getActive() {
+        return this.active;
     },
     /**
      * @inheritdoc

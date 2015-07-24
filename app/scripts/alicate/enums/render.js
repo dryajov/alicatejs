@@ -6,5 +6,7 @@ module.exports = {
     UNRENDERED: -1,
     RENDERED: 0,
     PRE_RENDER: 1,
-    POST_RENDER: 2
+    POST_RENDER: 2,
+    ENTER: 3,
+    EXIT: 4
 };
