@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>base.js - Documentation</title>
+    <title>components/stacked-container.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">base.js</h1>
+    <h1 class="page-title">components/stacked-container.js</h1>
     
 
     
@@ -39,137 +39,77 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Created by dmitriy.ryajov on 6/26/14.
+ * Created by dmitriy.ryajov on 5/9/15.
  */
-
-/**
- * @module base
- */
-
 'use strict';
 
-var $ = require('jquery');
+var Container = require('./container');
 
 /**
- * Reverse prototype chain, so that we can merge objects in reverse order,
- * starting with the parent and moving up in the inheritance chain
- *
- * @param obj
- * @param method
- * @param args
- * @returns {{}}
- * @private
+ * @module stacked-container
  */
-function _reverseProtoChain(obj, method, args) {
-    var proto = Object.getPrototypeOf(obj),
-        result = {};
-    if (proto) {
-        result = _reverseProtoChain(proto, method, args);
-        if (obj.hasOwnProperty(method)) {
-            result = $.extend(true, result, obj[method].call(args));
-        }
-    }
-
-    return result;
-}
 
 /**
- * Prototype object
+ * A class representing a StackedView
  *
- * @class base.Base
- * @param values
- * @returns {Base}
- * @constructor
+ * @class view.StackedContainer
+ * @extends container.Container
+ * @version 1.0
  */
-var Base = function (values) {
-        if (!this) {
-            throw new Error('Invalid object invocation, make sure to use new!');
+module.exports = Container.extend(/** @lends stacked-container.StackedContainer.prototype */{
+    initialize: function initialize() {
+        // hide components by default
+        for(var i in this.children) {
+            this.children[i].visible = false;
         }
-
-        var instanceData = {},
-            classDefaults = typeof this.instanceData === 'function' ?
-                _reverseProtoChain(this, 'instanceData', values) : this.instanceData;
-
-        $.extend(true, instanceData, classDefaults, values);
-        this.instanceData = instanceData;
-
-        if (!this.initialize) {
-            /**
-             * Sub types can override this method to perform post construction
-             * setup.
-             */
-            this.initialize = function initialize() {
-            };
-        }
-
-        $.extend(true, this, this.instanceData);
-        delete this.instanceData;
-
-        this.initialize.apply(this);
-        return this;
     },
-
     /**
-     * Sets up inheritance chain. See Backbone.js
-     * {@link https://github.com/documentcloud/backbone/blob/master/backbone.js#L1527}
+     * Reference to current active view
      *
-     * @param protoProps
-     * @param staticProps
-     * @returns {*}
-     *
-     * @memberof base.Base
-     * @static
+     * @param {prototype.View}
      */
-    extend = function extend(protoProps, staticProps) {
-
-        var parent = this,
-            child,
-            Surrogate;
-
-        // The constructor function for the new subclass is either defined by you
-        // (the "constructor" property in your `extend` definition), or defaulted
-        // by us to simply call the parent's constructor.
-        if (protoProps &amp;&amp; protoProps.hasOwnProperty('constructor')) {
-            child = protoProps.constructor;
-        } else {
-            child = function () {
-                return parent.apply(this, arguments);
-            };
+    active: null,
+    /**
+     * Active view index
+     *
+     * @property {Number}
+     */
+    index: 0,
+    /**
+     * Set the active view
+     */
+    setActive: function setActive(index) {
+        this.index = index;
+        this.render();
+    },
+    /**
+     * @inheritdoc
+     */
+    render: function render() {
+        if (!this.isBound) {
+            return;
         }
 
-        // Add static properties to the constructor function, if supplied.
-        $.extend(true, child, parent, staticProps);
+        if (this.active !== this.children[this.index]) {
+            if (this.active !== null) {
+                this.active.onExit();
+                this.active.visible = false;
+            }
 
-        // Set the prototype chain to inherit from `parent`, without calling
-        // `parent`'s constructor function.
-        Surrogate = function () {
-            this.constructor = child;
-        };
-        Surrogate.prototype = parent.prototype;
-        child.prototype = new Surrogate();
-
-        // Add prototype properties (instance properties) to the subclass,
-        // if supplied.
-        if (protoProps) {
-            $.extend(true, child.prototype, protoProps);
+            this.active = this.children[this.index];
+            this.active.onEnter();
+            this.active.visible = true;
         }
 
-        // Set a convenience property in case the parent's prototype is needed
-        // later.
-        child.__super__ = parent.prototype;
-
-        return child;
-
-    };
-
-/**
- * Extend this type.
- * @method extend
- * @type {Function}
- * @returns {Function} Constructor for new sub-type.
- */
-Base.extend = extend;
-module.exports = Base;
+        Container.prototype.render.call(this);
+    },
+    /**
+     * @inheritdoc
+     */
+    _updateVisiblity: function _updateVisiblity() {
+        // void
+    }
+});
 </code></pre>
         </article>
     </section>
