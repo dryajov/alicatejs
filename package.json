@@ -1,7 +1,7 @@
 {
   "name": "alicatejs",
   "main": "app/scripts/main.js",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "private": false,
   "license": "MIT",
   "homepage": "http://alicatejs.org",
