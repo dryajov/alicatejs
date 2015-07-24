@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var Base = require('./../base');
+var Injector = require('./injector');
 var Opium = require('opium-ioc');
 var Resolver = require('opium-ioc/app/scripts/resolvers/property-resolver');
 
@@ -18,18 +18,18 @@ function nameHelper(name) {
 }
 
 /**
- * @module injector
+ * @module opium-injector
  */
 
 /**
- * A class representing a label
+ * A class representing an opium-ioc based injector
  *
  *
- * @class injector.Injector
- * @extends alicate.Base
+ * @class opium-injector.OpiumInjector
+ * @extends alicate.Injector
  * @version 1.0
  */
-module.exports = Base.extend({
+module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototype*/{
     _injector: null,
     resolver: null,
     initialize: function initialize() {
@@ -39,7 +39,7 @@ module.exports = Base.extend({
         }
     },
     /**
-     * Dependency to be injected
+     * Inject a dependency
      *
      * @param dep
      */
@@ -51,7 +51,9 @@ module.exports = Base.extend({
         }
     },
     /**
-     * Register a dependency
+     * Register a dependency with opium-ioc.
+     *
+     * The dependency is always registered as an INSTANCE type.
      *
      * @param dep
      */
@@ -62,6 +64,35 @@ module.exports = Base.extend({
             console.log('Registered dependency ' + dep.id);
         }
     },
+    /**
+     * This method takes a code ref that is able to perform
+     * the wiring of the dependencies according to the definition
+     * rules. In the case opium-injector, it expects an object
+     * with a wire method, that takes an opium-ioc as parameter.
+     *
+     * The bellow example shows a possible <pre>wire</pre> definition.
+     *
+     * @example
+     *  {
+     *   wire: function (injector) {
+     *    injector.registerInstance('connectorsRegistry', Registry);
+     *
+     *    injector.registerFactory('connectors', function (registry) {
+     *      var connectors = new Connectors({connectorsRegistry: registry});
+     *           connectors.init();
+     *           return connectors;
+     *       }, ['connectorsRegistry']);
+     *
+     *      // player
+     *     injector.registerInstance('playerConfig', PlayerConfig);
+     *     injector.registerInstance('player', new Player(), ['playerConfig']);
+     *     injector.registerInstance('playListManager', new PlayListManager(), ['player']);
+     *     injector.registerInstance('playerPlayList', new PlayerPlayList(), ['player', 'playListManager', 'connectors']);
+     *   }
+     * }
+     *
+     * @param definition
+     */
     wire: function (definition) {
         definition.wire(this._injector);
     }

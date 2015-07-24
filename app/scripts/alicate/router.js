@@ -3,6 +3,9 @@
  */
 'use strict';
 
+var Base = require('./base');
+var page = require('page');
+
 /**
  * A router module.
  *
@@ -15,10 +18,6 @@
  * @version 1.0
  *
  **/
-
-    var Base = require('./base');
-var page = require('page');
-
 module.exports = Base.extend({
     /**
      * Initialize the router

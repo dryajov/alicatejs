@@ -197,7 +197,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.render();
     },
     /**
-     * Get an html attribute
+     * Set an html attribute
      *
      * @param {String} attr - Attribute name
      * @param {String} val - Value
@@ -207,7 +207,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         return this;
     },
     /**
-     * Set an html attribute
+     * Get an html attribute
      *
      * @param {String} attr - Attribute name
      * @returns {Any}
