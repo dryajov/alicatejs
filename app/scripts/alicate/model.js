@@ -13,7 +13,7 @@ var Observable = require('./observable');
 /**
  * A model class.
  *
- * @class Model
+ * @class model.Model
  * @extends Observable
  * @version 1.0
  */
