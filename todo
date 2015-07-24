@@ -1,9 +1,0 @@
-1) Change the children hash to an array
-2) Modify selec to accept a special kind of Model/Array of object of the form of
-    {
-        text: 'some text',
-        value: 'some value',
-        selected: true/false
-    }
-that the select object will use to populate the text and value of the select element,
-with the selected flag indicating if it that element is selected...
