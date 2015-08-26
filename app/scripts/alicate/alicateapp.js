@@ -175,6 +175,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     start: function start(route) {
         this.onStarting();
         this.router.go(route || this.index);
+        this.onStarted();
     },
     /**
      * Stop application. Triggers the onStopping() hook.
@@ -185,6 +186,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         // reset to null to avoid dangling references
         this.$el = null;
         this._views = null;
+        this.onStopped();
     },
     /**
      * <p>Called before the application has started.</p>
@@ -196,6 +198,11 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     onStarting: function onStarting() {
     },
     /**
+     *
+     */
+    onStarted: function onStarted() {
+    },
+    /**
      * <p>Called before the application has stopped.</p>
      *
      * <p>
@@ -204,6 +211,11 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * </p>
      */
     onStopping: function onStopping() {
+    },
+    /**
+     *
+     */
+    onStopped: function onStopped() {
     }
 });
 

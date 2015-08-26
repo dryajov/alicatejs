@@ -20,8 +20,15 @@ var Base = require('./../base');
  * @extends alicate.Base
  * @version 1.0
  */
+/*jshint unused:false*/
 module.exports = Base.extend(/** @lends injector.Injector.prototype */{
-    _injector: null,
+    /**
+     * injector handle
+     */
+    injector: null,
+    /**
+     * resolver handle
+     */
     resolver: null,
     /**
      * Inject a dependency
@@ -48,5 +55,5 @@ module.exports = Base.extend(/** @lends injector.Injector.prototype */{
      */
     wire: function wire(definition) {
         throw new Error('method unimplemented!');
-    }
+    },
 });

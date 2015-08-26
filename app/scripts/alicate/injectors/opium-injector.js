@@ -9,14 +9,6 @@ var Resolver = require('opium-ioc/app/scripts/resolvers/property-resolver');
 
 var consts = require('opium-ioc/app/scripts/consts');
 
-function nameHelper(name) {
-    if (name === '/') {
-        return 'index';
-    }
-
-    return name.replace('/\///g');
-}
-
 /**
  * @module opium-injector
  */
@@ -30,12 +22,10 @@ function nameHelper(name) {
  * @version 1.0
  */
 module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototype*/{
-    _injector: null,
-    resolver: null,
     initialize: function initialize() {
-        this._injector = new Opium('alicatejs');
+        this.injector = new Opium('alicatejs');
         if (!this.resolver) {
-            this.resolver = new Resolver(this._injector);
+            this.resolver = new Resolver(this.injector);
         }
     },
     /**
@@ -44,10 +34,10 @@ module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototy
      * @param dep
      */
     inject: function (dep) {
-        var d = this._injector.getDep(nameHelper(dep.id));
+        var d = this.injector.getDep(dep.internalId);
         if (d) {
             d.inject();
-            console.log('Injected dependency ' + d.name);
+            console.log('Injected dependency ' + d.name + ' with component id: ' + dep.id);
         }
     },
     /**
@@ -58,17 +48,17 @@ module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototy
      * @param dep
      */
     register: function (dep) {
-        var d = this._injector.getDep(nameHelper(dep.id));
+        var d = this.injector.getDep(dep.internalId);
         if (!d) {
-            this.resolver.register(nameHelper(dep.id), dep, {type: consts.INSTANCE});
+            this.resolver.register(dep.internalId, dep, {type: consts.INSTANCE});
             console.log('Registered dependency ' + dep.id);
         }
     },
     /**
      * This method takes a code ref that is able to perform
      * the wiring of the dependencies according to the definition
-     * rules. In the case opium-injector, it expects an object
-     * with a wire method, that takes an opium-ioc as parameter.
+     * rules. In the case of opium-injector, it expects an object
+     * with a wire method, that takes an opium-ioc instance as parameter.
      *
      * The bellow example shows a possible <pre>wire</pre> definition.
      *
@@ -94,6 +84,6 @@ module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototy
      * @param definition
      */
     wire: function (definition) {
-        definition.wire(this._injector);
+        definition.wire(this.injector);
     }
 });

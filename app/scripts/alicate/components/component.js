@@ -9,7 +9,8 @@ var Base = require('../base'),
     Model = require('../model'),
     RenderState = require('../enums/render'),
     $ = require('jquery'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    Guid = require('guid');
 
 
 /**
@@ -44,9 +45,24 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
             $.merge(this.defaultBehaviors, this.behaviors);
         }
 
-        if (!this.id || (this.id && this.id.length < 1)) {
+        if (!this.isIdValid()) {
             throw new Error('Missing id!');
         }
+
+        this.internalId = Guid.raw();
+    },
+    /**
+     * Check if id is valid and present
+     *
+     * @private
+     * @returns {boolean}
+     */
+    isIdValid: function isIdValid() {
+        if (!this.id || (this.id && this.id.length < 1)) {
+            return false;
+        }
+
+        return true;
     },
     instanceData: function instanceData() {
         return {
@@ -143,56 +159,13 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
              * @property {Boolean} hasRendered - flag signaling if the model has
              * changed since the last time the model got updated
              */
-            hasRendered: false
+            hasRendered: false,
+            /**
+             * @private
+             */
+            internalId: ''
         };
     },
-    /**
-     * @property {String} id - The id of the data element to attach to
-     */
-    id: '',
-    /**
-     * @property {Object} $el - The html element reference that this
-     * component is attached to
-     **/
-    $el: null,
-    /**
-     * @property model - The model for this component
-     */
-    model: null,
-    /**
-     * @property {Array} behaviors - A list of user attached behaviors
-     * associated with this component
-     */
-    behaviors: null,
-    /**
-     * @property {Boolean} visible - Determines is the component is visible
-     */
-    visible: true,
-    /**
-     * @property {container} parent - The parent of this component
-     */
-    parent: null,
-    /**
-     * @property {Boolean} isBound - Is component bout
-     */
-    isBound: false,
-    /**
-     * @property {Boolean} - Should the component be enabled/disabled
-     */
-    enabled: true,
-    /**
-     *
-     * FIXME: This should be renamed to just state, since it reflects the current
-     * state the component is in, not only render states
-     *
-     * @property {Enum} - The current rendering state
-     * @private
-     */
-    _renderState: RenderState.UNRENDERED,
-    /**
-     * @property {AlicateApp} - The current alicatejs app
-     */
-    app: null,
     /**
      * @param {Boolean} enabled - Enable/Disable the element
      */
@@ -258,11 +231,15 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
      */
     on: function on(event, callback) {
         this.addBehavior(new Eventable({
-            event: event + '.' + this.id,
+            id: event + '.' + this.id,
+            event: event,
             handler: callback
         }));
 
         return this;
+    },
+    off: function off(event) {
+        this.removeBehavior(event + '.' + this.id);
     },
     /**
      * Get the current rendered value of this component
@@ -289,8 +266,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         if (this.$el) {
             if (this.allowedElements && !this.$el.is(this.allowedElements.join(','))) {
                 throw new Error('Component ' + this.id +
-                ' is not allowed to attach to ' +
-                this.$el.prop('tagName') + ' tag');
+                    ' is not allowed to attach to ' +
+                    this.$el.prop('tagName') + ' tag');
             }
         } else {
             if (!this.isBound) {
@@ -343,6 +320,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     },
     /**
      * Run attached behaviors
+     *
      * @private
      */
     runBehaviors: function runBehaviors() {
@@ -359,10 +337,10 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                     case RenderState.PRE_RENDER:
                         this.defaultBehaviors[behavior].preRender(this);
                         break;
-                    case RenderStat.ENTER:
+                    case RenderState.ENTER:
                         this.defaultBehaviors[behavior].onEnter(this);
                         break;
-                    case RenderStat.EXIT:
+                    case RenderState.EXIT:
                         this.defaultBehaviors[behavior].onExit(this);
                         break;
                 }
@@ -379,6 +357,17 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.bindBehaviors();
 
         return this;
+    },
+    removeBehavior: function removeBehavior(id) {
+        var behavior = this.defaultBehaviors.filter(function (bh) {
+            if (bh.id === id) {
+                return bh;
+            }
+        });
+
+        var index = this.defaultBehaviors.indexOf(behavior);
+        behavior.detach(); // detach behavior
+        this.defaultBehaviors = this.defaultBehaviors.splice(index, 1);
     },
     /**
      * Set this component's model

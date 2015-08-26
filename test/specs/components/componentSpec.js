@@ -187,4 +187,16 @@ describe('Component suite', function () {
             expect(component.bindModel).toHaveBeenCalled();
         });
     });
+
+    //describe('Component event', function () {
+    //    it('Should bind event', function () {
+    //        var component = new Component({
+    //            id: 'test'
+    //        });
+    //
+    //        component.on('click', function () {
+    //
+    //        });
+    //    });
+    //});
 });

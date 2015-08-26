@@ -17,6 +17,7 @@ var Base = require('../../alicate/base');
  * @extends base.Base
  * @version 1.0
  */
+/*jshint unused:false*/
 module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
     /**
      * @property {String} -   Any arbitrary identifier for this behavior
@@ -39,32 +40,27 @@ module.exports = Base.extend(/** @lends behavior.Behavior.prototype */{
         this.component = component;
         this.attached = true;
     },
+    detach: function detach() {
+        this.attached = false;
+    },
     /**
      * Fired when the component is about to be rendered.
-     *
-     * @param component - the component to be pre-rendered
      */
-    preRender: function preRender(component) {
+    preRender: function preRender() {
     },
     /**
      * Fired when the component has been rendered.
-     *
-     * @param component - the component to be post-rendered
      */
-    postRender: function postRender(component) {
+    postRender: function postRender() {
     },
     /**
      * Fired when a component is entered (activated)
-     *
-     * @param component - the component to be entered
      */
-    onEnter: function onEnter(component) {
+    onEnter: function onEnter() {
     },
     /**
      * Fired when a component is exited (deactivated)
-     *
-     * @param component - the component to be exit
      */
-    onExit: function onExit(component) {
+    onExit: function onExit() {
     }
 });

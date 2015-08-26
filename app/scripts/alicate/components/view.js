@@ -35,9 +35,6 @@ var Container = require('./container'),
  * @version 1.0
  */
 module.exports = Container.extend(/** @lends view.View.prototype */{
-    initialize: function initialize() {
-        // this is needed to override components require id constraint
-    },
     id: null,
     /**
      * @property {String} - The name of the template
@@ -67,6 +64,15 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      * @property {String}
      */
     path: null,
+    /**
+     * Override to prevent throwing on missing id (for views, id is optional)
+     *
+     * @private
+     * @returns {boolean}
+     */
+    isIdValid: function isIdValid() {
+        return true;
+    },
     /**
      * Bind the component tree
      */
@@ -100,10 +106,10 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
 
         if (markupIter.nextNode()) {
             msg = 'Not all elements where bound!\n' +
-            'Missed elements are:\n';
+                'Missed elements are:\n';
             do {
                 msg += '\'' + $(markupIter.currentNode).data().aid +
-                ' in template: ' + this.templateName + '\n';
+                    ' in template: ' + this.templateName + '\n';
             } while (markupIter.nextNode());
 
             throw new Error(msg);
