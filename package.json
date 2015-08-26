@@ -14,10 +14,10 @@
     "documentation": "node_modules/.bin/jsdoc -c jsdoc.conf.json"
   },
   "dependencies": {
-    "ink-docstrap": "^0.5.2",
+    "guid": "0.0.12",
     "jquery": "^2.1.3",
     "lodash": "^3.10.0",
-    "opium-ioc": "0.0.5",
+    "opium-ioc": "0.0.22",
     "page": "^1.6.1"
   },
   "devDependencies": {

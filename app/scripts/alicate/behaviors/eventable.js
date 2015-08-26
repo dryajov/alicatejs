@@ -49,6 +49,9 @@ module.exports = Behavior.extend(/** @lends eventable.Eventable.prototype */{
         $el.on(this.event + '.' + component.id, function (event) {
             that.handler.call(component, event);
         });
+    },
+    detach: function detach() {
+        Behavior.prototype.detach.call(this);
     }
 });
 

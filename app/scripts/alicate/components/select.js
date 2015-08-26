@@ -44,6 +44,7 @@ var Repeater = require('./repeater'),
  */
 module.exports = Container.extend(/** @lends select.Select.prototype */{
     initialize: function initialize() {
+        Component.prototype.initialize.call(this);
         var that = this;
 
         this.on('change', function (event) {
