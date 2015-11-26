@@ -65,6 +65,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     path: null,
     /**
+     * Causes the container markup to be skipped
+     * from the output
+     */
+    skipContainerMarkup: false,
+    /**
      * Override to prevent throwing on missing id (for views, id is optional)
      *
      * @private
@@ -126,7 +131,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             //    : this.$el = this.$template.children();
 
             if (this.$el !== null) {
-                this.$el.append(this.$template.children());
+                if (this.skipContainerMarkup) {
+                    this.$el.replaceWith(this.$template.children());
+                } else {
+                    this.$el.append(this.$template.children());
+                }
             } else {
                 this.$el = this.$template.children();
             }
