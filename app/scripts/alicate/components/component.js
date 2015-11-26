@@ -50,6 +50,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         }
 
         this.internalId = Guid.raw();
+
+        this.inject();
     },
     /**
      * Check if id is valid and present
@@ -494,13 +496,19 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     bind: function bind() {
         this.isBound = true;
 
+        this.inject();
+
+        this.onComponentBound();
+        this.bindBehaviors();
+    },
+    /**
+     * Inject this component with the required dependencies
+     */
+    inject: function inject() {
         if (this.app && this.app.injector) {
             this.app.injector.register(this);
             this.app.injector.inject(this);
         }
-
-        this.onComponentBound();
-        this.bindBehaviors();
     },
     /**
      * Bind the current model
