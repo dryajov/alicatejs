@@ -56,26 +56,29 @@ module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
              * @memberof repeater.Repeater
              * @instance
              */
-            $parent: null
+            $parent: null,
+            /**
+             * Should we render the components list
+             *
+             * This flag control if the list should be
+             * regenerated on the next render or left alone
+             *
+             * @property {Boolean}
+             */
+            doRender: true,
+            /**
+             * @property {Number} - Current items count
+             *
+             * This is reset every-time the repeater is re-rendered
+             */
+            itemCount: 0
         };
     },
     /**
-     * Should we render the components list
-     *
-     * This flag control if the list should be
-     * regenerated on the next render or left alone
-     *
-     * @property {Boolean}
-     */
-    doRender: true,
-    /**
-     * @property {Number} - Current items count
-     *
-     * This is reset every-time the repeater is re-rendered
-     */
-    itemCount: 0,
-    /**
-     * Append an item to the repeater
+     * Append an item to the repeater.
+     * Note that this does not alter the internal model,
+     * so any aditional items added here, would also need
+     * to be manually added to the model.
      *
      * @param data
      */
@@ -83,7 +86,10 @@ module.exports = Container.extend(/** @lends repeater.Repeater.prototype */{
         this.$parent.append(this.itemRender(this.itemCount++, data));
     },
     /**
-     * Prepend an item to the repeater
+     * Prepend an item to the repeater.
+     * Note that this does not alter the internal model,
+     * so any aditional items added here, would also need
+     * to be manually added to the model
      *
      * @param data
      */
