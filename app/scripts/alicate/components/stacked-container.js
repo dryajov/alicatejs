@@ -62,8 +62,8 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
             }
 
             this.active = this.children[this.index];
-            this.active.onEnter();
             this.active.visible = true;
+            this.active.onEnter();
         }
 
         Container.prototype.render.call(this);
