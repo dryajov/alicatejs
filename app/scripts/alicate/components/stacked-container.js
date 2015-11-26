@@ -10,7 +10,31 @@ var Container = require('./container');
  */
 
 /**
- * A class representing a StackedView
+ * A class representing a StackedContainer.
+ *
+ * A StackedContainer allows grouping several
+ * {@link component.Component|Component}'s
+ * together and only showing one at a given time.
+ * This makes it ideal for components that show
+ * one active view at a time such as a tabbed controller.
+ *
+ *
+ * @example
+ *  var mainView = new Alicate.StackedContainer({
+ *      id: 'main-view',
+ *      children: [
+ *          listenView,
+ *          searchView
+ *      ]
+ *  });
+ *
+ *  var importModal = new ImportModal({
+ *       id: 'import-modal'
+ *   });
+ *
+ *  var loginModal = new LoginModal({
+ *       id: 'login-modal'
+ *   });
  *
  * @class view.StackedContainer
  * @extends container.Container
@@ -21,7 +45,7 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
         Container.prototype.initialize.call(this);
 
         // hide components by default
-        for(var i in this.children) {
+        for (var i in this.children) {
             this.children[i].visible = false;
         }
     },
@@ -44,6 +68,11 @@ module.exports = Container.extend(/** @lends stacked-container.StackedContainer.
         this.index = index;
         this.render();
     },
+    /**
+     * Get the current active {@link component.Component|Component}
+     *
+     * @returns {Component}
+     */
     getActive: function getActive() {
         return this.active;
     },

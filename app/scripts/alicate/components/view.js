@@ -17,7 +17,7 @@ var Container = require('./container'),
  * except that it knows how to initiate parsing of its associated
  * markup element. Use the view as an entry point to a section of
  * your application. Views are usually mounted on locations when the
- * when the {@link alicateapp.AlicateApp|AlicateApp} is being defined.
+ * {@link alicateapp.AlicateApp|AlicateApp} is being defined.
  *
  * @example
  * new View({
