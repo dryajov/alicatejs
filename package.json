@@ -18,7 +18,7 @@
     "jquery": "^2.1.4",
     "lodash": "^3.10.0",
     "opium-ioc": "0.0.22",
-    "page": "^1.6.1"
+    "page": "^1.6.4"
   },
   "devDependencies": {
     "babelify": "^6.1.3",
