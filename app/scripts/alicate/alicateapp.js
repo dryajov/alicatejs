@@ -143,7 +143,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      * @param path
      * @param params
      */
-    setActiveView: function setActiveView(view, path, params) {
+    setActiveView: function setActiveView(view, path, params, ctx) {
         if (this.view && this.view.isBound) {
             this.view.exit();
         }
@@ -154,6 +154,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
 
         view.path = path;
         view.params = params;
+        view.ctx = ctx;
         view.app = this;
         view.bind();
         if (view.isBound) {
@@ -198,7 +199,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     onStarting: function onStarting() {
     },
     /**
-     *
+     * Called once application has been started
      */
     onStarted: function onStarted() {
     },
@@ -213,9 +214,16 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     onStopping: function onStopping() {
     },
     /**
-     *
+     * Called once application has been stopped
      */
     onStopped: function onStopped() {
+    },
+    /**
+     *
+     * @param route
+     */
+    go: function go(route) {
+        this.router.go(route)
     }
 });
 

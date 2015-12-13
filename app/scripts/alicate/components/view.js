@@ -65,6 +65,13 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     path: null,
     /**
+     * Request context
+     *
+     * @property {Object} - The request context for this request.
+     * Currently the context as passed by pagejs, see pagejs docs for more info
+     */
+    ctx: null,
+    /**
      * Causes the container markup to be skipped
      * from the output
      */
