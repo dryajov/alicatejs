@@ -44,6 +44,8 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         Component.prototype.initialize.call(this);
 
         for (var key in this.children) {
+            this.children[key].parent = this; // always set the parent
+            this.children[key].app = this.app;
             if (this.children[key].isVisible()) {
                 this.children[key].visible = this.visible;
             }
@@ -259,6 +261,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         }
 
         cmp.$el = $element;
+
         cmp.parent = this;
         cmp.app = this.app;
 

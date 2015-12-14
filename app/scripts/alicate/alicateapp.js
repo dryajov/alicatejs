@@ -128,6 +128,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     mount: function mount(path, view) {
         this._views[path] = view;
 
+        view.app = this;
         view.isMounted = true;
         this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this, view));
         view.id = path; // set id to path

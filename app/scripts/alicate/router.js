@@ -27,6 +27,8 @@ module.exports = Base.extend({
      */
     init: function init(options) {
         page.start(options);
+
+        return this;
     },
     /**
      * Associate a {@link view.View|View} with a route
@@ -41,6 +43,8 @@ module.exports = Base.extend({
         page(route, function (ctx) {
             callback(ctx.pathname, ctx.params, ctx);
         });
+
+        return this;
     },
     /**
      * Triggers the router to load a particular route
@@ -49,5 +53,7 @@ module.exports = Base.extend({
      */
     go: function go(route) {
         page(route);
+
+        return this;
     }
 });
