@@ -4,8 +4,8 @@
 
 'use strict';
 
-var Input = require('../../../app/scripts/alicate/components/input'),
-    Model = require('../../../app/scripts/alicate/model'),
+var Input = require('../../app/scripts/alicate/components/input'),
+    Model = require('../../app/scripts/alicate/model'),
     $ = require('jquery');
 
 describe('Input suite', function () {

@@ -4,13 +4,12 @@
 
 'use strict';
 
-var Repeater = require('../../../app/scripts/alicate/components/repeater'),
-    Component = require('../../../app/scripts/alicate/components/component'),
-    Label = require('../../../app/scripts/alicate/components/label'),
-    Model = require('../../../app/scripts/alicate/model'),
-    Markupiter = require('../../../app/scripts/alicate/markupiter'),
-    $ = require('jquery'),
-    MarkupIter = Markupiter;
+var Repeater = require('../../app/scripts/alicate/components/repeater'),
+    Component = require('../../app/scripts/alicate/components/component'),
+    Label = require('../../app/scripts/alicate/components/label'),
+    Model = require('../../app/scripts/alicate/model'),
+    MarkupIter = require('../../app/scripts/alicate/markupiter'),
+    $ = require('jquery');
 
 describe('Repeater suite', function () {
     describe('Repeater correctness', function () {

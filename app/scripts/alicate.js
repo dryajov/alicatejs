@@ -1,6 +1,7 @@
+'use strict';
+
 var Alicatejs = {};
 
-Alicatejs.Router = require('./alicate/router');
 Alicatejs.Observable = require('./alicate/observable');
 Alicatejs.Model = require('./alicate/model');
 Alicatejs.Markupiter = require('./alicate/base');

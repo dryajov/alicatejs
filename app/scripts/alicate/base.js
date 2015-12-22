@@ -62,6 +62,7 @@ var Base = function (values) {
             };
         }
 
+        // FIXME: this should happen before initialize is called
         $.extend(true, this, this.instanceData);
         delete this.instanceData;
 

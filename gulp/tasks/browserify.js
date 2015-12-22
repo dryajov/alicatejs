@@ -27,7 +27,7 @@ gulp.task('browserify', function () {
             debug: true,
             standalone: 'Alicatejs'
         })
-        .add('./app/scripts/main.js')
+        .add('./app/scripts/alicate.js')
         .external('jquery')
         .external('lodash')
         .external('page')
