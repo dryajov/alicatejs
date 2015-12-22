@@ -294,7 +294,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     onEnter: function onEnter() {
         Component.prototype.onEnter.call(this);
         for (var i in this.children) {
-            this.children[i].onEnter();
+            this.children[i].enter();
         }
     },
     /**
