@@ -7,8 +7,8 @@
 
 'use strict';
 
-var StackedContainer = require('../../../app/scripts/alicate/components/stacked-container'),
-    Component = require('../../../app/scripts/alicate/components/component'),
+var StackedContainer = require('../../app/scripts/alicate/components/stacked-container'),
+    Component = require('../../app/scripts/alicate/components/component'),
     $ = require('jquery');
 
 describe('StackedContainer suite', function () {
