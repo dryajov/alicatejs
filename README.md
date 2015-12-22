@@ -84,10 +84,11 @@ An html fragment is any html element that is marked with the `data-aid` attribut
         var app = new AlicateApp({
             templateStore: templateStore,
             selector: '#myapp',
-            index: '/helloworld'
+            index: 'my-view'
         });
 
-        app.mount('/helloworld', new View({
+        app.add(new View({
+                id: 'my-view',
                 templateName: 'helloworld.html',
                 children: {
                     hello: new Label({
@@ -100,7 +101,7 @@ An html fragment is any html element that is marked with the `data-aid` attribut
 ```
 The snippet above demonstrates the core concepts of alicate in action.
 
-An application that will attach it self to the `#myapp` selector, is constructed, using `/helloworld` path as its index page/location. Once we have an application, we can start `mount`ing our views on a desired path, this will allow alicatejs to render the view when the browser navigates to that path. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
+An application that will attach it self to the `#myapp` selector, is constructed using `my-view` id as its `index` view. Once we have an application, we can start `add`ing our views to the app, this will allow alicatejs to render it when the desired view is set active by calling the `start` method. Next a `Label` component is added as a child of the `View`. The `Label` will render the contents of its `text` property to the associated html element.
 
 ### DI integration
 
