@@ -1,3 +1,5 @@
+'use strict';
+
 var Alicatejs = {};
 
 Alicatejs.Observable = require('./alicate/observable');
