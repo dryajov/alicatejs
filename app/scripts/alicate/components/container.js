@@ -305,7 +305,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      */
     onExit: function onExit() {
         for (var i in this.children) {
-            this.children[i].onExit();
+            this.children[i].exit();
         }
     }
 });

@@ -445,6 +445,20 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.bindBehaviors();
 
         if (this.$el) {
+
+            for (var attr in this.attributes) {
+                this.$el.attr(attr, this.attributes[attr]);
+            }
+
+            if (!this.hasRendered ||
+                (this.parent && this.parent.isVisible())) {
+                this.$el.css('display', !this.isVisible() ? 'none' : '');
+            }
+
+            if (this.$el.prop('disabled') !== this.enabled) {
+                this.$el.prop('disabled', !this.enabled);
+            }
+
             this._renderState = RenderState.PRE_RENDER;
             this.onPreRender();
 
@@ -453,20 +467,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
             // call components render
             this.componentRender();
-
-            for (var attr in this.attributes) {
-                this.$el.attr(attr, this.attributes[attr]);
-            }
-
-            if (!this.isVisible()) {
-                this.$el.css('display', 'none');
-            } else {
-                this.$el.css('display', '');
-            }
-
-            if (this.$el.prop('disabled') !== this.enabled) {
-                this.$el.prop('disabled', !this.enabled);
-            }
 
             this.hasRendered = true;
 
