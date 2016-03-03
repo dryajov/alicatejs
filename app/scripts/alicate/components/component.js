@@ -450,8 +450,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                 this.$el.attr(attr, this.attributes[attr]);
             }
 
-            if (!this.hasRendered ||
-                (this.parent && this.parent.isVisible())) {
+            if (this.parent && this.parent.isVisible()) {
                 this.$el.css('display', !this.isVisible() ? 'none' : '');
             }
 

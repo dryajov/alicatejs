@@ -66,6 +66,8 @@ module.exports = Component.extend(/** @lends image.Image.prototype */{
             return false;
         }
 
-        this.$el.attr('src', this.src);
+        if (this.$el.attr('src') !== this.src) {
+            this.$el.attr('src', this.src);
+        }
     }
 });
