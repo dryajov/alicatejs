@@ -104,7 +104,7 @@ An application that will attach it self to the `#myapp` selector, is constructed
 
 ### DI integration
 
-Currently alicatejs provides DI through [opium-ioc](https://github.com/dryajov/opium) - please refer to opium-oic documentation for an overview of its features. In order to inject dependencies into your alicatejs components and views, a special array property is used - `$inject`. Any string listed in the `$inject` array will be interpreted as a dependency name, will be looked up in `opiums-ioc` registry and subsequently assigned to an existing property in your component. `opium-ioc` expects the property to be defined, otherwise no injection will be performed.
+Currently alicatejs provides DI through [opium-ioc](https://github.com/dryajov/opium). In order to inject dependencies into your alicatejs components and views, a special array property is used - `$inject`. Any string listed in the `$inject` array will be interpreted as a dependency name, will be looked up in `opiums-ioc` registry and subsequently assigned to an existing property in your component. `opium-ioc` expects the property to be defined, otherwise no injection will be performed.
 
 ```javascript
     var view;
