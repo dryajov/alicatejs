@@ -151,7 +151,12 @@ describe('Repeater suite', function () {
                 var component = repeater.children[key];
 
                 expect(component.isVisible()).toBe(false);
-                expect(component.$el.css('display')).toBe('none');
+                
+                // if the parent's visibility is set to to none, 
+                // there is no point in setting its children to none as well
+                // so the individual elements will not have its display prop 
+                // changed
+                // expect(component.$el.css('display')).toBe('none');
             }
         });
     });

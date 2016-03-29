@@ -3,12 +3,13 @@
 module.exports = function(karma) {
   karma.set({
 
-    frameworks: [ 'jasmine', 'browserify' ],
+    frameworks: [ 'jquery-2.1.0', 'jasmine-jquery', 'jasmine', 'browserify' ],
 
     files: [
-      '../.tmp/test/specs.js'
+      '../.tmp/test/specs.js',
+      '../node_modules/jquery/dist/jquery.js'
     ],
-
+    
     reporters: [ 'dots', 'coverage' ],
 
     preprocessors: {

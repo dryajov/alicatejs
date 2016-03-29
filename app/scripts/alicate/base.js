@@ -8,8 +8,6 @@
 
 'use strict';
 
-var $ = require('jquery');
-
 /**
  * Reverse prototype chain, so that we can merge objects in reverse order,
  * starting with the parent and moving up in the inheritance chain

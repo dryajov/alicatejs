@@ -7,3 +7,5 @@ var AppSpec = require('./appSpec'),
     RepeaterSpec = require('./repeaterSpec'),
     ButtonSpec = require('./buttonSpec'),
     StackedContainer = require('./stackedContainerSpec');
+    
+    window.$ = window.jQuery = require('jquery');

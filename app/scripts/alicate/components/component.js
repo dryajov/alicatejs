@@ -8,7 +8,6 @@ var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
     RenderState = require('../enums/render'),
-    $ = require('jquery'),
     _ = require('lodash'),
     Guid = require('guid');
 
@@ -450,7 +449,7 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
                 this.$el.attr(attr, this.attributes[attr]);
             }
 
-            if (this.parent && this.parent.isVisible()) {
+            if ((this.parent && this.parent.isVisible()) || !this.parent)  {
                 this.$el.css('display', !this.isVisible() ? 'none' : '');
             }
 

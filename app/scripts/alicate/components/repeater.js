@@ -10,8 +10,7 @@
 
 var Container = require('./container'),
     Markupiter = require('../markupiter'),
-    Model = require('../model'),
-    $ = require('jquery');
+    Model = require('../model');
 
 /**
  * A Repeater allows iterating over a list of elements

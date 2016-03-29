@@ -5,7 +5,6 @@
 
 var Base = require('./base'),
     Injector = require('./injectors/opium-injector'),
-    $ = require('jquery'),
     Emitter = require('event-emitter');
 
 /**

@@ -71,29 +71,16 @@ describe('App suite', function () {
             app.start();
             expect(app.$el.html()).toBe($($templateStore['templateView2']).prop('outerHTML'));
         });
-    });
-
-    describe('app events', function () {
-        var $templateStore = {}, app;
-
-        beforeAll(function () {
-            $('<div id="test-app">[VIEW SHOULD RENDER HERE]</div>').appendTo('body');
-        });
-
-        beforeEach(function () {
-            $templateStore['templateView1'] = '<div>This is view #1</div>';
-
-            app = new Alicate.AlicateApp({
-                templateStore: $templateStore,
-                $selector: '#test-app',
-                index: 'my-view1'
-            });
-        });
-
+        
         it('events should trigger', function () {
             app.add(new Alicate.View({
                 id: 'my-view1',
                 templateName: 'templateView1'
+            }));
+
+            app.add(new Alicate.View({
+                id: 'my-view2',
+                templateName: 'templateView2'
             }));
 
             spyOn(app, 'emit');

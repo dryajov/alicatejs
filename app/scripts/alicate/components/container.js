@@ -4,8 +4,7 @@
 
 'use strict';
 
-var Component = require('./component'),
-    $ = require('jquery');
+var Component = require('./component');
 
 /**
  * @module container

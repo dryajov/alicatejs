@@ -5,8 +5,7 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter'),
-    $ = require('jquery');
+    Markupiter = require('../markupiter');
 
 /**
  * @module view
