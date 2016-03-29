@@ -14,7 +14,6 @@ gulp.task('vendor', function () {
     return browserify({debug: true})
         .require('jquery')
         .require('lodash')
-        .require('page')
         .require('opium-ioc')
         .bundle()
         .pipe(source('vendor.js'))
@@ -30,7 +29,6 @@ gulp.task('browserify', function () {
         .add('./app/scripts/alicate.js')
         .external('jquery')
         .external('lodash')
-        .external('page')
         .transform(partialify) // Transform to allow requireing of templates
         .bundle()
         .pipe(source('main.js'))
@@ -43,7 +41,6 @@ gulp.task('browserify-test', function () {
     return browserify({debug: true})
         .require('jquery')
         .require('lodash')
-        .require('page')
         .add(__dirname + '/../../test/specs/specs.js')
         .transform(partialify) // Transform to allow requireing of templates
         .bundle()
