@@ -4,7 +4,7 @@
 
 'use strict';
 
-var Model = require('../../../app/scripts/alicate/model'),
+var Model = require('../../app/scripts/alicate/model'),
     $ = require('jquery');
 
 describe('Model Suite', function () {

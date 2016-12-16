@@ -5,8 +5,7 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter'),
-    $ = require('jquery');
+    Markupiter = require('../markupiter');
 
 /**
  * @module view
@@ -16,8 +15,10 @@ var Container = require('./container'),
  * A View is just like a {@link container.Container|Container}
  * except that it knows how to initiate parsing of its associated
  * markup element. Use the view as an entry point to a section of
- * your application. Views are usually mounted on locations when the
- * when the {@link alicateapp.AlicateApp|AlicateApp} is being defined.
+ * your application. There are two types of views, top-level; those
+ * that are added directly to the {@link alicateapp.AlicateApp|AlicateApp},
+ * and those that are added as children {@link component.Component|Component}
+ * to other views or {@link container.Container|Container}'s.
  *
  * @example
  * new View({
@@ -55,24 +56,14 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
      */
     isMounted: false,
     /**
-     * @property {Object} - Key/Value object holding the current route params
+     * @property {Object} - Key/Value object holding the current view params
      */
     params: null,
     /**
-     * The location this view has been called with
-     *
-     * @property {String}
+     * Causes the container markup to be skipped
+     * from the output
      */
-    path: null,
-    /**
-     * Override to prevent throwing on missing id (for views, id is optional)
-     *
-     * @private
-     * @returns {boolean}
-     */
-    isIdValid: function isIdValid() {
-        return true;
-    },
+    skipContainerMarkup: false,
     /**
      * Bind the component tree
      */
@@ -126,7 +117,11 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
             //    : this.$el = this.$template.children();
 
             if (this.$el !== null) {
-                this.$el.append(this.$template.children());
+                if (this.skipContainerMarkup) {
+                    this.$el.replaceWith(this.$template.children());
+                } else {
+                    this.$el.append(this.$template.children());
+                }
             } else {
                 this.$el = this.$template.children();
             }
@@ -137,12 +132,5 @@ module.exports = Container.extend(/** @lends view.View.prototype */{
         this.cleanRendered();
         Container.prototype.render.call(this);
         return this.$el;
-    },
-    _updateVisiblity: function _updateVisiblity() {
-        if (!this.isMounted) {
-            Container.prototype._updateVisiblity.call(this);
-        }
-
-        return;
     }
 });

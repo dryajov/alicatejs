@@ -21,6 +21,7 @@
     "laxbreak": true,
     "predef": [
         "document",
-        "NodeFilter"
+        "NodeFilter",
+        "$"
     ]
 }

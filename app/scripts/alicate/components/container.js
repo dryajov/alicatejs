@@ -4,8 +4,7 @@
 
 'use strict';
 
-var Component = require('./component'),
-    $ = require('jquery');
+var Component = require('./component');
 
 /**
  * @module container
@@ -44,6 +43,8 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         Component.prototype.initialize.call(this);
 
         for (var key in this.children) {
+            this.children[key].parent = this; // always set the parent
+            this.children[key].app = this.app;
             if (this.children[key].isVisible()) {
                 this.children[key].visible = this.visible;
             }
@@ -259,6 +260,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
         }
 
         cmp.$el = $element;
+
         cmp.parent = this;
         cmp.app = this.app;
 
@@ -291,7 +293,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
     onEnter: function onEnter() {
         Component.prototype.onEnter.call(this);
         for (var i in this.children) {
-            this.children[i].onEnter();
+            this.children[i].enter();
         }
     },
     /**
@@ -302,7 +304,7 @@ var Container = Component.extend(/** @lends container.Container.prototype */{
      */
     onExit: function onExit() {
         for (var i in this.children) {
-            this.children[i].onExit();
+            this.children[i].exit();
         }
     }
 });

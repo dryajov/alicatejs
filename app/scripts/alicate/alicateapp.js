@@ -3,10 +3,9 @@
  */
 'use strict';
 
-var Router = require('./router'),
-    Base = require('./base'),
+var Base = require('./base'),
     Injector = require('./injectors/opium-injector'),
-    $ = require('jquery');
+    Emitter = require('event-emitter');
 
 /**
  * @module alicateapp
@@ -25,16 +24,16 @@ var Router = require('./router'),
  *                  $selector: '#selector'
  *              });
  *
- * return app.mount('/link1', new MyView());
+ * return app.add('my-view1', new MyView());
  *
  * @class alicateapp.AlicateApp
  * @extends base.Base
  * @version 1.0
  */
-var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
+var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */$.extend({
     initialize: function initialize() {
         this.$el = $(this.$selector);
-        this.$el.empty();
+        this.$el.empty(); // override content
 
         if (!this.$el) {
             throw new Error('Unable to attach to selector ' + this.$selector);
@@ -44,11 +43,6 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
             throw new Error('templateStore not provided!');
         }
 
-        if (!this.router) {
-            this.router = new Router();
-            this.router.init();
-        }
-
         if (!this.injector) {
             this.injector = new Injector();
         }
@@ -56,12 +50,12 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
     instanceData: function instanceData() {
         return {
             /**
-             * The default route the application will load if none is provided
+             * The default view the application will load if none is provided
              * to the {@link alicatapp.AlicatApp.start|start()} method.
              *
-             * @property {String} index - default route
+             * @property {String} index - default view
              */
-            index: null,
+            index: '',
             /**
              * This is the css selector that the app will attach itself to.
              *
@@ -76,7 +70,7 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
             $el: null,
             /**
              * The collection of mounted _views of this app. This is a key/value store,
-             * of the form of route => view, and it should not be manipulated directly
+             * of the form of id => view, and it should not be manipulated directly
              *
              * @property {View[]} _views - Collection of _views
              * @private
@@ -92,13 +86,6 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
              */
             templateStore: null,
             /**
-             * The router used by this app. Override on application declaration
-             * to provide a custom router
-             *
-             * @property {Router} router - a router
-             */
-            router: null,
-            /**
              * Current active view
              *
              * @property {View}
@@ -113,24 +100,15 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         };
     },
     /**
-     * This method, associates a view with a route. The route is any url
-     * fragment that the application wants to respond to. By default, alicatejs uses
-     * {@link https://visionmedia.github.io/page.js/|page.js},
-     * however it is possible to override it with an alternative
-     * implementation provided that it implements the {@link router.Router} interface.
-     * Parameters defined by the route will be passed to the
-     * {@link view.View.params|View.params} property.
+     * This method adds a top level view. A top level view, is one
      *
-     * @param {String} path The route to be monitored by alicatejs
-     * @param {View} view The view to render for this route
+     * @param {View} view The view to render for that a particular id when calling `setActive`
      * @return {app} Returns this app
      */
-    mount: function mount(path, view) {
-        this._views[path] = view;
+    add: function add(view) {
+        this._views[view.id] = view;
 
-        view.isMounted = true;
-        this.router.mount(path, AlicateApp.prototype.setActiveView.bind(this, view));
-        view.id = path; // set id to path
+        view.app = this;
         this.injector.register(view);
 
         return this;
@@ -140,10 +118,10 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
      *
      * This method is used by mount to set the active view
      *
-     * @param path
-     * @param params
+     * @param view set the passed view as active
+     * @param params {Object.<string, Any>} the parameters passed to this view
      */
-    setActiveView: function setActiveView(view, path, params) {
+    setActiveView: function setActiveView(view, params) {
         if (this.view && this.view.isBound) {
             this.view.exit();
         }
@@ -152,7 +130,6 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         // so that we don't have to rebind everything next time.
         this.$el.contents().detach();
 
-        view.path = path;
         view.params = params;
         view.app = this;
         view.bind();
@@ -163,60 +140,62 @@ var AlicateApp = Base.extend(/** @lends alicateapp.AlicateApp.prototype */{
         this.$el.append(view.$el);
 
         this.view = view;
+
+        return this;
+    },
+    /**
+     * Set the current active view based on the provided id
+     *
+     * @param id the id of the view to be activated
+     * @param params {Object.<string, Any>} the parameters passed to this view
+     * @returns {*}
+     */
+    setActive: function setActive(id, params) {
+        var view = this._views[id];
+
+        if (!view) {
+            throw new Error('View with id: ' + id + ' not found!');
+        }
+
+        return this.setActiveView(view, params);
+    },
+    /**
+     * Get the current active View
+     *
+     * @returns {View}
+     */
+    getActive: function () {
+        return this.view;
     },
     /**
      * This method will trigger the rendering of the app,
-     * by firing the location specified in the {@link index} member,
-     * during app declaration, or by using the route provided as
+     * by setting as active the id specified in the {@link index} member,
+     * during app declaration, or by using the id provided as
      * a parameter to this method.
      *
-     * @param {String} [route] the initial route to load
+     * @param {String} [id] the initial id of the view to load
+     * @param params {Object.<string, Any>} the parameters passed to this view
      */
-    start: function start(route) {
-        this.onStarting();
-        this.router.go(route || this.index);
-        this.onStarted();
+    start: function start(id, params) {
+        if (!this.index && !id) {
+            throw new Error('Either the app "index" id or the "id" parameter is required!');
+        }
+
+        this.emit('starting');
+        this.setActive(id || this.index, params);
+        this.emit('started');
     },
     /**
      * Stop application. Triggers the onStopping() hook.
      */
     stop: function stop() {
-        this.onStopping();
+        this.emit('stopping');
 
         // reset to null to avoid dangling references
         this.$el = null;
         this._views = null;
-        this.onStopped();
-    },
-    /**
-     * <p>Called before the application has started.</p>
-     *
-     * <p>Use this to perform any additional initialization
-     * that your application might require,
-     * such as authentication/authorization</p>
-     */
-    onStarting: function onStarting() {
-    },
-    /**
-     *
-     */
-    onStarted: function onStarted() {
-    },
-    /**
-     * <p>Called before the application has stopped.</p>
-     *
-     * <p>
-     * Use it to perform any required cleanup or de-initialization,
-     * such as invalidating the session, etc...
-     * </p>
-     */
-    onStopping: function onStopping() {
-    },
-    /**
-     *
-     */
-    onStopped: function onStopped() {
+        this.emit('stopped');
     }
-});
+}, Emitter.methods));
 
 module.exports = AlicateApp;

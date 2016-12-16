@@ -8,8 +8,6 @@
 
 'use strict';
 
-var $ = require('jquery');
-
 /**
  * Reverse prototype chain, so that we can merge objects in reverse order,
  * starting with the parent and moving up in the inheritance chain
@@ -62,6 +60,7 @@ var Base = function (values) {
             };
         }
 
+        // FIXME: this should happen before initialize is called
         $.extend(true, this, this.instanceData);
         delete this.instanceData;
 

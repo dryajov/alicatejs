@@ -4,8 +4,8 @@
 
 'use strict';
 
-var Button = require('../../../app/scripts/alicate/components/button'),
-    Model = require('../../../app/scripts/alicate/model'),
+var Button = require('../../app/scripts/alicate/components/button'),
+    Model = require('../../app/scripts/alicate/model'),
     $ = require('jquery');
 
 describe('Button suite', function () {

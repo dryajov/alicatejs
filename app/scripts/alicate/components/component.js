@@ -8,7 +8,6 @@ var Base = require('../base'),
     Eventable = require('../behaviors/eventable'),
     Model = require('../model'),
     RenderState = require('../enums/render'),
-    $ = require('jquery'),
     _ = require('lodash'),
     Guid = require('guid');
 
@@ -50,6 +49,8 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         }
 
         this.internalId = Guid.raw();
+
+        this.inject();
     },
     /**
      * Check if id is valid and present
@@ -443,6 +444,19 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
         this.bindBehaviors();
 
         if (this.$el) {
+
+            for (var attr in this.attributes) {
+                this.$el.attr(attr, this.attributes[attr]);
+            }
+
+            if ((this.parent && this.parent.isVisible()) || !this.parent)  {
+                this.$el.css('display', !this.isVisible() ? 'none' : '');
+            }
+
+            if (this.$el.prop('disabled') !== this.enabled) {
+                this.$el.prop('disabled', !this.enabled);
+            }
+
             this._renderState = RenderState.PRE_RENDER;
             this.onPreRender();
 
@@ -451,20 +465,6 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
 
             // call components render
             this.componentRender();
-
-            for (var attr in this.attributes) {
-                this.$el.attr(attr, this.attributes[attr]);
-            }
-
-            if (!this.isVisible()) {
-                this.$el.css('display', 'none');
-            } else {
-                this.$el.css('display', '');
-            }
-
-            if (this.$el.prop('disabled') !== this.enabled) {
-                this.$el.prop('disabled', !this.enabled);
-            }
 
             this.hasRendered = true;
 
@@ -494,13 +494,19 @@ module.exports = Base.extend(/** @lends component.Component.prototype */{
     bind: function bind() {
         this.isBound = true;
 
+        this.inject();
+
+        this.onComponentBound();
+        this.bindBehaviors();
+    },
+    /**
+     * Inject this component with the required dependencies
+     */
+    inject: function inject() {
         if (this.app && this.app.injector) {
             this.app.injector.register(this);
             this.app.injector.inject(this);
         }
-
-        this.onComponentBound();
-        this.bindBehaviors();
     },
     /**
      * Bind the current model

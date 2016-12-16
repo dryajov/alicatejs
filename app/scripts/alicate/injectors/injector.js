@@ -55,5 +55,5 @@ module.exports = Base.extend(/** @lends injector.Injector.prototype */{
      */
     wire: function wire(definition) {
         throw new Error('method unimplemented!');
-    },
+    }
 });
