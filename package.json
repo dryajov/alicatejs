@@ -1,7 +1,7 @@
 {
   "name": "alicatejs",
   "main": "app/scripts/alicate.js",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "private": false,
   "license": "MIT",
   "homepage": "http://alicatejs.org",
