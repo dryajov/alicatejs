@@ -9,14 +9,14 @@ module.exports = function(karma) {
       '../.tmp/test/specs.js',
       '../node_modules/jquery/dist/jquery.js'
     ],
-    
+
     reporters: [ 'dots', 'coverage' ],
 
     preprocessors: {
       'test/**/*Spec.js': [ 'browserify', 'coverage' ]
     },
 
-    browsers: [ 'PhantomJS' ],
+    browsers: [ 'Chrome' ],
 
     logLevel: 'LOG_DEBUG',
 
