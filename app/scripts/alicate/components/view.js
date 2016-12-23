@@ -5,7 +5,7 @@
 'use strict';
 
 var Container = require('./container'),
-    Markupiter = require('../markupiter');
+  Markupiter = require('../markupiter');
 
 /**
  * @module view
@@ -36,101 +36,101 @@ var Container = require('./container'),
  * @version 1.0
  */
 module.exports = Container.extend(/** @lends view.View.prototype */{
-    id: null,
-    /**
-     * @property {String} - The name of the template
-     * that this view renders
-     */
-    templateName: '',
-    /**
-     * @property {String} - The string markup (unaltered)
-     */
-    template: '',
-    /**
-     * @property {jQuery} - An intermediary holder for
-     * the current template
-     */
-    $template: null,
-    /**
-     * @property {boolean} - Flag indicating if this view is mounted
-     */
-    isMounted: false,
-    /**
-     * @property {Object} - Key/Value object holding the current view params
-     */
-    params: null,
-    /**
-     * Causes the container markup to be skipped
-     * from the output
-     */
-    skipContainerMarkup: false,
-    /**
-     * Bind the component tree
-     */
-    bind: function bind() {
-        var markupIter,
-            msg;
+  id: null,
+  /**
+   * @property {String} - The name of the template
+   * that this view renders
+   */
+  templateName: '',
+  /**
+   * @property {String} - The string markup (unaltered)
+   */
+  template: '',
+  /**
+   * @property {jQuery} - An intermediary holder for
+   * the current template
+   */
+  $template: null,
+  /**
+   * @property {boolean} - Flag indicating if this view is mounted
+   */
+  isMounted: false,
+  /**
+   * @property {Object} - Key/Value object holding the current view params
+   */
+  params: null,
+  /**
+   * Causes the container markup to be skipped
+   * from the output
+   */
+  skipContainerMarkup: false,
+  /**
+   * Bind the component tree
+   */
+  bind: function bind() {
+    var markupIter,
+      msg;
 
-        if (this.isBound) {
-            return;
-        }
-
-        if (!this.templateName ||
-            (this.templateName && this.templateName.length < 1)) {
-            throw new Error('argument templateName missing!');
-        }
-
-        if (!this.template) {
-            if (this.app.templateStore[this.templateName]) {
-                this.template = this.app.templateStore[this.templateName];
-            } else {
-                msg = this.id ?
-                'argument template missing for view id: ' + this.id + '!' :
-                    'argument template missing!';
-                throw new Error(msg);
-            }
-        }
-
-        this.$template = $('<div/>').append(this.template);
-        markupIter = Markupiter.createMarkupIter(this.$template[0]);
-        Container.prototype.bind.call(this, markupIter);
-
-        if (markupIter.nextNode()) {
-            msg = 'Not all elements where bound!\n' +
-                'Missed elements are:\n';
-            do {
-                msg += '\'' + $(markupIter.currentNode).data().aid +
-                    ' in template: ' + this.templateName + '\n';
-            } while (markupIter.nextNode());
-
-            throw new Error(msg);
-        }
-    },
-    /**
-     * Render the component tree
-     */
-    render: function render() {
-        this.app.injector.inject(this);
-
-        if (this.$template) {
-            //this.$el ? this.$el.append(this.$template.children())
-            //    : this.$el = this.$template.children();
-
-            if (this.$el !== null) {
-                if (this.skipContainerMarkup) {
-                    this.$el.replaceWith(this.$template.children());
-                } else {
-                    this.$el.append(this.$template.children());
-                }
-            } else {
-                this.$el = this.$template.children();
-            }
-
-            this.$template = null;
-        }
-
-        this.cleanRendered();
-        Container.prototype.render.call(this);
-        return this.$el;
+    if (this.isBound) {
+      return;
     }
+
+    if (!this.templateName ||
+      (this.templateName && this.templateName.length < 1)) {
+      throw new Error('argument templateName missing!');
+    }
+
+    if (!this.template) {
+      if (this.app.templateStore[this.templateName]) {
+        this.template = this.app.templateStore[this.templateName];
+      } else {
+        msg = this.id ?
+        'argument template missing for view id: ' + this.id + '!' :
+          'argument template missing!';
+        throw new Error(msg);
+      }
+    }
+
+    this.$template = $('<div/>').append(this.template);
+    markupIter = Markupiter.createMarkupIter(this.$template[0]);
+    Container.prototype.bind.call(this, markupIter);
+
+    if (markupIter.nextNode()) {
+      msg = 'Not all elements where bound!\n' +
+        'Missed elements are:\n';
+      do {
+        msg += '\'' + $(markupIter.currentNode).data().aid +
+          ' in template: ' + this.templateName + '\n';
+      } while (markupIter.nextNode());
+
+      throw new Error(msg);
+    }
+  },
+  /**
+   * Render the component tree
+   */
+  render: function render() {
+    this.app.injector.inject(this);
+
+    if (this.$template) {
+      //this.$el ? this.$el.append(this.$template.children())
+      //    : this.$el = this.$template.children();
+
+      if (this.$el !== null) {
+        if (this.skipContainerMarkup) {
+          this.$el.replaceWith(this.$template.children());
+        } else {
+          this.$el.append(this.$template.children());
+        }
+      } else {
+        this.$el = this.$template.children();
+      }
+
+      this.$template = null;
+    }
+
+    this.cleanRendered();
+    Container.prototype.render.call(this);
+    return this.$el;
+  }
 });

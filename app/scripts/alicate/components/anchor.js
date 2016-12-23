@@ -27,47 +27,47 @@ var Container = require('./container');
  * @version 1.0
  */
 module.exports = Container.extend(/** @lends anchor.Anchor.prototype */{
-    instanceData: function instanceData() {
-        return {
-            /**
-             * A list of allowed html element selectors that this component
-             * can attach to
-             *
-             * @type {String[]}
-             *
-             * @memberof anchor.Anchor
-             * @instance
-             */
-            allowedElements: [
-                'a'
-            ]
-        };
-    },
-    /**
-     * The href of the anchor
-     *
-     * @type {String}
-     */
-    href: '',
-    /**
-     * Set the href attribute
-     *
-     * @param href {String}
-     */
-    setHref: function setHref(href) {
-        this.href = href;
-        this.render();
-    },
-    /**
-     * Render the href into the attached anchor tag
-     *
-     * @return {Boolean}
-     */
-    componentRender: function render() {
-        if (!Container.prototype.componentRender.call(this)) {
-            return false;
-        }
-
-        this.$el[0].setAttribute('href', this.href);
+  instanceData: function instanceData() {
+    return {
+      /**
+       * A list of allowed html element selectors that this component
+       * can attach to
+       *
+       * @type {String[]}
+       *
+       * @memberof anchor.Anchor
+       * @instance
+       */
+      allowedElements: [
+        'a'
+      ]
+    };
+  },
+  /**
+   * The href of the anchor
+   *
+   * @type {String}
+   */
+  href: '',
+  /**
+   * Set the href attribute
+   *
+   * @param href {String}
+   */
+  setHref: function setHref(href) {
+    this.href = href;
+    this.render();
+  },
+  /**
+   * Render the href into the attached anchor tag
+   *
+   * @return {Boolean}
+   */
+  componentRender: function render() {
+    if (!Container.prototype.componentRender.call(this)) {
+      return false;
     }
+
+    this.$el[0].setAttribute('href', this.href);
+  }
 });

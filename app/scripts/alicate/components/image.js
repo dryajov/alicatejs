@@ -24,50 +24,50 @@ var Component = require('./component');
  * @version 1.0
  */
 module.exports = Component.extend(/** @lends image.Image.prototype */{
-    instanceData: function instanceData() {
-        return {
-            /**
-             * A list of allowed html element selectors that this component
-             * can attach to
-             *
-             * @type {String[]}
-             *
-             *
-             * @memberof image.Image
-             * @instance
-             */
-            allowedElements: [
-                'img'
-            ]
-        };
-    },
-    /**
-     * The source of the image
-     *
-     * @type {String}
-     */
-    src: '',
-    /**
-     * Set src attribute
-     *
-     * @param src
-     */
-    setSrc: function setSrc(src) {
-        this.src = src;
-        this.render();
-    },
-    /**
-     * Render the text into the attached html element
-     *
-     * @return {Boolean}  this object
-     */
-    componentRender: function componentRender() {
-        if (!Component.prototype.componentRender.call(this)) {
-            return false;
-        }
-
-        if (this.$el.attr('src') !== this.src) {
-            this.$el.attr('src', this.src);
-        }
+  instanceData: function instanceData() {
+    return {
+      /**
+       * A list of allowed html element selectors that this component
+       * can attach to
+       *
+       * @type {String[]}
+       *
+       *
+       * @memberof image.Image
+       * @instance
+       */
+      allowedElements: [
+        'img'
+      ]
+    };
+  },
+  /**
+   * The source of the image
+   *
+   * @type {String}
+   */
+  src: '',
+  /**
+   * Set src attribute
+   *
+   * @param src
+   */
+  setSrc: function setSrc(src) {
+    this.src = src;
+    this.render();
+  },
+  /**
+   * Render the text into the attached html element
+   *
+   * @return {Boolean}  this object
+   */
+  componentRender: function componentRender() {
+    if (!Component.prototype.componentRender.call(this)) {
+      return false;
     }
+
+    if (this.$el.attr('src') !== this.src) {
+      this.$el.attr('src', this.src);
+    }
+  }
 });
