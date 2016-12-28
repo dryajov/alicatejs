@@ -33,45 +33,45 @@ var Component = require('./component');
  */
 
 module.exports = Component.extend(/** @lends input.Input.prototype */{
-    instanceData: function instanceData() {
-        return {
-            /**
-             * @property {String[]} - Elements
-             * this component can attach to
-             *
-             * @memberof input.Input
-             * @instance
-             */
-            allowedElements: [
-                'input',
-                'textarea'
-            ]
-        };
-    },
-    /**
-     * Get the value of this html element
-     *
-     * @returns {*}
-     */
-    getValue: function getValue() {
-        return this.$el.val();
-    },
-    /**
-     * Render the input component
-     *
-     */
-    componentRender: function componentRender() {
-        if (!Component.prototype.componentRender.call(this)) {
-            return false;
-        }
-
-        var data;
-
-        if (this.model) {
-            data = this.getModelData();
-            this.$el.val(data);
-        }
-
-        return true;
+  instanceData: function instanceData() {
+    return {
+      /**
+       * @property {String[]} - Elements
+       * this component can attach to
+       *
+       * @memberof input.Input
+       * @instance
+       */
+      allowedElements: [
+        'input',
+        'textarea'
+      ]
+    };
+  },
+  /**
+   * Get the value of this html element
+   *
+   * @returns {*}
+   */
+  getValue: function getValue() {
+    return this.$el.val();
+  },
+  /**
+   * Render the input component
+   *
+   */
+  componentRender: function componentRender() {
+    if (!Component.prototype.componentRender.call(this)) {
+      return false;
     }
+
+    var data;
+
+    if (this.model) {
+      data = this.getModelData();
+      this.$el.val(data);
+    }
+
+    return true;
+  }
 });

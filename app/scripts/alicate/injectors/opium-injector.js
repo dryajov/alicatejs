@@ -22,48 +22,48 @@ var consts = require('opium-ioc/app/scripts/consts');
  * @version 1.0
  */
 module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototype*/{
-    initialize: function initialize() {
-        this.injector = new Opium('alicatejs');
-        if (!this.resolver) {
-            this.resolver = new Resolver(this.injector);
-        }
-    },
-    /**
-     * Inject a dependency
-     *
-     * @param dep
-     */
-    inject: function (dep) {
-        var d = this.injector.getDep(dep.internalId);
-        if (d) {
-            d.inject();
-            console.log('Injected dependency ' + d.name + ' with component id: ' + dep.id);
-        }
-    },
-    /**
-     * Register a dependency with opium-ioc.
-     *
-     * The dependency is always registered as an INSTANCE type.
-     *
-     * @param dep
-     */
-    register: function (dep) {
-        var d = this.injector.getDep(dep.internalId);
-        if (!d) {
-            this.resolver.register(dep.internalId, dep, {type: consts.INSTANCE});
-            console.log('Registered dependency ' + dep.id);
-        }
-    },
-    /**
-     * This method takes a code ref that is able to perform
-     * the wiring of the dependencies according to the definition
-     * rules. In the case of opium-injector, it expects an object
-     * with a wire method, that takes an opium-ioc instance as parameter.
-     *
-     * The bellow example shows a possible <pre>wire</pre> definition.
-     *
-     * @example
-     *  {
+  initialize: function initialize() {
+    this.injector = new Opium('alicatejs');
+    if (!this.resolver) {
+      this.resolver = new Resolver(this.injector);
+    }
+  },
+  /**
+   * Inject a dependency
+   *
+   * @param dep
+   */
+  inject: function (dep) {
+    var d = this.injector.getDep(dep.internalId);
+    if (d) {
+      d.inject();
+      console.log('Injected dependency ' + d.name + ' with component id: ' + dep.id);
+    }
+  },
+  /**
+   * Register a dependency with opium-ioc.
+   *
+   * The dependency is always registered as an INSTANCE type.
+   *
+   * @param dep
+   */
+  register: function (dep) {
+    var d = this.injector.getDep(dep.internalId);
+    if (!d) {
+      this.resolver.register(dep.internalId, dep, {type: consts.INSTANCE});
+      console.log('Registered dependency ' + dep.id);
+    }
+  },
+  /**
+   * This method takes a code ref that is able to perform
+   * the wiring of the dependencies according to the definition
+   * rules. In the case of opium-injector, it expects an object
+   * with a wire method, that takes an opium-ioc instance as parameter.
+   *
+   * The bellow example shows a possible <pre>wire</pre> definition.
+   *
+   * @example
+   *  {
      *   wire: function (injector) {
      *    injector.registerInstance('connectorsRegistry', Registry);
      *
@@ -80,10 +80,10 @@ module.exports = Injector.extend(/** @lends opium-injector.OpiumInjector.prototy
      *     injector.registerInstance('playerPlayList', new PlayerPlayList(), ['player', 'playListManager', 'connectors']);
      *   }
      * }
-     *
-     * @param definition
-     */
-    wire: function (definition) {
-        definition.wire(this.injector);
-    }
+   *
+   * @param definition
+   */
+  wire: function (definition) {
+    definition.wire(this.injector);
+  }
 });

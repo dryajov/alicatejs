@@ -44,66 +44,66 @@ var Container = require('./container');
  * @version 1.0
  */
 module.exports = Container.extend(/** @lends stacked-container.StackedContainer.prototype */{
-    initialize: function initialize() {
-        Container.prototype.initialize.call(this);
+  initialize: function initialize() {
+    Container.prototype.initialize.call(this);
 
-        // hide components by default
-        for (var i in this.children) {
-            this.children[i].visible = false;
-        }
-    },
-    /**
-     * Reference to current active view
-     *
-     * @param {prototype.View}
-     */
-    active: null,
-    /**
-     * Active view index
-     *
-     * @property {Number}
-     */
-    index: 0,
-    /**
-     * Set the active view
-     */
-    setActive: function setActive(index) {
-        this.index = index;
-        this.render();
-    },
-    /**
-     * Get the current active {@link component.Component|Component}
-     *
-     * @returns {Component}
-     */
-    getActive: function getActive() {
-        return this.active;
-    },
-    /**
-     * @inheritdoc
-     */
-    render: function render() {
-        if (!this.isBound) {
-            return;
-        }
-
-        if (this.active !== this.children[this.index]) {
-            if (this.active !== null) {
-                this.active.onExit();
-                this.active.visible = false;
-            }
-
-            this.active = this.children[this.index];
-            this.active.visible = true;
-            this.active.onEnter();
-        }
-
-        Container.prototype.render.call(this);
-    },
-    /**
-     * @inheritdoc
-     */
-    _updateVisiblity: function _updateVisiblity() {
-        // void
+    // hide components by default
+    for (var i in this.children) {
+      this.children[i].visible = false;
     }
+  },
+  /**
+   * Reference to current active view
+   *
+   * @param {prototype.View}
+   */
+  active: null,
+  /**
+   * Active view index
+   *
+   * @property {Number}
+   */
+  index: 0,
+  /**
+   * Set the active view
+   */
+  setActive: function setActive(index) {
+    this.index = index;
+    this.render();
+  },
+  /**
+   * Get the current active {@link component.Component|Component}
+   *
+   * @returns {Component}
+   */
+  getActive: function getActive() {
+    return this.active;
+  },
+  /**
+   * @inheritdoc
+   */
+  render: function render() {
+    if (!this.isBound) {
+      return;
+    }
+
+    if (this.active !== this.children[this.index]) {
+      if (this.active !== null) {
+        this.active.onExit();
+        this.active.visible = false;
+      }
+
+      this.active = this.children[this.index];
+      this.active.visible = true;
+      this.active.onEnter();
+    }
+
+    Container.prototype.render.call(this);
+  },
+  /**
+   * @inheritdoc
+   */
+  _updateVisiblity: function _updateVisiblity() {
+    // void
+  }
 });
